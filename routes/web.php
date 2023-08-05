@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArticlesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,8 +31,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::controller(ArticlesController::class)->middleware(['auth'])->group(function () {
-    Route::get('/index', 'top')->name('top'); //TOPページ表示
-    Route::post('/posts', 'store')->name('store'); //保存処理
+    Route::get('/top', 'top')->name('top'); //TOPページ表示
+    Route::post('/posts', 'store')->name('store'); //記事の保存処理
     Route::get('/posts/create', 'create')->name('create'); //記事の新規投稿
     Route::get('/posts/myposts', 'myposts')->name('myposts'); //自分が投稿した記事の一覧
     Route::get('/posts/{article}', 'show')->name('show'); //記事の閲覧
