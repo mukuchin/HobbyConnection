@@ -17,21 +17,20 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+// /dashboardルートはログインしていないとアクセスできない
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// ログイン時・非ログイン時に関わらずアクセスできるルート
+Route::controller(ArticlesController::class)->group(function () {
+    Route::get('/', 'top')->name('top'); //TOPページ表示
+});
 
+// ログイン時のみアクセスできるルート
 Route::controller(ArticlesController::class)->middleware(['auth'])->group(function () {
-    Route::get('/top', 'top')->name('top'); //TOPページ表示
     Route::post('/posts', 'store')->name('store'); //記事の保存処理
     Route::get('/posts/create', 'create')->name('create'); //記事の新規投稿
     Route::get('/posts/myposts', 'myposts')->name('myposts'); //自分が投稿した記事の一覧
