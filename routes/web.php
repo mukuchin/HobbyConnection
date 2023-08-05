@@ -24,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-// ログイン時・非ログイン時に関わらずアクセスできるルート
+// ログイン時・ログアウト時に関わらずアクセスできるルート
 Route::controller(ArticlesController::class)->group(function () {
     Route::get('/', 'top')->name('top'); //TOPページ表示
 });
