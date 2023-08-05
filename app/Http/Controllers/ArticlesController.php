@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+use Auth;
+use Illuminate\Support\Facades\Route;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
-use Auth; // 認証モデル
-use App\Models\User; //ユーザ情報
+use App\Models\User;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Pagination\Paginator;
 
@@ -19,7 +22,12 @@ class ArticlesController extends Controller
     public function top(Article $article)
     {
         // top.blade.phpに取得したデータを渡す
-        return view('posts/top')->with([
+        // return view('posts/top')->with([
+        //     'articles' => $article->getPaginateByLimit(5)
+        // ]);
+
+        // top.tsxに取得したデータを渡す
+        return Inertia::render('top', [
             'articles' => $article->getPaginateByLimit(5)
         ]);
     }
