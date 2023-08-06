@@ -57,7 +57,7 @@ class ArticlesController extends Controller
     //記事の新規投稿
     public function create(Tag $tag, Post $post, Article $article)
     {
-        return view('posts/create')->with([
+        return Inertia::render('posts/create', [
             //'tags' => $tag->get(),
             'posts' => $post,
             'article' => $article
@@ -65,9 +65,9 @@ class ArticlesController extends Controller
     }
 
     //自分が投稿した記事の編集・記事の新規投稿
-    public function myposts(Article $article)
+    public function mypage(Article $article)
     {
-        return view('posts/myposts')->with([
+        return Inertia::render('posts/mypage', [
             'articles' => $article->getPaginateOnlyLoginUserByLimit(5, Auth::id())
         ]);
     }
@@ -86,7 +86,7 @@ class ArticlesController extends Controller
     public function show(Article $article, Post $post)
     {
         //'article'はbladeファイルで使う変数
-        return view('posts/show')->with([
+        return Inertia::render('posts/show', [
             'article' => $article,
             'posts' => $post
         ]);
@@ -95,7 +95,7 @@ class ArticlesController extends Controller
     //記事の編集
     public function edit(Article $article)
     {
-        return view('posts/edit')->with(['article' => $article]);
+        return Inertia::render('posts/edit', ['article' => $article]);
     }
 
     //更新

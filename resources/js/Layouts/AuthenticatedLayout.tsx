@@ -26,12 +26,29 @@ export default function Authenticated({
                                 </Link>
                             </div>
 
+                            {/* ナビゲーションバーに表示するページタブ */}
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
+                                    href={route("top")}
+                                    active={route().current("top")}
                                 >
-                                    Dashboard
+                                    TOP
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href={route("create")}
+                                    active={route().current("create")}
+                                >
+                                    記事投稿
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href={route("mypage")}
+                                    active={route().current("mypage")}
+                                >
+                                    Myページ
                                 </NavLink>
                             </div>
                         </div>
