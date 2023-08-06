@@ -33,7 +33,7 @@ Route::controller(ArticlesController::class)->group(function () {
 Route::controller(ArticlesController::class)->middleware(['auth'])->group(function () {
     Route::post('/posts', 'store')->name('store'); //記事の保存処理
     Route::get('/posts/create', 'create')->name('create'); //記事の新規投稿
-    Route::get('/posts/myposts', 'myposts')->name('myposts'); //自分が投稿した記事の一覧
+    Route::get('/posts/mypage', 'mypage')->name('mypage'); //マイページ
     Route::get('/posts/{article}', 'show')->name('show'); //記事の閲覧
     Route::put('/posts/{article}', 'update')->name('update'); //記事の更新
     Route::delete('/posts/{article}', 'delete')->name('delete'); //記事の削除
