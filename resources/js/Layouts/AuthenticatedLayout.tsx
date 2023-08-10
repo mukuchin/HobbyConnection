@@ -48,7 +48,7 @@ export default function Authenticated({
                                     href={route("mypage")}
                                     active={route().current("mypage")}
                                 >
-                                    Myページ
+                                    マイページ
                                 </NavLink>
                             </div>
                         </div>
