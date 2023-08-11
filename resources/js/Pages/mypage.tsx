@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head } from "@inertiajs/react";
+import AppHead from "./AppHead";
 import { PageProps } from "@/types";
 
 export default function mypage({ auth }: PageProps) {
@@ -8,7 +8,7 @@ export default function mypage({ auth }: PageProps) {
 
     return (
         <>
-            <Head title="マイページ" />
+            <AppHead title="マイページ" />
 
             <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
 

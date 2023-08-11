@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head } from "@inertiajs/react";
+import AppHead from "./AppHead";
 import { PageProps } from "@/types";
 
 export default function create({ auth }: PageProps) {
@@ -8,7 +8,7 @@ export default function create({ auth }: PageProps) {
 
     return (
         <>
-            <Head title="記事作成" />
+            <AppHead title="記事作成" />
 
             {isLoggedIn ? (
                 <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
@@ -17,7 +17,7 @@ export default function create({ auth }: PageProps) {
             )}
 
             {/* 記事の入力フォーム */}
-            <form action="/posts" method="post">
+            <form action="/posts" method="POST">
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -83,19 +83,13 @@ export default function create({ auth }: PageProps) {
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     ></textarea>
                                 </div>
-
-                                {/* 保存ボタン。csrf対策をする。*/}
-                                <input
-                                    type="hidden"
-                                    name="csrf_token"
-                                    value="csrf_token"
-                                />
+                                {/* 送信ボタン */}
                                 <div className="flex items-center justify-between">
                                     <button
                                         type="submit"
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     >
-                                        保存
+                                        送信
                                     </button>
                                 </div>
                             </div>
