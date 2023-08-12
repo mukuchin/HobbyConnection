@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('period_start');
             $table->date('period_end');
             $table->string('image_top')->nullable();
-            $table->string('abstract');
+            $table->string('description');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +34,5 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('articles');
-        Schema::dropIfExists('users');
     }
 };

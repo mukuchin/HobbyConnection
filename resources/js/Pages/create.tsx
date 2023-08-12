@@ -1,6 +1,8 @@
+// 記事作成ページ
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
-import AppHead from "./AppHead";
+import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
 
 export default function create({ auth }: PageProps) {
@@ -8,8 +10,10 @@ export default function create({ auth }: PageProps) {
 
     return (
         <>
+            {/* ページ名・タブ名表示 */}
             <AppHead title="記事作成" />
 
+            {/* ナビゲーションバー */}
             {isLoggedIn ? (
                 <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
             ) : (

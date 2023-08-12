@@ -1,6 +1,8 @@
+// マイページ
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
-import AppHead from "./AppHead";
+import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
 
 export default function mypage({ auth }: PageProps) {
@@ -8,8 +10,10 @@ export default function mypage({ auth }: PageProps) {
 
     return (
         <>
+            {/* ページ名・タブ名表示 */}
             <AppHead title="マイページ" />
 
+            {/* ナビゲーションバー */}
             <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
 
             <div className="py-12">

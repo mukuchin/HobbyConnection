@@ -1,3 +1,5 @@
+// ログアウト時のナビゲーションバーのレイアウト
+
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 import { useState, PropsWithChildren, ReactNode } from "react";
@@ -23,7 +25,7 @@ export default function Guest({
                                 </Link>
                             </div>
 
-                            {/* ナビゲーションバーに表示するページタブ */}
+                            {/* ページタブ */}
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href={route("top")}
@@ -115,13 +117,6 @@ export default function Guest({
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
-                                {/* {user.name} */}
-                            </div>
-                            {/* <div className="font-medium text-sm text-gray-500">{user.email}</div> */}
-                        </div>
-
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route("profile.edit")}>
                                 Profile

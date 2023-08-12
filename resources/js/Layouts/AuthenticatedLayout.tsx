@@ -1,3 +1,5 @@
+// ログイン時のナビゲーションバーのレイアウト
+
 import { useState, PropsWithChildren, ReactNode } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
@@ -26,7 +28,7 @@ export default function Authenticated({
                                 </Link>
                             </div>
 
-                            {/* ナビゲーションバーに表示するページタブ */}
+                            {/* ページタブ */}
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href={route("top")}
