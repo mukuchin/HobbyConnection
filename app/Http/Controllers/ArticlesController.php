@@ -41,28 +41,16 @@ class ArticlesController extends Controller
     {
         // create.tsxを表示
         return Inertia::render('create', [
-            'tags' => $tag->all(),
+            // 'tags' => $tag->all(),
             'articles' => $article->all(),
-            'posts' => $post->all()
+            // 'posts' => $post->all()
         ]);
     }
 
     // 記事の保存処理
     public function store(BlogRequest $request, Article $article)
     {
-        // リクエストの内容を取得
-        $inputs = $request['articles'];
-
-        // リクエストの内容を保存
-        $article->fill($inputs)->save();
-
-        // 記事のタグを保存
-        $article->tags()->sync($request->tags);
-
-        // 記事のIDを取得
-        $article_id = $article->id;
-
-        return redirect()->route('show', ['article' => $article_id]);
+        
     }
 
     // 投稿した記事の編集

@@ -1,6 +1,8 @@
+// TOPページ
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
-import AppHead from "./AppHead";
+import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
 
 export default function top({ auth }: PageProps) {
@@ -8,7 +10,10 @@ export default function top({ auth }: PageProps) {
 
     return (
         <>
-            <AppHead/>
+            {/* ページ名・タブ名表示。TOPページはタブ名は表示しない。 */}
+            <AppHead />
+
+            {/* ナビゲーションバー */}
             {isLoggedIn ? (
                 <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
             ) : (

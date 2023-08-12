@@ -1,3 +1,5 @@
+// ページ名とタブ名を設定する
+
 import { Head } from "@inertiajs/react";
 
 type SiteProps = {
@@ -8,6 +10,7 @@ export default function Site({ title }: SiteProps) {
     return (
         <Head>
             <title>
+                {/* タブ名＋ページ名 */}
                 {title ? `${title} - ホビーコネクション` : "ホビーコネクション"}
             </title>
         </Head>
