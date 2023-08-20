@@ -11,7 +11,7 @@ class BlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class BlogRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:100'],
-            'started_at' => ['required', 'date'],
-            'ended_at' => ['required', 'date'],
+            'period_start' => ['required', 'date'],
+            'period_end' => ['required', 'date'],
             'description' => ['required', 'string', 'max:1000'],
         ];
     }
@@ -40,10 +40,10 @@ class BlogRequest extends FormRequest
             'title.required' => 'タイトルは必須です。',
             'title.string' => 'タイトルは文字列で入力してください。',
             'title.max' => 'タイトルは100文字以内で入力してください。',
-            'started_at.required' => '開始日は必須です。',
-            'started_at.date' => '開始日は日付で入力してください。',
-            'ended_at.required' => '終了日は必須です。',
-            'ended_at.date' => '終了日は日付で入力してください。',
+            'period_start.required' => '開始日は必須です。',
+            'period_start.date' => '開始日は日付で入力してください。',
+            'period_end.required' => '終了日は必須です。',
+            'period_end.date' => '終了日は日付で入力してください。',
             'description.required' => '概要は必須です。',
             'description.string' => '概要は文字列で入力してください。',
             'description.max' => '概要は1000文字以内で入力してください。',

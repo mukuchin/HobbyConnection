@@ -14,7 +14,7 @@ export default function mypage({ auth }: PageProps) {
             <AppHead title="マイページ" />
 
             {/* ナビゲーションバー */}
-            <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
+            <AuthenticatedLayout user={auth.user} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

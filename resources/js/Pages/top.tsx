@@ -15,9 +15,9 @@ export default function top({ auth }: PageProps) {
 
             {/* ナビゲーションバー */}
             {isLoggedIn ? (
-                <AuthenticatedLayout user={auth.user}></AuthenticatedLayout>
+                <AuthenticatedLayout user={auth.user} />
             ) : (
-                <GuestLayout></GuestLayout>
+                <GuestLayout />
             )}
 
             <div className="py-12">

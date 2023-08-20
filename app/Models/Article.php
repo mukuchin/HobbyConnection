@@ -15,8 +15,8 @@ class Article extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'started_at',
-        'ended_at',
+        'period_start',
+        'period_end',
         'image_top',
         'description',
     ];

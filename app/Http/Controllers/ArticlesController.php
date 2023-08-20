@@ -14,6 +14,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Pagination\Paginator;
+// use Illuminate\Database\Eloquent\Collection;
 
 
 class ArticlesController extends Controller
@@ -39,26 +40,31 @@ class ArticlesController extends Controller
     // 記事の新規投稿
     public function create(Tag $tag, Article $article, Post $post)
     {
-        // create.tsxを表示
-        return Inertia::render('create', [
-            // 'tags' => $tag->all(),
-            'articles' => $article->all(),
-            // 'posts' => $post->all()
-        ]);
+        return Inertia::render('create');
     }
 
     // 記事の保存処理
-    public function store(BlogRequest $request, Article $article)
+    public function store(BlogRequest $request)
     {
-        
+        $article = new Article;
+        $article->title = $request->title;
+        $article->period_start = $request->period_start;
+        $article->period_end = $request->period_end;
+        $article->description = $request->description;
+        $article->user_id = Auth::id();
+        $article->save();
+        return to_route('show', ['article' => $article->id]);
     }
 
     // 投稿した記事の編集
     public function edit(Article $article)
     {
         // edit.tsxに取得したデータを渡す
+        // Articleインスタンスからタグ、記事、投稿を取得
         return Inertia::render('edit', [
-            'article' => $article
+            // 'tags' => $tag->all(),
+            'articles' => $article->all(),
+            // 'posts' => $post->all()
         ]);
     }
 
@@ -95,9 +101,10 @@ class ArticlesController extends Controller
     // 記事の閲覧
     public function show(Article $article)
     {
-        // show.tsxに取得したデータを渡す
         return Inertia::render('show', [
             'article' => $article
+        ], [
+            'auth' => Auth::user() // ログインしているユーザーの情報を渡す
         ]);
     }
 }
