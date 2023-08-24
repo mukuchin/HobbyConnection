@@ -4,13 +4,12 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
+import { ArticleProps } from "@/types/ArticleProps";
 
-export default function show(props: any, { auth }: PageProps) {
-    // props.post には、記事の情報が入っている。型が不明なので、any で受け取る。
+export default function show({ article }: ArticleProps, { auth }: PageProps) {
+    // props.post には、記事の情報が入っている。
     const isLoggedIn = auth && auth.user !== null;
-    const { title, period_start, period_end, description } = props.article;
-
-    console.log(props.article);
+    const { title, period_start, period_end, description } = article;
 
     return (
         <>

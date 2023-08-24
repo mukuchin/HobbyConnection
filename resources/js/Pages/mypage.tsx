@@ -1,7 +1,6 @@
 // マイページ
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
 
