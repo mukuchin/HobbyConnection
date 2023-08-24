@@ -25,7 +25,10 @@ export default function create({ auth }: PageProps) {
 
     return (
         <>
+            {/*  ページ名・タブ名表示 */}
             <AppHead title="記事投稿" />
+
+            {/* ナビゲーションバー */}
             {isLoggedIn ? (
                 <AuthenticatedLayout user={auth.user} />
             ) : (
