@@ -1,7 +1,7 @@
 // メインフォームのカスタムフック
 
 import { ChangeEvent, FormEvent } from "react";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
 // メインフォームの値
 interface MainFormValues {

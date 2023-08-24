@@ -23,8 +23,8 @@ class BlogRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:100'],
-            'period_start' => ['required', 'date'],
-            'period_end' => ['required', 'date'],
+            'period_start' => ['required', 'date', 'before:period_end'],
+            'period_end' => ['required', 'date', 'after:period_start'],
             'description' => ['required', 'string', 'max:1000'],
         ];
     }
@@ -42,8 +42,10 @@ class BlogRequest extends FormRequest
             'title.max' => 'タイトルは100文字以内で入力してください。',
             'period_start.required' => '開始日は必須です。',
             'period_start.date' => '開始日は日付で入力してください。',
+            'period_end.after' => '終了日は開始日より後の日付を入力してください。',
             'period_end.required' => '終了日は必須です。',
             'period_end.date' => '終了日は日付で入力してください。',
+            'period_start.before' => '開始日は終了日より前の日付を入力してください。',
             'description.required' => '概要は必須です。',
             'description.string' => '概要は文字列で入力してください。',
             'description.max' => '概要は1000文字以内で入力してください。',

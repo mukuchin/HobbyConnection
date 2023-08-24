@@ -2,6 +2,9 @@
 
 import React from "react";
 
+// usePage() をインポート
+import { usePage } from "@inertiajs/react";
+
 // このコンポーネントで使用するpropsの型定義
 interface MainFormProps {
     values: {
@@ -22,8 +25,12 @@ const MainForm: React.FC<MainFormProps> = ({
     handleChangeTextarea,
     handleSubmit,
 }) => {
+    // usePage() で、バリデーションエラーを取得
+    const { errors } = usePage().props;
+
     return (
         <form onSubmit={handleSubmit}>
+            {/* タイトル */}
             <div className="form-group">
                 <label htmlFor="title">タイトル</label>
                 <input
@@ -34,7 +41,12 @@ const MainForm: React.FC<MainFormProps> = ({
                     value={values.title}
                     onChange={handleChangeInput}
                 />
+                {/* エラーメッセージ */}
+                {errors.title && (
+                    <p className="text-red-500 text-xs mt-1">{errors.title}</p>
+                )}
             </div>
+            {/*  開始日 */}
             <div className="form-group">
                 <label htmlFor="period_start">開始日</label>
                 <input
@@ -45,7 +57,14 @@ const MainForm: React.FC<MainFormProps> = ({
                     value={values.period_start}
                     onChange={handleChangeInput}
                 />
+                {/* エラーメッセージ */}
+                {errors.period_start && (
+                    <p className="text-red-500 text-xs mt-1">
+                        {errors.period_start}
+                    </p>
+                )}
             </div>
+            {/* 終了日 */}
             <div className="form-group">
                 <label htmlFor="period_end">終了日</label>
                 <input
@@ -56,7 +75,14 @@ const MainForm: React.FC<MainFormProps> = ({
                     value={values.period_end}
                     onChange={handleChangeInput}
                 />
+                {/* エラーメッセージ */}
+                {errors.period_end && (
+                    <p className="text-red-500 text-xs mt-1">
+                        {errors.period_end}
+                    </p>
+                )}
             </div>
+            {/* 概要 */}
             <div className="form-group">
                 <label htmlFor="description">概要</label>
                 <textarea
@@ -67,6 +93,12 @@ const MainForm: React.FC<MainFormProps> = ({
                     value={values.description}
                     onChange={handleChangeTextarea}
                 ></textarea>
+                {/* エラーメッセージ */}
+                {errors.description && (
+                    <p className="text-red-500 text-xs mt-1">
+                        {errors.description}
+                    </p>
+                )}
             </div>
             <button type="submit" className="btn btn-primary">
                 送信
