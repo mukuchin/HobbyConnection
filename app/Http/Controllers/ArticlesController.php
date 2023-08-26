@@ -21,7 +21,9 @@ class ArticlesController extends Controller
     //TOPページ表示
     public function top(Article $article)
     {
-        // top.tsxに取得したデータを渡す
+        // 投稿された記事を全て取得
+
+        
         return Inertia::render('top', [
             'articles' => $article->getPaginateByLimit(5)
         ]);
@@ -37,7 +39,7 @@ class ArticlesController extends Controller
     }
 
     // 記事の新規投稿
-    public function create(Tag $tag, Article $article, Post $post)
+    public function create()
     {
         return Inertia::render('create');
     }

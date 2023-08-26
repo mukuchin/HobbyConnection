@@ -38,15 +38,13 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             <h1 className="font-bold text-3xl mb-4">{title}</h1>
                             {/* ユーザー名 */}
                             <p className="mb-4">投稿者：{name}</p>
+                            {/* 期間 */}
                             <p className="mb-4">
-                                {/* 期間 */}
-                                <span className="mr-4">
-                                    {period_start} 〜 {period_end}
-                                </span>
-                                {/* 概要 */}
-                                <p className="mb-4">{description}</p>
-                                {/* 本文 */}
+                                {period_start} 〜 {period_end}
                             </p>
+                            {/* 概要 */}
+                            <p className="mb-4">{description}</p>
+                            {/* 本文 */}
                         </div>
                     </div>
                 </div>
