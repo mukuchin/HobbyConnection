@@ -14,8 +14,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Pagination\Paginator;
-// use Illuminate\Database\Eloquent\Collection;
-
+use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
@@ -101,10 +100,11 @@ class ArticlesController extends Controller
     // 記事の閲覧
     public function show(Article $article)
     {
+        // ユーザーIDからユーザー名を取得して、表示する。
+        $user = DB::table('users')->where('id', $article->user_id)->first();
         return Inertia::render('show', [
-            'article' => $article
-        ], [
-            'auth' => Auth::user() // ログインしているユーザーの情報を渡す
+            'article' => $article,
+            'article_user' => $user,
         ]);
     }
 }
