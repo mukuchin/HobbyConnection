@@ -4,12 +4,18 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
-import { ArticleProps } from "@/types/ArticleProps";
+import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 
-export default function show({ article }: ArticleProps, { auth }: PageProps) {
-    // props.post には、記事の情報が入っている。
+// Propsの型定義
+interface ShowProps extends PageProps {
+    article: ArticleItems;
+    article_user: ArticleUser;
+}
+
+export default function show({ auth, article, article_user }: ShowProps) {
     const isLoggedIn = auth && auth.user !== null;
     const { title, period_start, period_end, description } = article;
+    const { name } = article_user;
 
     return (
         <>
@@ -28,8 +34,12 @@ export default function show({ article }: ArticleProps, { auth }: PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
+                            {/* タイトル */}
                             <h1 className="font-bold text-3xl mb-4">{title}</h1>
+                            {/* ユーザー名 */}
+                            <p className="mb-4">投稿者：{name}</p>
                             <p className="mb-4">
+                                {/* 期間 */}
                                 <span className="mr-4">
                                     {period_start} 〜 {period_end}
                                 </span>
