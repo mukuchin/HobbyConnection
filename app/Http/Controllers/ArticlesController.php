@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\DB;
 class ArticlesController extends Controller
 {
     //TOPページ表示
-    public function top(Article $article)
+    public function top()
     {
         // 投稿された記事を全て取得
+        $articles = Article::with('user')->get();
 
-        
         return Inertia::render('top', [
-            'articles' => $article->getPaginateByLimit(5)
+            'article' => $articles,
         ]);
     }
 
@@ -102,8 +102,8 @@ class ArticlesController extends Controller
     // 記事の閲覧
     public function show(Article $article)
     {
-        // ユーザーIDからユーザー名を取得して、表示する。
-        $user = DB::table('users')->where('id', $article->user_id)->first();
+        // ユーザーIDからユーザー名を取得
+        $user = User::where('id', $article->user_id)->first();
         return Inertia::render('show', [
             'article' => $article,
             'article_user' => $user,
