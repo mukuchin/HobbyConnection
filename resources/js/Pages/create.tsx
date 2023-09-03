@@ -11,7 +11,7 @@ import { useMainForm } from "@/Hooks/useMainForm";
 export default function create({ auth }: PageProps) {
     const isLoggedIn = auth.user !== null;
 
-    // 各値の設定
+    // 各値の初期値は、空文字列
     const [values, setValues] = useState({
         title: "",
         period_start: "",

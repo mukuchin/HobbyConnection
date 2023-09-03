@@ -63,31 +63,22 @@ class ArticlesController extends Controller
     // 投稿した記事の編集
     public function edit(Article $article)
     {
-        // edit.tsxに取得したデータを渡す
-        // Articleインスタンスからタグ、記事、投稿を取得
+        // edit.tsxに取得したデータを渡す。
+        // Articleインスタンスから記事を取得。
         return Inertia::render('edit', [
-            // 'tags' => $tag->all(),
-            'article' => $article->all(),
-            // 'posts' => $post->all()
+            'article' => $article,
         ]);
     }
 
     // 投稿した記事の更新
     public function update(BlogRequest $request, Article $article)
     {
-        // リクエストの内容を取得
-        $inputs = $request->all();
-
-        // リクエストの内容を保存
-        $article->fill($inputs)->save();
-
-        // 記事のタグを保存
-        $article->tags()->sync($request->tags);
-
-        // 記事のIDを取得
-        $article_id = $article->id;
-
-        return redirect()->route('show', ['article' => $article_id]);
+        $article->title = $request->title;
+        $article->period_start = $request->period_start;
+        $article->period_end = $request->period_end;
+        $article->description = $request->description;
+        $article->save();
+        return to_route('show', ['article' => $article->id]);
     }
 
     // 投稿した記事の削除
