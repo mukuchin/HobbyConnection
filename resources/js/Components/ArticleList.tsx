@@ -14,6 +14,8 @@ const ArticleList: React.FC<ArticleListProps> = ({ article }) => {
     const { id, title, period_start, period_end, description, user } = article;
     const { name } = user;
 
+    console.log(article);
+
     return (
         <div className="py-12">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
