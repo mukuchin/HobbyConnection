@@ -30,11 +30,14 @@ class ArticlesController extends Controller
     }
 
     // マイページ
-    public function mypage(Article $article)
+    public function mypage()
     {
+        // 自分が投稿した記事を全て取得
+        $articles = Article::with('user')->where('user_id', Auth::id())->get();
+
         // mypage.tsxに取得したデータを渡す
         return Inertia::render('mypage', [
-            'articles' => $article->getPaginateByLimit(5)
+            'article' => $articles,
         ]);
     }
 
@@ -64,7 +67,7 @@ class ArticlesController extends Controller
         // Articleインスタンスからタグ、記事、投稿を取得
         return Inertia::render('edit', [
             // 'tags' => $tag->all(),
-            'articles' => $article->all(),
+            'article' => $article->all(),
             // 'posts' => $post->all()
         ]);
     }

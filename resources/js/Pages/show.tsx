@@ -44,7 +44,20 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             </p>
                             {/* 概要 */}
                             <p className="mb-4">{description}</p>
-                            {/* 本文 */}
+                            {/* TOPページに戻る */}
+                            <a
+                                href="/"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                TOPページに戻る
+                            </a>
+                            {/* マイページに戻る */}
+                            <a
+                                href="/mypage"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                マイページに戻る
+                            </a>
                         </div>
                     </div>
                 </div>

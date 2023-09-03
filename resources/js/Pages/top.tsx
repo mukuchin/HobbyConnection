@@ -10,7 +10,6 @@ import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 // Propsの型定義
 interface TopProps extends PageProps {
     article: ArticleItems[];
-    // article_user: ArticleUser;
 }
 
 export default function top({ auth, article }: TopProps) {
