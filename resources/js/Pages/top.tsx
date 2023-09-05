@@ -35,7 +35,7 @@ export default function top({ auth, article }: TopProps) {
                             <h1 className="font-bold text-3xl mb-4">
                                 記事一覧
                             </h1>
-                            {article.map((item) => (
+                            {[...article].reverse().map((item) => (
                                 <ArticleList key={item.id} article={item} />
                             ))}
                         </div>

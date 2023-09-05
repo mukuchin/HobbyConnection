@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
@@ -15,10 +14,7 @@ interface EditProps extends PageProps {
 }
 
 export default function edit({ auth, article }: EditProps) {
-    const isLoggedIn = auth.user !== null;
-
-    // 分割代入を用いて、articleから必要な値を取り出す
-    const { title, period_start, period_end, description } = article;
+    const { id, title, period_start, period_end, description } = article;
 
     // 各値の設定。初期値は、記事投稿ページから渡された値
     const [values, setValues] = useState({
@@ -30,7 +26,7 @@ export default function edit({ auth, article }: EditProps) {
 
     // カスタムフック
     const { handleChangeInput, handleChangeTextarea, handleSubmit } =
-        useMainForm(values, setValues);
+        useMainForm(values, setValues, `/posts/${id}`);
 
     return (
         <>
@@ -38,12 +34,9 @@ export default function edit({ auth, article }: EditProps) {
             <AppHead title="記事編集" />
 
             {/* ナビゲーションバー */}
-            {isLoggedIn ? (
-                <AuthenticatedLayout user={auth.user} />
-            ) : (
-                <GuestLayout />
-            )}
+            <AuthenticatedLayout user={auth.user} />
 
+            {/* フォーム */}
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-8">

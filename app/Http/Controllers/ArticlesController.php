@@ -73,6 +73,7 @@ class ArticlesController extends Controller
     // 投稿した記事の更新
     public function update(BlogRequest $request, Article $article)
     {
+        dd($article);
         $article->title = $request->title;
         $article->period_start = $request->period_start;
         $article->period_end = $request->period_end;

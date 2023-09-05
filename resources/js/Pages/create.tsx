@@ -2,15 +2,12 @@
 
 import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
 import { useMainForm } from "@/Hooks/useMainForm";
 
 export default function create({ auth }: PageProps) {
-    const isLoggedIn = auth.user !== null;
-
     // 各値の初期値は、空文字列
     const [values, setValues] = useState({
         title: "",
@@ -21,7 +18,7 @@ export default function create({ auth }: PageProps) {
 
     // カスタムフック
     const { handleChangeInput, handleChangeTextarea, handleSubmit } =
-        useMainForm(values, setValues);
+        useMainForm(values, setValues, "/posts");
 
     return (
         <>
@@ -29,11 +26,9 @@ export default function create({ auth }: PageProps) {
             <AppHead title="記事投稿" />
 
             {/* ナビゲーションバー */}
-            {isLoggedIn ? (
-                <AuthenticatedLayout user={auth.user} />
-            ) : (
-                <GuestLayout />
-            )}
+            <AuthenticatedLayout user={auth.user} />
+
+            {/* フォーム */}
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-8">

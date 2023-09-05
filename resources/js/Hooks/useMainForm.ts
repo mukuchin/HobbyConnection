@@ -20,34 +20,50 @@ interface MainFormHook {
 
 export function useMainForm(
     values: MainFormValues,
-    setValues: React.Dispatch<React.SetStateAction<MainFormValues>>
+    setValues: React.Dispatch<React.SetStateAction<MainFormValues>>,
+    // 送信先のエンドポイント
+    endpoint: string
 ): MainFormHook {
     // メインフォームのタイトル、期間の入力値を変更する関数
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
         const key = e.target.name;
         const value = e.target.value;
         setValues((prev) => ({ ...prev, [key]: value }));
+        console.log(values);
     };
 
-    // メインフォームの説明の入力値を変更する関数
+    // メインフォームの概要の入力値を変更する関数
     const handleChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const key = e.target.name;
         const value = e.target.value;
         setValues((prev) => ({ ...prev, [key]: value }));
+        console.log(values);
     };
 
     // メインフォームを送信する関数
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData();
+        console.log(values);
         Object.entries(values).forEach(([key, value]) => {
             if (typeof value === "string") {
                 formData.append(key, value);
             }
         });
+        console.log(formData);
 
         // フォームデータを送信する
-        router.post("/posts", formData);
+        if (endpoint.startsWith("/posts/")) {
+            // 記事編集ページの場合
+            router.put(endpoint, formData);
+            console.log("put");
+        } else {
+            // 記事作成ページの場合
+            router.post(endpoint, formData);
+            console.log("post");
+        }
+
+        console.log(endpoint);
     };
 
     return {
