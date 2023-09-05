@@ -46,9 +46,9 @@ class BlogRequest extends FormRequest
             'period_end.required' => '終了日を入力してください',
             'period_end.date' => '終了日は日付で入力してください',
             'period_end.after_or_equal' => '終了日は開始日以降の日付を入力してください',
-            'description.required' => '説明を入力してください',
-            'description.string' => '説明は文字列で入力してください',
-            'description.max' => '説明は1000文字以内で入力してください',
+            'description.required' => '概要を入力してください',
+            'description.string' => '概要は文字列で入力してください',
+            'description.max' => '概要は1000文字以内で入力してください',
         ];
     }
 }

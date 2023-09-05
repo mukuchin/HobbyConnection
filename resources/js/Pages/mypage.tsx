@@ -12,7 +12,6 @@ interface MyPageProps extends PageProps {
 }
 
 export default function mypage({ auth, article }: MyPageProps) {
-    console.log(article);
     return (
         <>
             {/* ページ名・タブ名表示 */}
@@ -52,10 +51,9 @@ export default function mypage({ auth, article }: MyPageProps) {
                             <h1 className="font-bold text-3xl mb-4">
                                 投稿した記事
                             </h1>
-                            {article &&
-                                article.map((item) => (
-                                    <ArticleList key={item.id} article={item} />
-                                ))}
+                            {[...article].reverse().map((item) => (
+                                <ArticleList key={item.id} article={item} />
+                            ))}
                         </div>
                     </div>
                 </div>
