@@ -21,12 +21,15 @@ use Inertia\Inertia;
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ArticlesController::class, 'mypage'])->name('mypage'); //マイページ
 
-    // 記事の編集や閲覧など
+    // 記事の新規投稿・保存
     Route::get('/create', [ArticlesController::class, 'create'])->name('create'); //記事の新規投稿
-    Route::put('/posts/{article}', [ArticlesController::class, 'update'])->name('update'); //記事の更新
-    Route::delete('/posts/{article}', [ArticlesController::class, 'delete'])->name('delete'); //記事の削除
-    Route::get('/posts/{article}/edit', [ArticlesController::class, 'edit'])->name('edit'); //記事の編集
     Route::post('/posts', [ArticlesController::class, 'store'])->name('store'); //記事の保存処理
+
+    // 記事の編集・更新・削除
+    // ルートポリシーを使用して、記事の編集・更新・削除を投稿者のみに制限
+    Route::get('/posts/{article}/edit', [ArticlesController::class, 'edit'])->name('edit')->middleware('can:update,article'); //記事の編集
+    Route::patch('/posts/{article}', [ArticlesController::class, 'update'])->name('update')->middleware('can:update,article'); //記事の更新処理
+    Route::delete('/posts/{article}', [ArticlesController::class, 'destroy'])->name('destroy')->middleware('can:delete,article'); //記事の削除処理
 
     // プロフィール編集
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); //プロフィール編集画面
