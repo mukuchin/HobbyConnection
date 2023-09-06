@@ -7,10 +7,16 @@ import { ArticleItems } from "@/types/ArticleProps";
 // このコンポーネントで使用するpropsの型定義
 interface ArticleListProps {
     article: ArticleItems;
+    isMyPage?: boolean;
 }
 
 // 記事一覧を表示するコンポーネント
-const ArticleList: React.FC<ArticleListProps> = ({ article }) => {
+// マイページで使用する際は、編集ボタンと削除ボタンを表示する。
+// TOPページで使用する際は、編集ボタンと削除ボタンを表示しない。
+const ArticleList: React.FC<ArticleListProps> = ({
+    article,
+    isMyPage,
+}: ArticleListProps) => {
     const { id, title, period_start, period_end, description, user } = article;
     const { name } = user;
 
@@ -32,6 +38,34 @@ const ArticleList: React.FC<ArticleListProps> = ({ article }) => {
                             </p>
                             <p className="text-sm">概要：{description}</p>
                         </div>
+                        {/* マイページで使用する際は、編集ボタンと削除ボタンを表示する。 */}
+                        {isMyPage && (
+                            <div className="flex">
+                                <Link
+                                    href={`/posts/${id}/edit`}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                                >
+                                    編集
+                                </Link>
+                                <form
+                                    action={`/posts/${id}`}
+                                    method="POST"
+                                    className="inline-block"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="_method"
+                                        value="DELETE"
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        削除
+                                    </button>
+                                </form>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
