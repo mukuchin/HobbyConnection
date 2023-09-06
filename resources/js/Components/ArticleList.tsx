@@ -1,7 +1,7 @@
 // 記事を一覧表示するコンポーネント
 
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
 
 // このコンポーネントで使用するpropsの型定義
@@ -11,14 +11,27 @@ interface ArticleListProps {
 }
 
 // 記事一覧を表示するコンポーネント
-// マイページで使用する際は、編集ボタンと削除ボタンを表示する。
-// TOPページで使用する際は、編集ボタンと削除ボタンを表示しない。
 const ArticleList: React.FC<ArticleListProps> = ({
     article,
     isMyPage,
 }: ArticleListProps) => {
     const { id, title, period_start, period_end, description, user } = article;
     const { name } = user;
+    const { delete: destroy } = useForm();
+
+    /// 削除ボタンを押したときに、確認メッセージを表示する
+    const confirmDelete = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (confirm("一度削除した記事は元に戻せません。本当に削除しますか？")) {
+            handleDelete();
+        }
+    };
+
+    // 削除ボタンがクリックされたときの処理
+    const handleDelete = () => {
+        // 削除処理
+        destroy(`/posts/${id}`);
+    };
 
     return (
         <div className="py-12">
@@ -49,14 +62,9 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 </Link>
                                 <form
                                     action={`/posts/${id}`}
-                                    method="POST"
-                                    className="inline-block"
+                                    method="post"
+                                    onSubmit={confirmDelete}
                                 >
-                                    <input
-                                        type="hidden"
-                                        name="_method"
-                                        value="DELETE"
-                                    />
                                     <button
                                         type="submit"
                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

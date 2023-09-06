@@ -85,13 +85,8 @@ class ArticlesController extends Controller
     // 投稿した記事の削除
     public function destroy(Article $article)
     {
-        // 記事のIDを取得
-        $article_id = $article->id;
-
-        // 記事の削除
-        $article->delete();
-
-        return redirect()->route('top');
+        // 記事を物理削除
+        $article->forceDelete();
     }
 
     // 記事の閲覧
