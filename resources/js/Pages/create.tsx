@@ -17,8 +17,11 @@ export default function create({ auth }: PageProps) {
     });
 
     // カスタムフック
-    const { handleChangeInput, handleChangeTextarea, handleSubmit } =
-        useMainForm(values, setValues, "/posts");
+    const { handleChangeInput, handleSubmit } = useMainForm(
+        values,
+        setValues,
+        "/posts"
+    );
 
     return (
         <>
@@ -35,7 +38,6 @@ export default function create({ auth }: PageProps) {
                         <MainForm
                             values={values}
                             handleChangeInput={handleChangeInput}
-                            handleChangeTextarea={handleChangeTextarea}
                             handleSubmit={handleSubmit}
                         />
                     </div>

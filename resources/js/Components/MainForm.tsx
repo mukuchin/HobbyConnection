@@ -13,8 +13,9 @@ interface MainFormProps {
         period_end: string;
         description: string;
     };
-    handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    handleChangeInput: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -22,10 +23,9 @@ interface MainFormProps {
 const MainForm: React.FC<MainFormProps> = ({
     values,
     handleChangeInput,
-    handleChangeTextarea,
     handleSubmit,
 }) => {
-    // usePage() で、バリデーションエラーを取得
+    // バリデーションエラーを取得
     const { errors } = usePage().props;
 
     return (
@@ -91,7 +91,7 @@ const MainForm: React.FC<MainFormProps> = ({
                     name="description"
                     rows={3}
                     value={values.description}
-                    onChange={handleChangeTextarea}
+                    onChange={handleChangeInput}
                 ></textarea>
                 {/* エラーメッセージ */}
                 {errors.description && (
@@ -101,7 +101,7 @@ const MainForm: React.FC<MainFormProps> = ({
                 )}
             </div>
             <button type="submit" className="btn btn-primary">
-                送信
+                保存
             </button>
         </form>
     );

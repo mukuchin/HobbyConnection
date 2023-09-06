@@ -25,8 +25,11 @@ export default function edit({ auth, article }: EditProps) {
     });
 
     // カスタムフック
-    const { handleChangeInput, handleChangeTextarea, handleSubmit } =
-        useMainForm(values, setValues, `/posts/${id}`);
+    const { handleChangeInput, handleSubmit } = useMainForm(
+        values,
+        setValues,
+        `/posts/${id}`
+    );
 
     return (
         <>
@@ -43,7 +46,6 @@ export default function edit({ auth, article }: EditProps) {
                         <MainForm
                             values={values}
                             handleChangeInput={handleChangeInput}
-                            handleChangeTextarea={handleChangeTextarea}
                             handleSubmit={handleSubmit}
                         />
                     </div>
