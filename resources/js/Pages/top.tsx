@@ -11,7 +11,6 @@ import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 interface TopProps extends PageProps {
     article: ArticleItems[];
 }
-
 export default function top({ auth, article }: TopProps) {
     const isLoggedIn = auth.user !== null;
 
