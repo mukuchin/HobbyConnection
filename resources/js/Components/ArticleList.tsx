@@ -3,6 +3,7 @@
 import React from "react";
 import { Link, useForm } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
+import { useDeleteArticle } from "@/Hooks/useDeleteArticle";
 
 // このコンポーネントで使用するpropsの型定義
 interface ArticleListProps {
@@ -17,21 +18,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
 }: ArticleListProps) => {
     const { id, title, period_start, period_end, description, user } = article;
     const { name } = user;
-    const { delete: destroy } = useForm();
-
-    /// 削除ボタンを押したときに、確認メッセージを表示する
-    const confirmDelete = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (confirm("一度削除した記事は元に戻せません。本当に削除しますか？")) {
-            handleDelete();
-        }
-    };
-
-    // 削除ボタンがクリックされたときの処理
-    const handleDelete = () => {
-        // 削除処理
-        destroy(`/posts/${id}`);
-    };
+    const { confirmDelete } = useDeleteArticle(id);
 
     return (
         <div className="py-12">
