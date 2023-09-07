@@ -20,10 +20,6 @@ export default function top({ auth, article }: TopProps) {
     const isLoggedIn = auth.user !== null;
     const { current_page, last_page, data } = article;
 
-    console.log(current_page);
-    console.log(last_page);
-    console.log(data);
-
     return (
         <>
             {/* ページ名・タブ名表示。TOPページはタブ名は表示しない。 */}
@@ -53,6 +49,7 @@ export default function top({ auth, article }: TopProps) {
                             auth={auth}
                             page={current_page}
                             lastPage={last_page}
+                            baseUrl="/"
                         />
                     </div>
                 </div>

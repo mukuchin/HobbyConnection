@@ -5,13 +5,25 @@ import AppHead from "../Layouts/AppHead";
 import ArticleList from "@/Components/ArticleList";
 import { PageProps } from "@/types";
 import { ArticleItems } from "@/types/ArticleProps";
+import Pagination from "@/Components/Pagination";
 
 // Propsの型定義
 interface MyPageProps extends PageProps {
-    article: ArticleItems[];
+    article: {
+        current_page: number;
+        last_page: number;
+        data: ArticleItems[];
+    };
 }
 
 export default function mypage({ auth, article }: MyPageProps) {
+    const { current_page, last_page, data } = article;
+
+    console.log(article);
+    console.log(current_page);
+    console.log(last_page);
+    console.log(data);
+
     return (
         <>
             {/* ページ名・タブ名表示 */}
@@ -52,7 +64,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                                 投稿した記事
                             </h1>
                             {/* 投稿された記事の一覧を新しく投稿された順に表示 */}
-                            {article.map((item) => (
+                            {data.map((item) => (
                                 <ArticleList
                                     key={item.id}
                                     article={item}
@@ -60,6 +72,13 @@ export default function mypage({ auth, article }: MyPageProps) {
                                 />
                             ))}
                         </div>
+                        {/* ペジネーション */}
+                        <Pagination
+                            auth={auth}
+                            page={current_page}
+                            lastPage={last_page}
+                            baseUrl="/mypage"
+                        />
                     </div>
                 </div>
             </div>
