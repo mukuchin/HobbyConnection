@@ -1,7 +1,7 @@
 // 記事を一覧表示するコンポーネント
 
 import React from "react";
-import { Link, useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
 import { useDeleteArticle } from "@/Hooks/useDeleteArticle";
 

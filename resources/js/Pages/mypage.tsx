@@ -52,7 +52,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                                 投稿した記事
                             </h1>
                             {/* 投稿された記事の一覧を新しく投稿された順に表示 */}
-                            {[...article].reverse().map((item) => (
+                            {article.map((item) => (
                                 <ArticleList
                                     key={item.id}
                                     article={item}
