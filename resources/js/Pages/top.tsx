@@ -5,14 +5,24 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import ArticleList from "@/Components/ArticleList";
 import { PageProps } from "@/types";
-import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
+import { ArticleItems } from "@/types/ArticleProps";
+import Pagination from "@/Components/Pagination";
 
 // Propsの型定義
 interface TopProps extends PageProps {
-    article: ArticleItems[];
+    article: {
+        current_page: number;
+        last_page: number;
+        data: ArticleItems[];
+    };
 }
 export default function top({ auth, article }: TopProps) {
     const isLoggedIn = auth.user !== null;
+    const { current_page, last_page, data } = article;
+
+    console.log(current_page);
+    console.log(last_page);
+    console.log(data);
 
     return (
         <>
@@ -34,10 +44,16 @@ export default function top({ auth, article }: TopProps) {
                             <h1 className="font-bold text-3xl mb-4">
                                 記事一覧
                             </h1>
-                            {[...article].reverse().map((item) => (
+                            {data.map((item) => (
                                 <ArticleList key={item.id} article={item} />
                             ))}
                         </div>
+                        {/* ペジネーション */}
+                        <Pagination
+                            auth={auth}
+                            page={current_page}
+                            lastPage={last_page}
+                        />
                     </div>
                 </div>
             </div>

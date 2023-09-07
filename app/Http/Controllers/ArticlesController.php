@@ -22,7 +22,8 @@ class ArticlesController extends Controller
     public function top()
     {
         // 投稿された記事を全て取得
-        $articles = Article::with('user')->get();
+        $articles = Article::with('user')->orderBy('updated_at', 'DESC')->paginate(5);
+        // dd($articles->items());
 
         return Inertia::render('top', [
             'article' => $articles,
@@ -31,9 +32,9 @@ class ArticlesController extends Controller
 
     // マイページ
     public function mypage()
-    {
+    {   
         // 自分が投稿した記事を全て取得
-        $articles = Article::with('user')->where('user_id', Auth::id())->get();
+        $articles = Article::with('user')->where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->get();
 
         return Inertia::render('mypage', [
             'article' => $articles,
