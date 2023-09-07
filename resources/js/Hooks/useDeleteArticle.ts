@@ -6,7 +6,7 @@ export const useDeleteArticle = (id: number) => {
     // 削除ボタンを押したときに、確認メッセージを表示する
     const confirmDelete = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (confirm("一度削除した記事は元に戻せません。本当に削除しますか？")) {
+        if (confirm("削除した記事は元に戻せません。本当に削除しますか？")) {
             handleDelete();
         }
     };

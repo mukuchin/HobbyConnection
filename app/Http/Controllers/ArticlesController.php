@@ -34,7 +34,7 @@ class ArticlesController extends Controller
     public function mypage()
     {   
         // 自分が投稿した記事を全て取得
-        $articles = Article::with('user')->where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->get();
+        $articles = Article::with('user')->where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->paginate(5);
 
         return Inertia::render('mypage', [
             'article' => $articles,
