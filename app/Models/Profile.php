@@ -14,6 +14,14 @@ class Profile extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\User');
+    }
+
+    // 多対多のリレーション
+    // このプロフィールに紐づくタグを取得
+    // 未使用
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
     }
 }

@@ -14,6 +14,7 @@ export default function create({ auth }: PageProps) {
         period_start: "",
         period_end: "",
         description: "",
+        sub_form_data: "", // サブフォームのデータ
     });
 
     // カスタムフック
@@ -31,15 +32,29 @@ export default function create({ auth }: PageProps) {
             {/* ナビゲーションバー */}
             <AuthenticatedLayout user={auth.user} />
 
-            {/* フォーム */}
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <MainForm
-                            values={values}
-                            handleChangeInput={handleChangeInput}
-                            handleSubmit={handleSubmit}
-                        />
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900">
+                            <h1 className="font-bold text-3xl mb-4">
+                                記事編集
+                            </h1>
+
+                            {/* フォーム */}
+                            <div className="container">
+                                <div className="row justify-content-center">
+                                    <div className="col-md-8">
+                                        <MainForm
+                                            values={values}
+                                            handleChangeInput={
+                                                handleChangeInput
+                                            }
+                                            handleSubmit={handleSubmit}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

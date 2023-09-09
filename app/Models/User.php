@@ -41,4 +41,43 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany('App\Models\Article');
+    }
+
+    public function profile()
+    {
+        return $this->hasOne('App\Models\Profile');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+    
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
+
+    public function likes() {
+        return $this->hasMany('App\Models\Like');
+    }
+
+    // フォロー機能
+    // このユーザーがフォローしているユーザーを取得
+    // 未使用
+    public function follows() {
+        return $this->hasMany('App\Models\Follow');
+    }
+
+    // フォロワー機能
+    // このユーザーをフォローしているユーザーを取得
+    // 未使用
+    public function followers() {
+        return $this->hasMany('App\Models\Follow', 'follow_id');
+    }
+    
 }

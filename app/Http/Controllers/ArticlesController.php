@@ -23,7 +23,6 @@ class ArticlesController extends Controller
     {
         // 投稿された記事を全て取得
         $articles = Article::with('user')->orderBy('updated_at', 'DESC')->paginate(5);
-        // dd($articles->items());
 
         return Inertia::render('top', [
             'article' => $articles,
@@ -47,17 +46,24 @@ class ArticlesController extends Controller
         return Inertia::render('create');
     }
 
-    // 記事の保存処理
     public function store(BlogRequest $request)
     {
-        // バリデーションを通過したら記事を保存
+        // バリデーションを通過したらメインフォームとサブフォームを保存
         $article = new Article;
+        $article->user_id = Auth::id();
         $article->title = $request->title;
         $article->period_start = $request->period_start;
         $article->period_end = $request->period_end;
         $article->description = $request->description;
-        $article->user_id = Auth::id();
         $article->save();
+
+        // サブフォームのデータをpostsテーブルに保存
+        $post = new Post;
+        $post->user_id = Auth::id();
+        $post->article_id = $article->id;
+        $post->comment = $request->sub_form_data;
+        $post->save();
+
         return to_route('show', ['article' => $article->id]);
     }
 
@@ -74,7 +80,7 @@ class ArticlesController extends Controller
     // 投稿した記事の更新
     public function update(BlogRequest $request, Article $article)
     {
-        // バリデーションを通過したら記事を更新
+        // バリデーションを通過したらメインフォームを更新
         $article->title = $request->title;
         $article->period_start = $request->period_start;
         $article->period_end = $request->period_end;

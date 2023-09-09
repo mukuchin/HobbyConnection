@@ -9,6 +9,7 @@ interface MainFormValues {
     period_start: string;
     period_end: string;
     description: string;
+    sub_form_data: string; // サブフォームのデータ
 }
 
 // メインフォームのカスタムフックの返り値
