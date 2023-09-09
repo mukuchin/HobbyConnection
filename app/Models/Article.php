@@ -23,18 +23,25 @@ class Article extends Model
 
     public function user()
     {
-        //Userモデルのデータを取得する
         return $this->belongsTo('App\Models\User');
     }
 
-    public function getPaginateByLimit(int $limit_count = 5)
+    public function posts()
     {
-        // updated_atで降順に並べたあと、limitで件数制限をかける
-        return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this->hasMany('App\Models\Post');
     }
 
-    public function getPaginateOnlyLoginUserByLimit(int $limit_count = 5, $user_id)
+    public function tags()
     {
-        return $this->where('user_id', $user_id)->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this->belongsToMany('App\Models\Tag');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function likes() {
+        return $this->hasMany('App\Models\Like');
     }
 }

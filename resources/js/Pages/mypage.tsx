@@ -19,11 +19,6 @@ interface MyPageProps extends PageProps {
 export default function mypage({ auth, article }: MyPageProps) {
     const { current_page, last_page, data } = article;
 
-    console.log(article);
-    console.log(current_page);
-    console.log(last_page);
-    console.log(data);
-
     return (
         <>
             {/* ページ名・タブ名表示 */}

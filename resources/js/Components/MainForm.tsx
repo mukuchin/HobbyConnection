@@ -1,8 +1,6 @@
 // メインフォームコンポーネント
 
 import React from "react";
-
-// usePage() をインポート
 import { usePage } from "@inertiajs/react";
 
 // このコンポーネントで使用するpropsの型定義
@@ -12,6 +10,7 @@ interface MainFormProps {
         period_start: string;
         period_end: string;
         description: string;
+        sub_form_data: string; // サブフォームのデータ
     };
     handleChangeInput: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -100,7 +99,28 @@ const MainForm: React.FC<MainFormProps> = ({
                     </p>
                 )}
             </div>
-            <button type="submit" className="btn btn-primary">
+            {/* サブフォーム */}
+            <div className="form-group">
+                <label htmlFor="sub_form_data">サブフォーム</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="sub_form_data"
+                    name="sub_form_data"
+                    value={values.sub_form_data}
+                    onChange={handleChangeInput}
+                />
+                {/* エラーメッセージ */}
+                {errors.sub_form_data && (
+                    <p className="text-red-500 text-xs mt-1">
+                        {errors.sub_form_data}
+                    </p>
+                )}
+            </div>
+            <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+            >
                 保存
             </button>
         </form>
