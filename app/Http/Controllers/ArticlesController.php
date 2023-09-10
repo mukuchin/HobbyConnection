@@ -46,6 +46,7 @@ class ArticlesController extends Controller
         return Inertia::render('create');
     }
 
+    // 記事の保存
     public function store(BlogRequest $request)
     {
         // バリデーションを通過したらメインフォームとサブフォームを保存
@@ -58,15 +59,20 @@ class ArticlesController extends Controller
         $article->save();
 
         // サブフォームのデータをpostsテーブルに保存
-        $post = new Post;
-        $post->user_id = Auth::id();
-        $post->article_id = $article->id;
-        $post->comment = $request->sub_form_data;
-        $post->save();
+        foreach ($request->sub_form_data as $index => $data) {
+            if (!empty($data)) {  // サブフォームの入力が空でない場合のみ保存
+                $post = new Post;
+                $post->user_id = Auth::id();
+                $post->article_id = $article->id;
+                $post->comment = $data;
+                $post->post_num = $index + 1;
+                $post->save();
+            }
+        }
 
         return to_route('show', ['article' => $article->id]);
     }
-
+    
     // 投稿した記事の編集
     public function edit(Article $article)
     {
@@ -86,6 +92,17 @@ class ArticlesController extends Controller
         $article->period_end = $request->period_end;
         $article->description = $request->description;
         $article->save();
+
+        // サブフォームのデータを更新
+        foreach ($request->sub_form_data as $index => $data) {
+            if (!empty($data)) {  // サブフォームの入力が空でない場合のみ更新
+                $post = Post::where('article_id', $article->id)->get()[$index];
+                $post->comment = $data;
+                $post->post_num = $index + 1;
+                $post->save();
+            }
+        }
+
         return to_route('show', ['article' => $article->id]);
     }
 

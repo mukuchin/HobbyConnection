@@ -14,15 +14,12 @@ export default function create({ auth }: PageProps) {
         period_start: "",
         period_end: "",
         description: "",
-        sub_form_data: "", // サブフォームのデータ
+        sub_form_data: [""], // サブフォームのデータを配列として管理
     });
 
     // カスタムフック
-    const { handleChangeInput, handleSubmit } = useMainForm(
-        values,
-        setValues,
-        "/posts"
-    );
+    const { handleChangeInput, handleSubmit, handleChangeSubFormInput } =
+        useMainForm(values, setValues, "/posts");
 
     return (
         <>
@@ -37,7 +34,7 @@ export default function create({ auth }: PageProps) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <h1 className="font-bold text-3xl mb-4">
-                                記事編集
+                                記事投稿
                             </h1>
 
                             {/* フォーム */}
@@ -50,6 +47,10 @@ export default function create({ auth }: PageProps) {
                                                 handleChangeInput
                                             }
                                             handleSubmit={handleSubmit}
+                                            setValues={setValues}
+                                            handleChangeSubFormInput={
+                                                handleChangeSubFormInput
+                                            }
                                         />
                                     </div>
                                 </div>

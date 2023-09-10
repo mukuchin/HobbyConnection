@@ -4,12 +4,12 @@ import { ChangeEvent, FormEvent } from "react";
 import { router } from "@inertiajs/react";
 
 // メインフォームの値
-interface MainFormValues {
+export interface MainFormValues {
     title: string;
     period_start: string;
     period_end: string;
     description: string;
-    sub_form_data: string; // サブフォームのデータ
+    sub_form_data: string[];
 }
 
 // メインフォームのカスタムフックの返り値
@@ -18,14 +18,16 @@ interface MainFormHook {
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    handleChangeSubFormInput: (
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number
+    ) => void;
 }
 
 export function useMainForm(
     values: MainFormValues,
     setValues: React.Dispatch<React.SetStateAction<MainFormValues>>,
-
-    // 送信先のエンドポイント
-    endpoint: string
+    endpoint: string // フォームデータを送信するエンドポイント
 ): MainFormHook {
     // メインフォームの入力値を変更する関数
     const handleChangeInput = (
@@ -34,6 +36,16 @@ export function useMainForm(
         const key = e.target.name;
         const value = e.target.value;
         setValues((prev) => ({ ...prev, [key]: value }));
+    };
+
+    // サブフォームの入力値を変更する関数
+    const handleChangeSubFormInput = (
+        e: ChangeEvent<HTMLInputElement>,
+        index: number
+    ) => {
+        const newSubFormData = [...values.sub_form_data];
+        newSubFormData[index] = e.target.value;
+        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
     };
 
     // メインフォームを送信する関数
@@ -52,6 +64,7 @@ export function useMainForm(
 
     return {
         handleChangeInput,
+        handleChangeSubFormInput,
         handleSubmit,
     };
 }

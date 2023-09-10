@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePage } from "@inertiajs/react";
+import { MainFormValues } from "../Hooks/useMainForm";
 
 // このコンポーネントで使用するpropsの型定義
 interface MainFormProps {
@@ -10,12 +11,17 @@ interface MainFormProps {
         period_start: string;
         period_end: string;
         description: string;
-        sub_form_data: string; // サブフォームのデータ
+        sub_form_data: string[];
     };
     handleChangeInput: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    setValues: React.Dispatch<React.SetStateAction<MainFormValues>>;
+    handleChangeSubFormInput: (
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number
+    ) => void;
 }
 
 // メインフォーム
@@ -23,9 +29,17 @@ const MainForm: React.FC<MainFormProps> = ({
     values,
     handleChangeInput,
     handleSubmit,
+    setValues,
+    handleChangeSubFormInput,
 }) => {
     // バリデーションエラーを取得
     const { errors } = usePage().props;
+
+    // サブフォームを追加する関数
+    const addSubForm = () => {
+        const newSubFormData = [...values.sub_form_data, ""];
+        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -99,24 +113,32 @@ const MainForm: React.FC<MainFormProps> = ({
                     </p>
                 )}
             </div>
-            {/* サブフォーム */}
-            <div className="form-group">
-                <label htmlFor="sub_form_data">サブフォーム</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="sub_form_data"
-                    name="sub_form_data"
-                    value={values.sub_form_data}
-                    onChange={handleChangeInput}
-                />
-                {/* エラーメッセージ */}
-                {errors.sub_form_data && (
-                    <p className="text-red-500 text-xs mt-1">
-                        {errors.sub_form_data}
-                    </p>
-                )}
-            </div>
+            {/* 投稿（サブフォーム） */}
+            {values.sub_form_data.map((data, index) => (
+                <div key={index} className="form-group">
+                    <label htmlFor={`sub_form_data_${index}`}>
+                        投稿 {index + 1}
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id={`sub_form_data_${index}`}
+                        name={`sub_form_data_${index}`}
+                        value={data}
+                        onChange={(e) => handleChangeSubFormInput(e, index)}
+                    />
+                    {/* エラーメッセージ */}
+                    {errors.sub_form_data && (
+                        <p className="text-red-500 text-xs mt-1">
+                            {errors.sub_form_data}
+                        </p>
+                    )}
+                </div>
+            ))}
+
+            <button type="button" onClick={addSubForm}>
+                投稿を追加
+            </button>
             <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
