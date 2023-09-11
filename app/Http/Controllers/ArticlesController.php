@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
-    //TOPページ表示
+    //TOPページ
     public function top()
     {
         // 投稿された記事を全て取得
@@ -40,7 +40,7 @@ class ArticlesController extends Controller
         ]);
     }
 
-    // 記事の新規投稿
+    // 記事投稿ページ
     public function create()
     {
         return Inertia::render('create');
@@ -73,12 +73,18 @@ class ArticlesController extends Controller
         return to_route('show', ['article' => $article->id]);
     }
     
-    // 投稿した記事の編集
+    // 記事編集ページ
     public function edit(Article $article)
     {
+        // Articleインスタンスから記事と関連するPostデータを取得。
+        foreach ($article->posts as $post) {
+            $articleWithPosts[] = $post->comment;
+        }
+        $article['sub_form_data'] = $articleWithPosts;
+
         // Articleインスタンスから記事を取得。
         return Inertia::render('edit', [
-            'article' => $article,
+            'article' => $article
         ]);
 
     }
