@@ -99,10 +99,15 @@ class ArticlesController extends Controller
         $article->description = $request->description;
         $article->save();
 
-        // サブフォームのデータを更新
+        // postsテーブルのデータを削除
+        Post::where('article_id', $article->id)->delete();
+
+        // サブフォームのデータをpostsテーブルに保存
         foreach ($request->sub_form_data as $index => $data) {
-            if (!empty($data)) {  // サブフォームの入力が空でない場合のみ更新
-                $post = Post::where('article_id', $article->id)->get()[$index];
+            if (!empty($data)) {  // サブフォームの入力が空でない場合のみ保存
+                $post = new Post;
+                $post->user_id = Auth::id();
+                $post->article_id = $article->id;
                 $post->comment = $data;
                 $post->post_num = $index + 1;
                 $post->save();
