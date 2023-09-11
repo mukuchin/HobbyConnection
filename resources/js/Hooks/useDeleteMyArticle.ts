@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/react";
 
-export const useDeleteArticle = (id: number) => {
+export const useDeleteMyArticle = (id: number) => {
     const { delete: destroy } = useForm();
 
     // 削除ボタンを押したときに、確認メッセージを表示する
@@ -11,9 +11,8 @@ export const useDeleteArticle = (id: number) => {
         }
     };
 
-    // 削除ボタンがクリックされたときの処理
+    // 確認メッセージでOKを押したときに、記事を削除する
     const handleDelete = () => {
-        // 削除処理
         destroy(`/posts/${id}`);
     };
 

@@ -1,10 +1,10 @@
-// メインフォームのカスタムフック
+// 記事フォームのカスタムフック
 
 import { ChangeEvent, FormEvent } from "react";
 import { router } from "@inertiajs/react";
 
-// メインフォームの値
-export interface MainFormValues {
+// フォームの入力値の型
+export interface FormValues {
     title: string;
     period_start: string;
     period_end: string;
@@ -12,7 +12,7 @@ export interface MainFormValues {
     sub_form_data: string[];
 }
 
-// メインフォームのカスタムフックの返り値
+// フォーム入力・送信のカスタムフックの返り値
 interface MainFormHook {
     handleChangeInput: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,9 +24,15 @@ interface MainFormHook {
     handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
+// サブフォーム追加・削除のカスタムフックの返り値
+interface SubFormHook {
+    addSubForm: () => void;
+    deleteSubForm: (index: number) => void;
+}
+
 export function useArticleForm(
-    values: MainFormValues,
-    setValues: React.Dispatch<React.SetStateAction<MainFormValues>>,
+    values: FormValues,
+    setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string // フォームデータを送信するエンドポイント
 ): MainFormHook {
     // メインフォームの入力値を変更する関数
@@ -67,4 +73,25 @@ export function useArticleForm(
         handleChangeSubFormInput,
         handleSubmit,
     };
+}
+
+export function useAddDeleteSubForm(
+    values: FormValues,
+    setValues: React.Dispatch<React.SetStateAction<FormValues>>
+): SubFormHook {
+    // サブフォームを追加する関数
+    const addSubForm = () => {
+        const newSubFormData = [...values.sub_form_data, ""];
+        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
+    };
+
+    // サブフォームを削除する関数
+    const deleteSubForm = (index: number) => {
+        const newSubFormData = values.sub_form_data.filter(
+            (_, i) => i !== index
+        );
+        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
+    };
+
+    return { addSubForm, deleteSubForm };
 }
