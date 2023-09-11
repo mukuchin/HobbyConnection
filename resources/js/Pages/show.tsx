@@ -14,7 +14,8 @@ interface ShowProps extends PageProps {
 
 export default function show({ auth, article, article_user }: ShowProps) {
     const isLoggedIn = auth && auth.user !== null;
-    const { title, period_start, period_end, description } = article;
+    const { title, period_start, period_end, description, sub_form_data } =
+        article;
     const { name } = article_user;
 
     return (
@@ -44,6 +45,14 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             </p>
                             {/* 概要 */}
                             <p className="mb-4">{description}</p>
+                            {/* サブフォームの表示。サブフォームが空ではない時にのみリスト形式で表示する。 */}
+                            {sub_form_data.length > 0 && (
+                                <ul>
+                                    {sub_form_data.map((data, index) => (
+                                        <li key={index}>{data}</li>
+                                    ))}
+                                </ul>
+                            )}
                             {/* TOPページに戻る */}
                             <a
                                 href="/"

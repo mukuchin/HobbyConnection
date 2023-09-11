@@ -132,7 +132,18 @@ class ArticlesController extends Controller
     // 記事の閲覧
     public function show(Article $article)
     {
-        // ユーザーIDからユーザー名を取得
+        // Articleインスタンスから記事と関連するPostデータを取得。
+        foreach ($article->posts as $post) {
+            $articleWithPosts[] = $post->comment;
+        }
+
+        // サブフォームのデータが空の場合、空の配列を代入。
+        if (empty($articleWithPosts)) {
+            $articleWithPosts[] = '';
+        }
+        $article['sub_form_data'] = $articleWithPosts;
+
+        // ユーザー名を取得
         $user = User::where('id', $article->user_id)->first();
         return Inertia::render('show', [
             'article' => $article,
