@@ -17,14 +17,14 @@ interface MainFormHook {
     handleChangeInput: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
-    handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
     handleChangeSubFormInput: (
-        e: React.ChangeEvent<HTMLInputElement>,
+        e: React.ChangeEvent<HTMLTextAreaElement>,
         index: number
     ) => void;
+    handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export function useMainForm(
+export function useArticleForm(
     values: MainFormValues,
     setValues: React.Dispatch<React.SetStateAction<MainFormValues>>,
     endpoint: string // フォームデータを送信するエンドポイント
@@ -40,7 +40,7 @@ export function useMainForm(
 
     // サブフォームの入力値を変更する関数
     const handleChangeSubFormInput = (
-        e: ChangeEvent<HTMLInputElement>,
+        e: ChangeEvent<HTMLTextAreaElement>,
         index: number
     ) => {
         const newSubFormData = [...values.sub_form_data];

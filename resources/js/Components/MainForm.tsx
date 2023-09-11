@@ -2,7 +2,8 @@
 
 import React from "react";
 import { usePage } from "@inertiajs/react";
-import { MainFormValues } from "../Hooks/useMainForm";
+import { MainFormValues } from "../Hooks/useArticleForm";
+import SubForm from "./SubForm";
 
 // このコンポーネントで使用するpropsの型定義
 interface MainFormProps {
@@ -19,7 +20,7 @@ interface MainFormProps {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     setValues: React.Dispatch<React.SetStateAction<MainFormValues>>;
     handleChangeSubFormInput: (
-        e: React.ChangeEvent<HTMLInputElement>,
+        e: React.ChangeEvent<HTMLTextAreaElement>,
         index: number
     ) => void;
 }
@@ -114,36 +115,31 @@ const MainForm: React.FC<MainFormProps> = ({
                 )}
             </div>
             {/* 投稿（サブフォーム） */}
-            {values.sub_form_data.map((data, index) => (
-                <div key={index} className="form-group">
-                    <label htmlFor={`sub_form_data_${index}`}>
-                        投稿 {index + 1}
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id={`sub_form_data_${index}`}
-                        name={`sub_form_data_${index}`}
-                        value={data}
-                        onChange={(e) => handleChangeSubFormInput(e, index)}
+            <div className="p-6 text-gray-900">
+                <h1 className="font-bold text-3xl mb-4">投稿</h1>
+                {values.sub_form_data.map((data, index) => (
+                    <SubForm
+                        key={index}
+                        data={data}
+                        index={index}
+                        handleChange={handleChangeSubFormInput}
                     />
-                    {/* エラーメッセージ */}
-                    {errors.sub_form_data && (
-                        <p className="text-red-500 text-xs mt-1">
-                            {errors.sub_form_data}
-                        </p>
-                    )}
-                </div>
-            ))}
+                ))}
 
-            <button type="button" onClick={addSubForm}>
-                投稿を追加
-            </button>
+                <button
+                    type="button"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                    onClick={addSubForm}
+                >
+                    投稿を追加
+                </button>
+            </div>
+
             <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
             >
-                保存
+                記事を保存
             </button>
         </form>
     );

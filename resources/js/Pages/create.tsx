@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
-import { useMainForm } from "@/Hooks/useMainForm";
+import { useArticleForm } from "@/Hooks/useArticleForm";
 
 export default function create({ auth }: PageProps) {
     // 各値の初期値は、空文字列
@@ -19,7 +19,7 @@ export default function create({ auth }: PageProps) {
 
     // カスタムフック
     const { handleChangeInput, handleSubmit, handleChangeSubFormInput } =
-        useMainForm(values, setValues, "/posts");
+        useArticleForm(values, setValues, "/posts");
 
     return (
         <>
