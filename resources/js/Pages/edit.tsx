@@ -23,7 +23,7 @@ export default function edit({ auth, article }: EditProps) {
         period_start,
         period_end,
         description,
-        sub_form_data: sub_form_data || [""], // サブフォームが空の記事の場合は、空の配列を渡す
+        sub_form_data: sub_form_data || [""], // サブフォームのデータを配列として管理
     });
 
     // カスタムフック

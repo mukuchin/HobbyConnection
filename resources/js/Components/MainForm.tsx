@@ -33,6 +33,10 @@ const MainForm: React.FC<MainFormProps> = ({
     setValues,
     handleChangeSubFormInput,
 }) => {
+    // valuesを分割代入
+    const { title, period_start, period_end, description, sub_form_data } =
+        values;
+
     // バリデーションエラーを取得
     const { errors } = usePage().props;
 
@@ -52,7 +56,7 @@ const MainForm: React.FC<MainFormProps> = ({
                     className="form-control"
                     id="title"
                     name="title"
-                    value={values.title}
+                    value={title}
                     onChange={handleChangeInput}
                 />
                 {/* エラーメッセージ */}
@@ -68,7 +72,7 @@ const MainForm: React.FC<MainFormProps> = ({
                     className="form-control"
                     id="period_start"
                     name="period_start"
-                    value={values.period_start}
+                    value={period_start}
                     onChange={handleChangeInput}
                 />
                 {/* エラーメッセージ */}
@@ -86,7 +90,7 @@ const MainForm: React.FC<MainFormProps> = ({
                     className="form-control"
                     id="period_end"
                     name="period_end"
-                    value={values.period_end}
+                    value={period_end}
                     onChange={handleChangeInput}
                 />
                 {/* エラーメッセージ */}
@@ -104,7 +108,7 @@ const MainForm: React.FC<MainFormProps> = ({
                     id="description"
                     name="description"
                     rows={3}
-                    value={values.description}
+                    value={description}
                     onChange={handleChangeInput}
                 ></textarea>
                 {/* エラーメッセージ */}
