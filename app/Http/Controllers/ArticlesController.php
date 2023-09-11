@@ -80,6 +80,11 @@ class ArticlesController extends Controller
         foreach ($article->posts as $post) {
             $articleWithPosts[] = $post->comment;
         }
+
+        // サブフォームのデータが空の場合、空の配列を代入。
+        if (empty($articleWithPosts)) {
+            $articleWithPosts[] = '';
+        }
         $article['sub_form_data'] = $articleWithPosts;
 
         // Articleインスタンスから記事を取得。
@@ -104,7 +109,8 @@ class ArticlesController extends Controller
 
         // サブフォームのデータをpostsテーブルに保存
         foreach ($request->sub_form_data as $index => $data) {
-            if (!empty($data)) {  // サブフォームの入力が空でない場合のみ保存
+            // サブフォームの入力が空でない場合のみ保存
+            if (!empty($data)) { 
                 $post = new Post;
                 $post->user_id = Auth::id();
                 $post->article_id = $article->id;
@@ -120,7 +126,6 @@ class ArticlesController extends Controller
     // 投稿した記事の削除
     public function destroy(Article $article)
     {
-        // 記事を物理削除
         $article->forceDelete();
     }
 

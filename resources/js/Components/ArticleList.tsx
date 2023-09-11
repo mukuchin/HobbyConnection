@@ -3,7 +3,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
-import { useDeleteArticle } from "@/Hooks/useDeleteArticle";
+import { useDeleteMyArticle } from "@/Hooks/useDeleteMyArticle";
 
 // このコンポーネントで使用するpropsの型定義
 interface ArticleListProps {
@@ -18,7 +18,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
 }: ArticleListProps) => {
     const { id, title, period_start, period_end, description, user } = article;
     const { name } = user;
-    const { confirmDelete } = useDeleteArticle(id);
+    const { confirmDelete } = useDeleteMyArticle(id);
 
     return (
         <div className="py-12">

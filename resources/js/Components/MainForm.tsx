@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePage } from "@inertiajs/react";
-import { MainFormValues } from "../Hooks/useArticleForm";
+import { FormValues, useAddDeleteSubForm } from "../Hooks/useArticleForm";
 import SubForm from "./SubForm";
 
 // このコンポーネントで使用するpropsの型定義
@@ -18,7 +18,7 @@ interface MainFormProps {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    setValues: React.Dispatch<React.SetStateAction<MainFormValues>>;
+    setValues: React.Dispatch<React.SetStateAction<FormValues>>;
     handleChangeSubFormInput: (
         e: React.ChangeEvent<HTMLTextAreaElement>,
         index: number
@@ -34,17 +34,13 @@ const MainForm: React.FC<MainFormProps> = ({
     handleChangeSubFormInput,
 }) => {
     // valuesを分割代入
-    const { title, period_start, period_end, description, sub_form_data } =
-        values;
+    const { title, period_start, period_end, description } = values;
 
     // バリデーションエラーを取得
     const { errors } = usePage().props;
 
-    // サブフォームを追加する関数
-    const addSubForm = () => {
-        const newSubFormData = [...values.sub_form_data, ""];
-        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
-    };
+    // サブフォームの追加・削除を行うカスタムフック
+    const { addSubForm } = useAddDeleteSubForm(values, setValues);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -127,6 +123,8 @@ const MainForm: React.FC<MainFormProps> = ({
                         data={data}
                         index={index}
                         handleChange={handleChangeSubFormInput}
+                        values={values}
+                        setValues={setValues}
                     />
                 ))}
 
