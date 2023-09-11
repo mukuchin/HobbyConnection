@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
-import { useMainForm } from "@/Hooks/useMainForm";
+import { useArticleForm } from "@/Hooks/useArticleForm";
 import { ArticleItems } from "@/types/ArticleProps";
 
 // Propsの型定義
@@ -14,7 +14,8 @@ interface EditProps extends PageProps {
 }
 
 export default function edit({ auth, article }: EditProps) {
-    const { id, title, period_start, period_end, description } = article;
+    const { id, title, period_start, period_end, description, sub_form_data } =
+        article;
 
     // 各値の設定。初期値は、記事投稿ページから渡された値
     const [values, setValues] = useState({
@@ -22,14 +23,12 @@ export default function edit({ auth, article }: EditProps) {
         period_start,
         period_end,
         description,
+        sub_form_data: sub_form_data || [""], // サブフォームが空の記事の場合は、空の配列を渡す
     });
 
     // カスタムフック
-    const { handleChangeInput, handleSubmit } = useMainForm(
-        values,
-        setValues,
-        `/posts/${id}`
-    );
+    const { handleChangeInput, handleSubmit, handleChangeSubFormInput } =
+        useArticleForm(values, setValues, `/posts/${id}`);
 
     return (
         <>
@@ -57,6 +56,10 @@ export default function edit({ auth, article }: EditProps) {
                                                 handleChangeInput
                                             }
                                             handleSubmit={handleSubmit}
+                                            setValues={setValues}
+                                            handleChangeSubFormInput={
+                                                handleChangeSubFormInput
+                                            }
                                         />
                                     </div>
                                 </div>
