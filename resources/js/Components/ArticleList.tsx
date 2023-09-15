@@ -16,7 +16,8 @@ const ArticleList: React.FC<ArticleListProps> = ({
     article,
     isMyPage,
 }: ArticleListProps) => {
-    const { id, title, period_start, period_end, description, user } = article;
+    const { id, title, description, image_top, user, created_at, updated_at } =
+        article;
     const { name } = user;
     const { confirmDelete } = useDeleteMyArticle(id);
 
@@ -34,9 +35,21 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             </Link>
                             <p className="text-sm">投稿者：{name}</p>
                             <p className="text-sm">
-                                期間：{period_start} 〜 {period_end}
+                                作成日時：{created_at.slice(0, 10)}
+                            </p>
+                            <p className="text-sm">
+                                更新日時：{updated_at.slice(0, 10)}
                             </p>
                             <p className="text-sm">概要：{description}</p>
+                            {/* 画像がある記事のみ画像を表示する。 */}
+                            {image_top && (
+                                <img
+                                    src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
+                                    alt="TOP画像"
+                                    className="mb-4"
+                                    width="200"
+                                />
+                            )}
                         </div>
                         {/* マイページで使用する際は、編集ボタンと削除ボタンを表示する。 */}
                         {isMyPage && (

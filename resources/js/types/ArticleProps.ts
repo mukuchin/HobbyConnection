@@ -8,6 +8,8 @@ export type ArticleItems = {
     image_top: string;
     sub_form_data: string[];
     user: ArticleUser;
+    created_at: string;
+    updated_at: string;
 };
 
 // 記事を投稿したユーザーの型
