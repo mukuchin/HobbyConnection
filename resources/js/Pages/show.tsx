@@ -14,8 +14,14 @@ interface ShowProps extends PageProps {
 
 export default function show({ auth, article, article_user }: ShowProps) {
     const isLoggedIn = auth && auth.user !== null;
-    const { title, period_start, period_end, description, sub_form_data } =
-        article;
+    const {
+        title,
+        period_start,
+        period_end,
+        description,
+        image_top,
+        sub_form_data,
+    } = article;
     const { name } = article_user;
 
     return (
@@ -43,6 +49,12 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             <p className="mb-4">
                                 {period_start} 〜 {period_end}
                             </p>
+                            {/* TOP画像。S3に保存した画像を表示する。 */}
+                            <img
+                                src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
+                                alt="TOP画像"
+                                className="mb-4"
+                            />
                             {/* 概要 */}
                             <p className="mb-4">{description}</p>
                             {/* サブフォームの表示。サブフォームが空ではない時にのみリスト形式で表示する。 */}

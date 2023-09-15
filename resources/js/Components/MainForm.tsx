@@ -114,6 +114,20 @@ const MainForm: React.FC<MainFormProps> = ({
                     </p>
                 )}
             </div>
+            {/* 記事TOP画像 */}
+            <div className="form-group">
+                <label htmlFor="image">記事TOP画像</label>
+                <input
+                    type="file"
+                    className="form-control"
+                    id="image"
+                    name="image"
+                />
+                {/* エラーメッセージ */}
+                {errors.image && (
+                    <p className="text-red-500 text-xs mt-1">{errors.image}</p>
+                )}
+            </div>
             {/* 投稿（サブフォーム） */}
             <div className="p-6 text-gray-900">
                 <h1 className="font-bold text-3xl mb-4">投稿</h1>
