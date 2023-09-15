@@ -21,6 +21,8 @@ export default function show({ auth, article, article_user }: ShowProps) {
         description,
         image_top,
         sub_form_data,
+        created_at,
+        updated_at,
     } = article;
     const { name } = article_user;
 
@@ -45,24 +47,41 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             <h1 className="font-bold text-3xl mb-4">{title}</h1>
                             {/* ユーザー名 */}
                             <p className="mb-4">投稿者：{name}</p>
+                            {/* 投稿日時 */}
+                            <p className="mb-4">
+                                作成日時：{created_at.slice(0, 10)}
+                            </p>
+                            {/* 更新日時 */}
+                            <p className="mb-4">
+                                更新日時：{updated_at.slice(0, 10)}
+                            </p>
                             {/* 期間 */}
                             <p className="mb-4">
-                                {period_start} 〜 {period_end}
+                                期間：{period_start} 〜 {period_end}
                             </p>
-                            {/* TOP画像。S3に保存した画像を表示する。 */}
-                            <img
-                                src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
-                                alt="TOP画像"
-                                className="mb-4"
-                            />
+                            {/* TOP画像。S3に保存した画像を表示する。画像がある場合のみ表示する。 */}
+                            {image_top && (
+                                <img
+                                    src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
+                                    alt="TOP画像"
+                                    className="mb-4"
+                                    width="200"
+                                />
+                            )}
                             {/* 概要 */}
                             <p className="mb-4">{description}</p>
                             {/* サブフォームの表示。サブフォームが空ではない時にのみリスト形式で表示する。 */}
-                            {sub_form_data.length > 0 && (
+                            {sub_form_data && (
                                 <ul>
-                                    {sub_form_data.map((data, index) => (
-                                        <li key={index}>{data}</li>
-                                    ))}
+                                    {sub_form_data.map(
+                                        (data, index) =>
+                                            // サブフォームのデータが無いときは、何も表示しない。
+                                            data && (
+                                                <li key={index}>
+                                                    [{index + 1}] {data}
+                                                </li>
+                                            )
+                                    )}
                                 </ul>
                             )}
                             {/* TOPページに戻る */}
