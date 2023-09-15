@@ -49,6 +49,7 @@ class ArticlesController extends Controller
     // 記事の保存
     public function store(BlogRequest $request)
     {
+        // dd($request->all());
         // バリデーションを通過したらメインフォームとサブフォームを保存
         $article = new Article;
         $article->user_id = Auth::id();
@@ -56,7 +57,13 @@ class ArticlesController extends Controller
         $article->period_start = $request->period_start;
         $article->period_end = $request->period_end;
         $article->description = $request->description;
+        // Amazon S3のバケットに画像を保存
+        $article->image_top = $request->file('image')->store('top_images', 's3');
+        // dd($request);
         $article->save();
+
+        // dd($article);
+        // dd($request->sub_form_data);
 
         // サブフォームのデータをpostsテーブルに保存
         foreach ($request->sub_form_data as $index => $data) {

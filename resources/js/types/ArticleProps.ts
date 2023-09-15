@@ -5,6 +5,7 @@ export type ArticleItems = {
     period_start: string;
     period_end: string;
     description: string;
+    image_top: string;
     sub_form_data: string[];
     user: ArticleUser;
 };
