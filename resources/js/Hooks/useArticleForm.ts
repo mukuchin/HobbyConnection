@@ -9,6 +9,7 @@ export interface FormValues {
     period_start: string;
     period_end: string;
     description: string;
+    image?: string | ArrayBuffer | null;
     sub_form_data: string[];
 }
 
@@ -35,6 +36,7 @@ export function useArticleForm(
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string // フォームデータを送信するエンドポイント
 ): MainFormHook {
+    // フォームの入力値を変更する関数
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index?: number
@@ -42,10 +44,28 @@ export function useArticleForm(
         const key = e.target.name;
         const value = e.target.value;
 
+        // サブフォームの入力値を変更する場合
         if (key.startsWith("sub_form_data") && typeof index === "number") {
             const newSubFormData = [...values.sub_form_data];
             newSubFormData[index] = value;
             setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
+        }
+        // 画像ファイルを変更する場合
+        else if (key === "image" && e.target instanceof HTMLInputElement) {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const target = event.target as FileReader;
+                    if (typeof target.result === "string") {
+                        setValues((prev) => ({
+                            ...prev,
+                            image: target.result,
+                        }));
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
         } else {
             setValues((prev) => ({ ...prev, [key]: value }));
         }
@@ -60,7 +80,6 @@ export function useArticleForm(
                 visit.headers["Content-Type"] = "multipart/form-data";
             },
         });
-        console.log([...formData.entries()]);
     };
 
     return {
