@@ -49,7 +49,6 @@ class ArticlesController extends Controller
     // 記事の保存
     public function store(BlogRequest $request)
     {
-        // dd($request->all());
         // バリデーションを通過したらメインフォームとサブフォームを保存
         $article = new Article;
         $article->user_id = Auth::id();
@@ -57,13 +56,12 @@ class ArticlesController extends Controller
         $article->period_start = $request->period_start;
         $article->period_end = $request->period_end;
         $article->description = $request->description;
-        // Amazon S3のバケットに画像を保存
-        $article->image_top = $request->file('image')->store('top_images', 's3');
-        // dd($request);
+        // Amazon S3のバケットに画像を保存。ただし、画像がない場合は保存しない。
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('top_images', 's3');
+            $article->image_top = $path;
+        }
         $article->save();
-
-        // dd($article);
-        // dd($request->sub_form_data);
 
         // サブフォームのデータをpostsテーブルに保存
         foreach ($request->sub_form_data as $index => $data) {
@@ -77,7 +75,7 @@ class ArticlesController extends Controller
             }
         }
 
-        return to_route('show', ['article' => $article->id]);
+        return redirect()->route('show', ['article' => $article->id]);
     }
     
     // 記事編集ページ
@@ -104,20 +102,29 @@ class ArticlesController extends Controller
     // 投稿した記事の更新
     public function update(BlogRequest $request, Article $article)
     {
+        // $requestDataにリクエストパラメータを代入
+        $requestData = $request->all();
+
         // バリデーションを通過したらメインフォームを更新
-        $article->title = $request->title;
-        $article->period_start = $request->period_start;
-        $article->period_end = $request->period_end;
-        $article->description = $request->description;
+        $article->title = $requestData['title'];
+        $article->period_start = $requestData['period_start'];
+        $article->period_end = $requestData['period_end'];
+        $article->description = $requestData['description'];
+        // Amazon S3のバケットに画像を保存。ただし、画像が選択されていない場合は保存されている画像を削除する。
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('top_images', 's3');
+            $article->image_top = $path;
+        } else {
+            $article->image_top = null;
+        }
         $article->save();
 
         // postsテーブルのデータを削除
         Post::where('article_id', $article->id)->delete();
 
         // サブフォームのデータをpostsテーブルに保存
-        foreach ($request->sub_form_data as $index => $data) {
-            // サブフォームの入力が空でない場合のみ保存
-            if (!empty($data)) { 
+        foreach ($requestData['sub_form_data'] as $index => $data) {
+            if (!empty($data)) {
                 $post = new Post;
                 $post->user_id = Auth::id();
                 $post->article_id = $article->id;
@@ -125,9 +132,9 @@ class ArticlesController extends Controller
                 $post->post_num = $index + 1;
                 $post->save();
             }
-        }
+        }        
 
-        return to_route('show', ['article' => $article->id]);
+        return redirect()->route('show', ['article' => $article->id]);
     }
 
     // 投稿した記事の削除

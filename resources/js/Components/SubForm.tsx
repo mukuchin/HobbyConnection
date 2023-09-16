@@ -38,7 +38,7 @@ const SubForm: React.FC<SubFormProps> = ({
             <textarea
                 className="form-control"
                 id={`sub_form_data_${index}`}
-                name={`sub_form_data_${index}`}
+                name={`sub_form_data[${index}]`}
                 value={data}
                 onChange={(e) => handleChange(e, index)}
             ></textarea>
@@ -48,7 +48,7 @@ const SubForm: React.FC<SubFormProps> = ({
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 onClick={() => deleteSubForm(index)}
             >
-                削除
+                投稿 {index + 1} を削除
             </button>
         </div>
     );
