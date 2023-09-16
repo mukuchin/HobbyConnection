@@ -30,64 +30,69 @@ interface SubFormHook {
     deleteSubForm: (index: number) => void;
 }
 
+// フォーム入力・送信のカスタムフック
 export function useArticleForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string // フォームデータを送信するエンドポイント
 ): MainFormHook {
-    // メインフォームの入力値を変更する関数
-    const handleChangeInput = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    // フォームの入力値を変更する関数
+    const handleChange = (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        index?: number
     ) => {
         const key = e.target.name;
         const value = e.target.value;
-        setValues((prev) => ({ ...prev, [key]: value }));
-    };
 
-    // サブフォームの入力値を変更する関数
-    const handleChangeSubFormInput = (
-        e: ChangeEvent<HTMLTextAreaElement>,
-        index: number
-    ) => {
-        const newSubFormData = [...values.sub_form_data];
-        newSubFormData[index] = e.target.value;
-        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
-    };
-
-    // メインフォームを送信する関数
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        // FormData オブジェクトのインスタンスを作成
-        const formData = new FormData(e.currentTarget);
-
-        // フォームデータを送信する
-        if (endpoint.startsWith("/posts/")) {
-            // 記事編集ページの場合
-            router.post(endpoint, formData, {
-                onBefore: (visit) => {
-                    visit.headers["Content-Type"] = "multipart/form-data";
-                },
-            });
-            console.log([...formData.entries()]);
+        if (key.startsWith("sub_form_data") && typeof index === "number") {
+            const newSubFormData = [...values.sub_form_data];
+            newSubFormData[index] = value;
+            setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
         } else {
-            // 記事投稿ページの場合
-            router.post(endpoint, formData, {
-                onBefore: (visit) => {
-                    visit.headers["Content-Type"] = "multipart/form-data";
-                },
-            });
-            console.log([...formData.entries()]);
+            setValues((prev) => ({ ...prev, [key]: value }));
         }
     };
 
+    // フォームデータを送信する関数
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget); // ここでフォームの入力要素からFormDataを作成
+
+        // 既存のフォームデータを追加
+        for (const key in values) {
+            if (Object.prototype.hasOwnProperty.call(values, key)) {
+                if (
+                    key !== "sub_form_data" &&
+                    values[key as keyof FormValues]
+                ) {
+                    formData.set(
+                        key,
+                        values[key as keyof FormValues] as string
+                    ); // 既存のキーの値を上書き
+                }
+            }
+        }
+
+        // sub_form_data をJSON文字列としてエンコード
+        if (values.sub_form_data) {
+            formData.set("sub_form_data", JSON.stringify(values.sub_form_data)); // 既存のキーの値を上書き
+        }
+
+        router.post(endpoint, formData, {
+            onBefore: (visit) => {
+                visit.headers["Content-Type"] = "multipart/form-data";
+            },
+        });
+    };
+
     return {
-        handleChangeInput,
-        handleChangeSubFormInput,
+        handleChangeInput: handleChange,
+        handleChangeSubFormInput: handleChange,
         handleSubmit,
     };
 }
 
+// サブフォームの追加・削除のカスタムフック
 export function useAddDeleteSubForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>

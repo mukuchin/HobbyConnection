@@ -1,4 +1,4 @@
-// メインフォームコンポーネント
+// メインフォームのコンポーネント
 
 import React from "react";
 import { usePage } from "@inertiajs/react";
@@ -7,13 +7,7 @@ import SubForm from "./SubForm";
 
 // このコンポーネントで使用するpropsの型定義
 interface MainFormProps {
-    values: {
-        title: string;
-        period_start: string;
-        period_end: string;
-        description: string;
-        sub_form_data: string[];
-    };
+    values: FormValues;
     handleChangeInput: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
@@ -25,6 +19,45 @@ interface MainFormProps {
     ) => void;
 }
 
+// 入力フィールドをレンダリングするコンポーネント
+const InputField: React.FC<{
+    label: string;
+    type: string;
+    id: string;
+    name: string;
+    value: string;
+    onChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    errors: { [key: string]: string };
+}> = ({ label, type, id, name, value, onChange, errors }) => (
+    <div className="form-group">
+        <label htmlFor={id}>{label}</label>
+        {type === "textarea" ? (
+            <textarea
+                className="form-control"
+                id={id}
+                name={name}
+                value={value}
+                onChange={onChange}
+            ></textarea>
+        ) : (
+            <input
+                type={type}
+                className="form-control"
+                id={id}
+                name={name}
+                value={value}
+                onChange={onChange}
+            />
+        )}
+        {/* エラーメッセージ */}
+        {errors[name] && (
+            <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
+        )}
+    </div>
+);
+
 // メインフォーム
 const MainForm: React.FC<MainFormProps> = ({
     values,
@@ -33,101 +66,61 @@ const MainForm: React.FC<MainFormProps> = ({
     setValues,
     handleChangeSubFormInput,
 }) => {
-    // valuesを分割代入
-    const { title, period_start, period_end, description } = values;
-
-    // バリデーションエラーを取得
     const { errors } = usePage().props;
-
-    // サブフォームの追加・削除を行うカスタムフック
     const { addSubForm } = useAddDeleteSubForm(values, setValues);
 
     return (
         <form onSubmit={handleSubmit}>
             {/* タイトル */}
-            <div className="form-group">
-                <label htmlFor="title">タイトル</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="title"
-                    name="title"
-                    value={title}
-                    onChange={handleChangeInput}
-                />
-                {/* エラーメッセージ */}
-                {errors.title && (
-                    <p className="text-red-500 text-xs mt-1">{errors.title}</p>
-                )}
-            </div>
+            <InputField
+                label="タイトル"
+                type="text"
+                id="title"
+                name="title"
+                value={values.title}
+                onChange={handleChangeInput}
+                errors={errors}
+            />
             {/*  開始日 */}
-            <div className="form-group">
-                <label htmlFor="period_start">開始日</label>
-                <input
-                    type="date"
-                    className="form-control"
-                    id="period_start"
-                    name="period_start"
-                    value={period_start}
-                    onChange={handleChangeInput}
-                />
-                {/* エラーメッセージ */}
-                {errors.period_start && (
-                    <p className="text-red-500 text-xs mt-1">
-                        {errors.period_start}
-                    </p>
-                )}
-            </div>
+            <InputField
+                label="開始日"
+                type="date"
+                id="period_start"
+                name="period_start"
+                value={values.period_start}
+                onChange={handleChangeInput}
+                errors={errors}
+            />
             {/* 終了日 */}
-            <div className="form-group">
-                <label htmlFor="period_end">終了日</label>
-                <input
-                    type="date"
-                    className="form-control"
-                    id="period_end"
-                    name="period_end"
-                    value={period_end}
-                    onChange={handleChangeInput}
-                />
-                {/* エラーメッセージ */}
-                {errors.period_end && (
-                    <p className="text-red-500 text-xs mt-1">
-                        {errors.period_end}
-                    </p>
-                )}
-            </div>
+            <InputField
+                label="終了日"
+                type="date"
+                id="period_end"
+                name="period_end"
+                value={values.period_end}
+                onChange={handleChangeInput}
+                errors={errors}
+            />
             {/* 概要 */}
-            <div className="form-group">
-                <label htmlFor="description">概要</label>
-                <textarea
-                    className="form-control"
-                    id="description"
-                    name="description"
-                    rows={3}
-                    value={description}
-                    onChange={handleChangeInput}
-                ></textarea>
-                {/* エラーメッセージ */}
-                {errors.description && (
-                    <p className="text-red-500 text-xs mt-1">
-                        {errors.description}
-                    </p>
-                )}
-            </div>
+            <InputField
+                label="概要"
+                type="textarea"
+                id="description"
+                name="description"
+                value={values.description}
+                onChange={handleChangeInput}
+                errors={errors}
+            />
             {/* 記事TOP画像 */}
-            <div className="form-group">
-                <label htmlFor="image">記事TOP画像</label>
-                <input
-                    type="file"
-                    className="form-control"
-                    id="image"
-                    name="image"
-                />
-                {/* エラーメッセージ */}
-                {errors.image && (
-                    <p className="text-red-500 text-xs mt-1">{errors.image}</p>
-                )}
-            </div>
+            <InputField
+                label="記事TOP画像"
+                type="file"
+                id="image"
+                name="image"
+                value=""
+                onChange={handleChangeInput}
+                errors={errors}
+            />
             {/* 投稿（サブフォーム） */}
             <div className="p-6 text-gray-900">
                 <h1 className="font-bold text-3xl mb-4">投稿</h1>
@@ -141,7 +134,6 @@ const MainForm: React.FC<MainFormProps> = ({
                         setValues={setValues}
                     />
                 ))}
-
                 <button
                     type="button"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
@@ -150,7 +142,6 @@ const MainForm: React.FC<MainFormProps> = ({
                     投稿を追加
                 </button>
             </div>
-
             <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
