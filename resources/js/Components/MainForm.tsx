@@ -122,6 +122,17 @@ const MainForm: React.FC<MainFormProps> = ({
                 onChange={handleChangeInput}
                 errors={errors}
             />
+            {/* 記事TOP画像のプレビュー */}
+            {values.image && (
+                <div className="mb-4">
+                    <img
+                        src={
+                            typeof values.image === "string" ? values.image : ""
+                        }
+                        alt="プレビュー画像"
+                    />
+                </div>
+            )}
             {/* 記事TOP画像 */}
             <InputField
                 label="記事TOP画像"
