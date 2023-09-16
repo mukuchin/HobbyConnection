@@ -30,13 +30,11 @@ interface SubFormHook {
     deleteSubForm: (index: number) => void;
 }
 
-// フォーム入力・送信のカスタムフック
 export function useArticleForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string // フォームデータを送信するエンドポイント
 ): MainFormHook {
-    // フォームの入力値を変更する関数
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index?: number
@@ -56,33 +54,13 @@ export function useArticleForm(
     // フォームデータを送信する関数
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget); // ここでフォームの入力要素からFormDataを作成
-
-        // 既存のフォームデータを追加
-        for (const key in values) {
-            if (Object.prototype.hasOwnProperty.call(values, key)) {
-                if (
-                    key !== "sub_form_data" &&
-                    values[key as keyof FormValues]
-                ) {
-                    formData.set(
-                        key,
-                        values[key as keyof FormValues] as string
-                    ); // 既存のキーの値を上書き
-                }
-            }
-        }
-
-        // sub_form_data をJSON文字列としてエンコード
-        if (values.sub_form_data) {
-            formData.set("sub_form_data", JSON.stringify(values.sub_form_data)); // 既存のキーの値を上書き
-        }
-
+        const formData = new FormData(e.currentTarget);
         router.post(endpoint, formData, {
             onBefore: (visit) => {
                 visit.headers["Content-Type"] = "multipart/form-data";
             },
         });
+        console.log([...formData.entries()]);
     };
 
     return {
