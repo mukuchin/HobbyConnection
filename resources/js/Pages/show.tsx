@@ -55,17 +55,21 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             <p className="mb-4">
                                 更新日時：{updated_at.slice(0, 10)}
                             </p>
-                            {/* 期間 */}
-                            <p className="mb-4">
-                                期間：{period_start} 〜 {period_end}
-                            </p>
+                            {/* 期間。開始日または終了日がある場合のみ表示する。 */}
+                            {(period_start || period_end) && (
+                                <p className="mb-4">
+                                    期間：
+                                    {period_start && period_start.slice(0, 10)}
+                                    〜{period_end && period_end.slice(0, 10)}
+                                </p>
+                            )}
                             {/* TOP画像。S3に保存した画像を表示する。画像がある場合のみ表示する。 */}
                             {image_top && (
                                 <img
                                     src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
                                     alt="TOP画像"
                                     className="mb-4"
-                                    width="200"
+                                    width="1000"
                                 />
                             )}
                             {/* 概要 */}

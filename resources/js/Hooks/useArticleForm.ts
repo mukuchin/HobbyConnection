@@ -61,24 +61,15 @@ export function useArticleForm(
         // FormData オブジェクトのインスタンスを作成
         const formData = new FormData(e.currentTarget);
 
-        formData.append("title", values.title);
-        formData.append("period_start", values.period_start);
-        formData.append("period_end", values.period_end);
-        formData.append("description", values.description);
-
-        // サブフォームのデータをFormDataオブジェクトに追加
-        values.sub_form_data.forEach((data, index) => {
-            formData.append(`sub_form_data[${index}]`, data);
-        });
-
         // フォームデータを送信する
         if (endpoint.startsWith("/posts/")) {
             // 記事編集ページの場合
-            router.put(endpoint, formData, {
+            router.post(endpoint, formData, {
                 onBefore: (visit) => {
                     visit.headers["Content-Type"] = "multipart/form-data";
                 },
             });
+            console.log([...formData.entries()]);
         } else {
             // 記事投稿ページの場合
             router.post(endpoint, formData, {
@@ -86,8 +77,8 @@ export function useArticleForm(
                     visit.headers["Content-Type"] = "multipart/form-data";
                 },
             });
+            console.log([...formData.entries()]);
         }
-        console.log(formData);
     };
 
     return {

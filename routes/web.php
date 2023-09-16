@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     // 記事の編集・更新・削除
     // ルートポリシーを使用して、記事の編集・更新・削除を投稿者のみに制限
     Route::get('/posts/{article}/edit', [ArticlesController::class, 'edit'])->name('edit')->middleware('can:update,article'); //記事の編集
-    Route::put('/posts/{article}', [ArticlesController::class, 'update'])->name('update')->middleware('can:update,article'); //記事の更新処理
+    Route::post('/posts/{article}', [ArticlesController::class, 'update'])->name('update')->middleware('can:update,article'); //記事の更新処理。putメソッドを使用すると、リクエストパラメータが空になるためpostメソッドを使用。
     Route::delete('/posts/{article}', [ArticlesController::class, 'destroy'])->name('destroy')->middleware('can:delete,article'); //記事の削除処理
 
     // プロフィール編集
