@@ -29,11 +29,12 @@ const InputField: React.FC<{
     onChange: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
-    errors: { [key: string]: string };
+    errors: any;
 }> = ({ label, type, id, name, value, onChange, errors }) => (
     <div className="form-group">
         <label htmlFor={id}>{label}</label>
         {type === "textarea" ? (
+            // テキストエリアの場合
             <textarea
                 className="form-control"
                 id={id}
@@ -41,7 +42,17 @@ const InputField: React.FC<{
                 value={value}
                 onChange={onChange}
             ></textarea>
+        ) : type === "file" ? (
+            // ファイルの場合
+            <input
+                type={type}
+                className="form-control"
+                id={id}
+                name={name}
+                onChange={onChange}
+            />
         ) : (
+            // その他の場合
             <input
                 type={type}
                 className="form-control"
