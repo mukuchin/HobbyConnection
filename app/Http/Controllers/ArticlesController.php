@@ -131,14 +131,11 @@ class ArticlesController extends Controller
         $article->period_start = $requestData['period_start'];
         $article->period_end = $requestData['period_end'];
         $article->description = $requestData['description'];
-         // Amazon S3のバケットに画像を保存
+         // Amazon S3のバケットに画像を保存。ただし、画像がない場合は一度保存した画像を削除。
         if ($request->hasFile('image')) {
+            Storage::disk('s3')->delete($article->image_top); // S3から画像を削除
             $path = $request->file('image')->store('top_images', 's3');
             $article->image_top = $path;
-        } else {
-            // 画像が選択されていない場合、画像のパスをnullに設定
-            Storage::disk('s3')->delete($article->image_top); // S3から画像を削除
-            $article->image_top = null;
         }
         $article->save();
 

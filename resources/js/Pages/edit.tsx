@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
-import { useArticleForm } from "@/Hooks/useArticleForm";
+import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
 import { ArticleItems } from "@/types/ArticleProps";
 
 // Propsの型定義
@@ -14,21 +14,33 @@ interface EditProps extends PageProps {
 }
 
 export default function edit({ auth, article }: EditProps) {
-    const { id, title, period_start, period_end, description, sub_form_data } =
-        article;
-
-    // 各値の設定。初期値は、記事投稿ページから渡された値
-    const [values, setValues] = useState({
+    const {
+        id,
         title,
         period_start,
         period_end,
         description,
-        sub_form_data: sub_form_data || [""], // サブフォームのデータを配列として管理
+        sub_form_data,
+        image_top,
+    } = article;
+
+    // 各値の設定。初期値は、記事投稿ページから渡された値
+    const [values, setValues] = useState<FormValues>({
+        title,
+        period_start,
+        period_end,
+        description,
+        image: `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`,
+        sub_form_data: sub_form_data || [""],
     });
 
     // カスタムフック
-    const { handleChangeInput, handleSubmit, handleChangeSubFormInput } =
-        useArticleForm(values, setValues, `/posts/${id}`);
+    const {
+        handleChangeInput,
+        handleSubmit,
+        handleChangeSubFormInput,
+        cancelImagePreview,
+    } = useArticleForm(values, setValues, `/posts/${id}`);
 
     return (
         <>
@@ -59,6 +71,9 @@ export default function edit({ auth, article }: EditProps) {
                                             setValues={setValues}
                                             handleChangeSubFormInput={
                                                 handleChangeSubFormInput
+                                            }
+                                            cancelImagePreview={
+                                                cancelImagePreview
                                             }
                                         />
                                     </div>
