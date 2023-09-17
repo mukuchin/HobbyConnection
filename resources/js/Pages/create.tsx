@@ -18,8 +18,12 @@ export default function create({ auth }: PageProps) {
     });
 
     // カスタムフック
-    const { handleChangeInput, handleSubmit, handleChangeSubFormInput } =
-        useArticleForm(values, setValues, "/posts");
+    const {
+        handleChangeInput,
+        handleSubmit,
+        handleChangeSubFormInput,
+        cancelImagePreview,
+    } = useArticleForm(values, setValues, "/posts");
 
     return (
         <>
@@ -50,6 +54,9 @@ export default function create({ auth }: PageProps) {
                                             setValues={setValues}
                                             handleChangeSubFormInput={
                                                 handleChangeSubFormInput
+                                            }
+                                            cancelImagePreview={
+                                                cancelImagePreview
                                             }
                                         />
                                     </div>

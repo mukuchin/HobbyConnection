@@ -23,6 +23,7 @@ interface MainFormHook {
         index: number
     ) => void;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    cancelImagePreview: () => void;
 }
 
 // サブフォーム追加・削除のカスタムフックの返り値
@@ -71,6 +72,11 @@ export function useArticleForm(
         }
     };
 
+    // 画像のプレビューをキャンセルする関数
+    const cancelImagePreview = () => {
+        setValues((prev) => ({ ...prev, image: null }));
+    };
+
     // フォームデータを送信する関数
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -86,6 +92,7 @@ export function useArticleForm(
         handleChangeInput: handleChange,
         handleChangeSubFormInput: handleChange,
         handleSubmit,
+        cancelImagePreview,
     };
 }
 
