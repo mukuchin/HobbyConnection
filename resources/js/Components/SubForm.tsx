@@ -38,7 +38,7 @@ const SubForm: React.FC<SubFormProps> = ({
             <textarea
                 className="form-control"
                 id={`sub_form_data_${index}`}
-                name="sub_form_data"
+                name="sub_form_data[]"
                 value={data}
                 onChange={(e) => handleChange(e, index)}
             ></textarea>
