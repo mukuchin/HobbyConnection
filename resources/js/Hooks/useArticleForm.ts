@@ -10,7 +10,7 @@ export interface FormValues {
     period_end: string;
     description: string;
     image?: string | ArrayBuffer | null;
-    sub_form_data: string[];
+    sub_form_data: { id?: number | undefined; comment: string }[];
     delete_image?: string;
 }
 
@@ -49,7 +49,10 @@ export function useArticleForm(
         // サブフォームの入力値を変更する場合
         if (key.startsWith("sub_form_data") && typeof index === "number") {
             const newSubFormData = [...values.sub_form_data];
-            newSubFormData[index] = value;
+            newSubFormData[index] = {
+                ...newSubFormData[index],
+                comment: value,
+            };
             setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
         }
         // 画像ファイルを変更する場合
@@ -116,7 +119,10 @@ export function useAddDeleteSubForm(
 ): SubFormHook {
     // サブフォームを追加する関数
     const addSubForm = () => {
-        const newSubFormData = [...values.sub_form_data, ""];
+        const newSubFormData = [
+            ...values.sub_form_data,
+            { id: undefined, comment: "" },
+        ];
         setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
     };
 

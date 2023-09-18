@@ -4,41 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
 use Auth;
-use Illuminate\Support\Facades\Route;
 use App\Models\Article;
-use App\Models\Comment;
 use App\Models\Post;
-use App\Models\Tag;
 use App\Models\User;
 use App\Http\Requests\BlogRequest;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ArticlesController extends Controller
 {
-    //TOPページ
+    // TOPページ
     public function top()
     {
-        // 投稿された記事を全て取得
-        $articles = Article::with('user')->orderBy('updated_at', 'DESC')->paginate(5);
-
-        return Inertia::render('top', [
-            'article' => $articles,
-        ]);
+        $articles = Article::with('user')->latest('updated_at')->paginate(5);
+        return Inertia::render('top', ['article' => $articles]);
     }
 
     // マイページ
     public function mypage()
     {   
-        // 自分が投稿した記事を全て取得
-        $articles = Article::with('user')->where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->paginate(5);
-
-        return Inertia::render('mypage', [
-            'article' => $articles,
-        ]);
+        $articles = Article::with('user')->where('user_id', Auth::id())->latest('updated_at')->paginate(5);
+        return Inertia::render('mypage', ['article' => $articles]);
     }
 
     // 記事投稿ページ
@@ -47,77 +33,75 @@ class ArticlesController extends Controller
         return Inertia::render('create');
     }
 
-    // 記事の保存
+    // 記事の保存処理
     public function store(BlogRequest $request)
     {
-        $subFormData = $request->input('sub_form_data');
-
-        // バリデーションを通過したらメインフォームとサブフォームを保存
-        $article = new Article;
-        $article->user_id = Auth::id();
-        $article->title = $request->title;
-        $article->period_start = $request->period_start;
-        $article->period_end = $request->period_end;
-        $article->description = $request->description;
-        // Amazon S3のバケットに画像を保存。ただし、画像がない場合は保存しない。
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('top_images', 's3');
-            $article->image_top = $path;
-        }
-        $article->save();
-
-        // サブフォームのデータをpostsテーブルに保存
-        if ($subFormData && is_array($subFormData)) {
-            foreach ($subFormData as $index => $data) {
-                if (!empty($data)) {  // サブフォームの入力が空でない場合のみ保存
-                    $post = new Post;
-                    $post->user_id = Auth::id();
-                    $post->article_id = $article->id;
-                    $post->comment = $data;
-                    $post->post_num = $index + 1;
-                    $post->save();
-                }
-            }
-        } 
+        $article = $this->saveArticle($request);
+        $this->savePosts($request->input('sub_form_data'), $article->id);
         return redirect()->route('show', ['article' => $article->id]);
     }
     
     // 記事編集ページ
     public function edit(Article $article)
     {
-        // Articleインスタンスから記事と関連するPostデータを取得。
-        foreach ($article->posts as $post) {
-            $articleWithPosts[] = $post->comment;
-        }
-
-        // サブフォームのデータが空の場合、空の配列を代入。
-        if (empty($articleWithPosts)) {
-            $articleWithPosts[] = '';
-        }
-        $article['sub_form_data'] = $articleWithPosts;
-
-        // Articleインスタンスから記事を取得。
-        return Inertia::render('edit', [
-            'article' => $article
-        ]);
-
+        $article['sub_form_data'] = $this->getArticleWithPosts($article);
+        return Inertia::render('edit', ['article' => $article]);
     }
 
-    // 投稿した記事の更新
+    // 記事の更新処理
     public function update(BlogRequest $request, Article $article)
     {
-        // サブフォームのデータを取得
-        $subFormData = $request->input('sub_form_data');
+        $this->updateArticle($request, $article);
+        $this->updatePosts($request->input('sub_form_data'), $article->id);
+        return redirect()->route('show', ['article' => $article->id]);
+    }
 
-        // $requestDataにリクエストパラメータを代入
-        $requestData = $request->all();
+    // 記事の削除処理
+    public function destroy(Article $article)
+    {
+        $article->forceDelete();
+    }
 
-        // バリデーションを通過したらメインフォームを更新
-        $article->title = $requestData['title'];
-        $article->period_start = $requestData['period_start'];
-        $article->period_end = $requestData['period_end'];
-        $article->description = $requestData['description'];
-        // Amazon S3のバケットに画像を保存。ただし、画像がない場合は一度保存した画像を削除。
+    // 記事の閲覧ページ
+    public function show(Article $article)
+    {
+        $article['sub_form_data'] = $this->getArticleWithPosts($article);
+        $user = User::find($article->user_id);
+        return Inertia::render('show', ['article' => $article, 'article_user' => $user]);
+    }
+
+    // ------------------------------
+    // 以下、privateメソッド
+    // ------------------------------
+
+    // メインフォームの保存処理
+    private function saveArticle($request)
+    {
+        $article = new Article;
+        $article->fill([
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'period_start' => $request->period_start,
+            'period_end' => $request->period_end,
+            'description' => $request->description,
+        ]);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('top_images', 's3');
+            $article->image_top = $path;
+        }
+        $article->save();
+        return $article;
+    }
+
+    // メインフォームの更新処理
+    private function updateArticle($request, $article)
+    {
+        $article->fill([
+            'title' => $request->title,
+            'period_start' => $request->period_start,
+            'period_end' => $request->period_end,
+            'description' => $request->description,
+        ]);
         if ($request->hasFile('image')) {
             if ($article->image_top) {
                 Storage::disk('s3')->delete($article->image_top);
@@ -126,55 +110,73 @@ class ArticlesController extends Controller
             $article->image_top = $path;
         } elseif ($request->input('delete_image') === 'true') {
             Storage::disk('s3')->delete($article->image_top);
-            $article->image_top = null; // 画像のパスをnullに更新
+            $article->image_top = null;
         }
         $article->save();
+    }
 
-        // postsテーブルのデータを削除
-        Post::where('article_id', $article->id)->delete();
-
-        // サブフォームのデータをpostsテーブルに保存
+    // サブフォームの保存処理
+    private function savePosts($subFormData, $articleId)
+    {
         if ($subFormData && is_array($subFormData)) {
-            foreach ($subFormData as $index => $data) {
-                if (!empty($data)) {
+            foreach ($subFormData as $data) {
+                if (!empty($data['comment'])) {
                     $post = new Post;
-                    $post->user_id = Auth::id();
-                    $post->article_id = $article->id;
-                    $post->comment = $data;
-                    $post->post_num = $index + 1;
+                    $post->fill([
+                        'user_id' => Auth::id(),
+                        'article_id' => $articleId,
+                        'comment' => $data['comment'],
+                    ]);
                     $post->save();
                 }
             }
-        }        
-
-        return redirect()->route('show', ['article' => $article->id]);
+        }
     }
 
-    // 投稿した記事の削除
-    public function destroy(Article $article)
+    // サブフォームの更新処理
+    private function updatePosts($subFormData, $articleId)
     {
-        $article->forceDelete();
-    }
+        $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
 
-    // 記事の閲覧
-    public function show(Article $article)
+        foreach ($subFormData as $data) {
+            if (!empty($data['comment'])) {
+                if (isset($data['id']) && in_array($data['id'], $existingPostIds)) {
+                    // 既存のデータを更新
+                    $post = Post::find($data['id']);
+                    $post->comment = $data['comment'];
+                    $post->save();
+
+                    // 更新されたPostのIDを配列から削除
+                    $index = array_search($data['id'], $existingPostIds);
+                    if ($index !== false) {
+                        unset($existingPostIds[$index]);
+                    }
+                } else {
+                    // 新しいデータを挿入
+                    $post = new Post;
+                    $post->fill([
+                        'user_id' => Auth::id(),
+                        'article_id' => $articleId,
+                        'comment' => $data['comment'],
+                    ]);
+                    $post->save();
+                }
+            }
+        }
+
+        // 不要なPostを削除
+        Post::whereIn('id', $existingPostIds)->delete();
+    }
+    // メインフォームとサブフォームのデータを結合
+    private function getArticleWithPosts($article)
     {
-        // Articleインスタンスから記事と関連するPostデータを取得。
+        $articleWithPosts = [];
         foreach ($article->posts as $post) {
-            $articleWithPosts[] = $post->comment;
+            $articleWithPosts[] = [
+                'id' => $post->id,
+                'comment' => $post->comment,
+            ];
         }
-
-        // サブフォームのデータが空の場合、空の配列を代入。
-        if (empty($articleWithPosts)) {
-            $articleWithPosts[] = '';
-        }
-        $article['sub_form_data'] = $articleWithPosts;
-
-        // ユーザー名を取得
-        $user = User::where('id', $article->user_id)->first();
-        return Inertia::render('show', [
-            'article' => $article,
-            'article_user' => $user,
-        ]);
+        return empty($articleWithPosts) ? [''] : $articleWithPosts;
     }
 }
