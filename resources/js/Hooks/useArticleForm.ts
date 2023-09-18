@@ -10,91 +10,91 @@ export interface FormValues {
     period_end: string;
     description: string;
     image?: string | ArrayBuffer | null;
-    sub_form_data: { id?: number | undefined; comment: string }[];
+    sub_form_data: { id?: number; comment: string }[];
     delete_image?: string;
 }
 
-// フォーム入力・送信のカスタムフックの返り値
+// フォームの入力値の初期値
 interface MainFormHook {
     handleChangeInput: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     handleChangeSubFormInput: (
-        e: React.ChangeEvent<HTMLTextAreaElement>,
+        e: ChangeEvent<HTMLTextAreaElement>,
         index: number
     ) => void;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
     cancelImagePreview: () => void;
 }
 
-// サブフォーム追加・削除のカスタムフックの返り値
+// サブフォームの追加・削除
 interface SubFormHook {
     addSubForm: () => void;
     deleteSubForm: (index: number) => void;
 }
 
+// カスタムフックの型
 export function useArticleForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
-    endpoint: string // フォームデータを送信するエンドポイント
+    endpoint: string
 ): MainFormHook {
-    // フォームの入力値を変更する関数
+    const updateValues = (updatedValues: Partial<FormValues>) => {
+        setValues((prev) => ({ ...prev, ...updatedValues }));
+    };
+
+    // フォームの入力値を更新
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index?: number
     ) => {
-        const key = e.target.name;
-        const value = e.target.value;
+        const { name, value } = e.target;
 
-        // サブフォームの入力値を変更する場合
-        if (key.startsWith("sub_form_data") && typeof index === "number") {
+        // サブフォームのコメント欄の入力値を更新
+        if (name.startsWith("sub_form_data") && typeof index === "number") {
             const newSubFormData = [...values.sub_form_data];
             newSubFormData[index] = {
                 ...newSubFormData[index],
                 comment: value,
             };
-            setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
-        }
-        // 画像ファイルを変更する場合
-        else if (key === "image" && e.target instanceof HTMLInputElement) {
+            updateValues({ sub_form_data: newSubFormData });
+        } else if (name === "image" && e.target instanceof HTMLInputElement) {
             const file = e.target.files?.[0];
-            if (file && file.name) {
+            if (file) {
                 const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
                 const fileExtension = file.name.split(".").pop()?.toLowerCase();
 
                 if (
-                    fileExtension &&
+                    !fileExtension ||
                     !allowedExtensions.includes(fileExtension)
                 ) {
                     alert(
                         "無効なファイル形式です。jpg, gif, pngのみ許可されています。"
                     );
-                    return; // ここで処理を終了
+                    return;
                 }
+
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     const target = event.target as FileReader;
                     if (typeof target.result === "string") {
-                        setValues((prev) => ({
-                            ...prev,
-                            image: target.result,
-                        }));
+                        updateValues({ image: target.result });
                     }
                 };
                 reader.readAsDataURL(file);
             }
         } else {
-            setValues((prev) => ({ ...prev, [key]: value }));
+            updateValues({ [name]: value });
         }
     };
 
-    // 画像のプレビューをキャンセルする関数
+    // 画像のプレビューをキャンセル
     const cancelImagePreview = () => {
-        setValues((prev) => ({ ...prev, image: null, delete_image: "true" }));
+        updateValues({ image: null, delete_image: "true" });
     };
 
-    // フォームデータを送信する関数
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // フォームを送信
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         router.post(endpoint, formData, {
@@ -112,26 +112,27 @@ export function useArticleForm(
     };
 }
 
-// サブフォームの追加・削除のカスタムフック
+// サブフォームの追加・削除
 export function useAddDeleteSubForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>
 ): SubFormHook {
-    // サブフォームを追加する関数
-    const addSubForm = () => {
-        const newSubFormData = [
-            ...values.sub_form_data,
-            { id: undefined, comment: "" },
-        ];
-        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
+    const updateValues = (updatedValues: Partial<FormValues>) => {
+        setValues((prev) => ({ ...prev, ...updatedValues }));
     };
 
-    // サブフォームを削除する関数
+    // サブフォームの追加
+    const addSubForm = () => {
+        const newSubFormData = [...values.sub_form_data, { comment: "" }];
+        updateValues({ sub_form_data: newSubFormData });
+    };
+
+    // サブフォームの削除
     const deleteSubForm = (index: number) => {
         const newSubFormData = values.sub_form_data.filter(
             (_, i) => i !== index
         );
-        setValues((prev) => ({ ...prev, sub_form_data: newSubFormData }));
+        updateValues({ sub_form_data: newSubFormData });
     };
 
     return { addSubForm, deleteSubForm };

@@ -14,7 +14,7 @@ export default function create({ auth }: PageProps) {
         period_start: "",
         period_end: "",
         description: "",
-        sub_form_data: [""], // サブフォームのデータを配列として管理
+        sub_form_data: [{ comment: "" }],
     });
 
     // カスタムフック

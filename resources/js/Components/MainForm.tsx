@@ -92,6 +92,7 @@ const MainForm: React.FC<MainFormProps> = ({
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    // URLかどうかを判定する関数
     const isFullURL = (url: string) => {
         try {
             new URL(url);
@@ -205,8 +206,7 @@ const MainForm: React.FC<MainFormProps> = ({
                         values={values}
                         setValues={setValues}
                     />
-                ))
-                }
+                ))}
                 <button
                     type="button"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
