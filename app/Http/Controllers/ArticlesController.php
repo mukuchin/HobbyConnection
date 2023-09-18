@@ -50,16 +50,7 @@ class ArticlesController extends Controller
     // 記事の保存
     public function store(BlogRequest $request)
     {
-        // sub_form_data の内容を確認
-        $subFormData = $request->sub_form_data;
-        \Log::info('Sub form data:', ['data' => $request->sub_form_data]);
-
-        if (is_string($subFormData)) {
-            $subFormData = json_decode($subFormData, true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                \Log::error('JSON decode error:', ['error' => json_last_error_msg()]);
-            }
-        }
+        $subFormData = $request->input('sub_form_data');
 
         // バリデーションを通過したらメインフォームとサブフォームを保存
         $article = new Article;
@@ -115,11 +106,9 @@ class ArticlesController extends Controller
     // 投稿した記事の更新
     public function update(BlogRequest $request, Article $article)
     {
-        // sub_form_data の内容を確認
-        $subFormData = $request->sub_form_data;
-        if (is_string($subFormData)) {
-            $subFormData = json_decode($subFormData, true);
-        }
+        // サブフォームのデータを取得
+        $subFormData = $request->input('sub_form_data');
+
         // $requestDataにリクエストパラメータを代入
         $requestData = $request->all();
 
