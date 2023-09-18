@@ -29,7 +29,7 @@ const InputField = React.forwardRef<
         type: string;
         id: string;
         name: string;
-        value?: string;
+        value?: string | number;
         onChange: (
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => void;
@@ -103,6 +103,7 @@ const MainForm: React.FC<MainFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit}>
+            <h3 className="font-bold text-3xl mb-4">記事TOP</h3>
             {/* タイトル */}
             <InputField
                 label="タイトル"
@@ -196,14 +197,16 @@ const MainForm: React.FC<MainFormProps> = ({
                 <h1 className="font-bold text-3xl mb-4">投稿</h1>
                 {values.sub_form_data.map((data, index) => (
                     <SubForm
-                        key={index}
-                        data={data}
+                        key={data.id || index}
+                        data={data.comment}
+                        id={data.id}
                         index={index}
                         handleChange={handleChangeSubFormInput}
                         values={values}
                         setValues={setValues}
                     />
-                ))}
+                ))
+                }
                 <button
                     type="button"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"

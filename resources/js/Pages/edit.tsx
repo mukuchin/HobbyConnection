@@ -33,7 +33,10 @@ export default function edit({ auth, article }: EditProps) {
         period_end,
         description,
         image: image_top,
-        sub_form_data: sub_form_data || [""],
+        sub_form_data: sub_form_data.map((data) => ({
+            id: data.id,
+            comment: data.comment,
+        })),
     });
 
     // カスタムフック

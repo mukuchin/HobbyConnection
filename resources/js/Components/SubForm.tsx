@@ -6,6 +6,7 @@ import { FormValues, useAddDeleteSubForm } from "@/Hooks/useArticleForm";
 // このコンポーネントで使用するpropsの型定義
 interface SubFormProps {
     data: string;
+    id?: number;
     index: number;
     handleChange: (
         e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -16,7 +17,7 @@ interface SubFormProps {
         period_start: string;
         period_end: string;
         description: string;
-        sub_form_data: string[];
+        sub_form_data: { id?: number | undefined; comment: string }[];
     };
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
 }
@@ -38,10 +39,15 @@ const SubForm: React.FC<SubFormProps> = ({
             <textarea
                 className="form-control"
                 id={`sub_form_data_${index}`}
-                name="sub_form_data[]"
+                name={`sub_form_data[${index}][comment]`}
                 value={data}
                 onChange={(e) => handleChange(e, index)}
             ></textarea>
+            <input
+                type="hidden"
+                name={`sub_form_data[${index}][id]`}
+                value={values.sub_form_data[index].id}
+            />
             {/* サブフォームの削除ボタン */}
             <button
                 type="button"

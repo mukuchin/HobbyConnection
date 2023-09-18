@@ -80,9 +80,12 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     {sub_form_data.map(
                                         (data, index) =>
                                             // サブフォームのデータが無いときは、何も表示しない。
-                                            data && (
-                                                <li key={index}>
-                                                    [{index + 1}] {data}
+                                            data.comment && (
+                                                <li
+                                                    key={index}
+                                                    className="mb-4"
+                                                >
+                                                    [{index + 1}]{data.comment}
                                                 </li>
                                             )
                                     )}
