@@ -92,6 +92,15 @@ const MainForm: React.FC<MainFormProps> = ({
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    const isFullURL = (url: string) => {
+        try {
+            new URL(url);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             {/* タイトル */}
@@ -139,9 +148,9 @@ const MainForm: React.FC<MainFormProps> = ({
                 <div className="mb-4">
                     <img
                         src={
-                            typeof values.image === "string"
+                            isFullURL(values.image as string)
                                 ? (values.image as string)
-                                : ""
+                                : `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${values.image}`
                         }
                         alt="プレビュー画像"
                     />
@@ -162,6 +171,12 @@ const MainForm: React.FC<MainFormProps> = ({
                 </div>
             )}
 
+            {/* 記事TOP画像の削除フラグ */}
+            <input
+                type="hidden"
+                name="delete_image"
+                value={values.delete_image || ""}
+            />
             {/* 記事TOP画像。
                 記事投稿ページでは、"記事TOP画像"、記事編集ページでは、"記事TOP画像を変更する"と表示する。 */}
             <label htmlFor="image">

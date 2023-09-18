@@ -87,10 +87,7 @@ class ArticlesController extends Controller
                     $post->save();
                 }
             }
-        } else {
-            \Log::warning('Sub form data is not an array or is empty.');
-        }
-
+        } 
         return redirect()->route('show', ['article' => $article->id]);
     }
     
@@ -131,11 +128,16 @@ class ArticlesController extends Controller
         $article->period_start = $requestData['period_start'];
         $article->period_end = $requestData['period_end'];
         $article->description = $requestData['description'];
-         // Amazon S3のバケットに画像を保存。ただし、画像がない場合は一度保存した画像を削除。
+        // Amazon S3のバケットに画像を保存。ただし、画像がない場合は一度保存した画像を削除。
         if ($request->hasFile('image')) {
-            Storage::disk('s3')->delete($article->image_top); // S3から画像を削除
+            if ($article->image_top) {
+                Storage::disk('s3')->delete($article->image_top);
+            }
             $path = $request->file('image')->store('top_images', 's3');
             $article->image_top = $path;
+        } elseif ($request->input('delete_image') === 'true') {
+            Storage::disk('s3')->delete($article->image_top);
+            $article->image_top = null; // 画像のパスをnullに更新
         }
         $article->save();
 

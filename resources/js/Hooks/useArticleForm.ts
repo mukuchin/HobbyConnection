@@ -11,6 +11,7 @@ export interface FormValues {
     description: string;
     image?: string | ArrayBuffer | null;
     sub_form_data: string[];
+    delete_image?: string;
 }
 
 // フォーム入力・送信のカスタムフックの返り値
@@ -54,7 +55,19 @@ export function useArticleForm(
         // 画像ファイルを変更する場合
         else if (key === "image" && e.target instanceof HTMLInputElement) {
             const file = e.target.files?.[0];
-            if (file) {
+            if (file && file.name) {
+                const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
+                const fileExtension = file.name.split(".").pop()?.toLowerCase();
+
+                if (
+                    fileExtension &&
+                    !allowedExtensions.includes(fileExtension)
+                ) {
+                    alert(
+                        "無効なファイル形式です。jpg, gif, pngのみ許可されています。"
+                    );
+                    return; // ここで処理を終了
+                }
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     const target = event.target as FileReader;
@@ -74,7 +87,7 @@ export function useArticleForm(
 
     // 画像のプレビューをキャンセルする関数
     const cancelImagePreview = () => {
-        setValues((prev) => ({ ...prev, image: null }));
+        setValues((prev) => ({ ...prev, image: null, delete_image: "true" }));
     };
 
     // フォームデータを送信する関数

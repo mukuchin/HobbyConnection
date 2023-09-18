@@ -22,6 +22,8 @@ export default function edit({ auth, article }: EditProps) {
         description,
         sub_form_data,
         image_top,
+        created_at,
+        updated_at,
     } = article;
 
     // 各値の設定。初期値は、記事投稿ページから渡された値
@@ -30,7 +32,7 @@ export default function edit({ auth, article }: EditProps) {
         period_start,
         period_end,
         description,
-        image: `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`,
+        image: image_top,
         sub_form_data: sub_form_data || [""],
     });
 
@@ -57,6 +59,14 @@ export default function edit({ auth, article }: EditProps) {
                             <h1 className="font-bold text-3xl mb-4">
                                 記事編集
                             </h1>
+                            {/* 作成日時の表示 */}
+                            <p className="mb-4">
+                                作成日時：{created_at.slice(0, 10)}
+                            </p>
+                            {/* 更新日時の表示 */}
+                            <p className="mb-4">
+                                更新日時：{updated_at.slice(0, 10)}
+                            </p>
 
                             {/* フォーム */}
                             <div className="container">
