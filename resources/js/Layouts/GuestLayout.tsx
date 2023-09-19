@@ -1,18 +1,28 @@
-// ログアウト時のナビゲーションバーのレイアウト
+// ログアウト時のナビゲーションバー
 
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
-import { useState, PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren, ReactNode, memo } from "react";
 import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
-export default function Guest({
+interface PageTabProps {
+    href: string;
+    currentRoute: string;
+    children: ReactNode;
+}
+
+const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
+    <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <NavLink href={href} active={route().current(currentRoute)}>
+            {children}
+        </NavLink>
+    </div>
+);
+
+function Guest({
     header,
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
-
     return (
         <div>
             <nav className="bg-white border-b border-gray-100">
@@ -25,34 +35,17 @@ export default function Guest({
                                 </Link>
                             </div>
 
-                            {/* ページタブ */}
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("top")}
-                                    active={route().current("top")}
-                                >
-                                    TOP
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("create")}
-                                    active={route().current("create")}
-                                >
-                                    記事投稿
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("mypage")}
-                                    active={route().current("mypage")}
-                                >
-                                    マイページ
-                                </NavLink>
-                            </div>
+                            <PageTab href={route("top")} currentRoute="top">
+                                TOP
+                            </PageTab>
+                            <PageTab href={route("create")} currentRoute="create">
+                                記事投稿
+                            </PageTab>
+                            <PageTab href={route("mypage")} currentRoute="mypage">
+                                マイページ
+                            </PageTab>
                         </div>
 
-                        {/* ログインと新規ユーザー登録のリンク。ページの右に寄せる。*/}
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
                             <NavLink
                                 href={route("login")}
@@ -85,3 +78,5 @@ export default function Guest({
         </div>
     );
 }
+
+export default memo(Guest);

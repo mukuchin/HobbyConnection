@@ -1,6 +1,6 @@
 // 記事編集ページ
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
@@ -14,6 +14,7 @@ interface EditProps extends PageProps {
 }
 
 export default function edit({ auth, article }: EditProps) {
+    // 記事の値を取得
     const {
         id,
         title,
@@ -26,7 +27,7 @@ export default function edit({ auth, article }: EditProps) {
         updated_at,
     } = article;
 
-    // 各値の設定。初期値は、記事投稿ページから渡された値
+    // 各値の設定。初期値は、記事の値。
     const [values, setValues] = useState<FormValues>({
         title,
         period_start,

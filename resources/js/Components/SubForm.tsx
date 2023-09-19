@@ -36,6 +36,7 @@ const SubForm: React.FC<SubFormProps> = ({
     return (
         <div className="form-group">
             <label htmlFor={`sub_form_data_${index}`}>投稿 {index + 1}</label>
+            {/* サブフォームのコメント入力欄 */}
             <textarea
                 className="form-control"
                 id={`sub_form_data_${index}`}
@@ -43,6 +44,7 @@ const SubForm: React.FC<SubFormProps> = ({
                 value={data}
                 onChange={(e) => handleChange(e, index)}
             ></textarea>
+            {/* サブフォームのid。サブフォームのidがある場合のみ表示する。 */}
             <input
                 type="hidden"
                 name={`sub_form_data[${index}][id]`}

@@ -1,6 +1,6 @@
-// ログイン時のナビゲーションバーのレイアウト
+// ログイン時のナビゲーションバー
 
-import { useState, PropsWithChildren, ReactNode } from "react";
+import React, { useState, PropsWithChildren, ReactNode, memo } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
@@ -8,7 +8,21 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
 
-export default function Authenticated({
+interface PageTabProps {
+    href: string;
+    currentRoute: string;
+    children: ReactNode;
+}
+
+const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
+    <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <NavLink href={href} active={route().current(currentRoute)}>
+            {children}
+        </NavLink>
+    </div>
+);
+
+function Authenticated({
     user,
     header,
     children,
@@ -28,31 +42,21 @@ export default function Authenticated({
                                 </Link>
                             </div>
 
-                            {/* ページタブ */}
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("top")}
-                                    active={route().current("top")}
-                                >
-                                    TOP
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("create")}
-                                    active={route().current("create")}
-                                >
-                                    記事投稿
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("mypage")}
-                                    active={route().current("mypage")}
-                                >
-                                    マイページ
-                                </NavLink>
-                            </div>
+                            <PageTab href={route("top")} currentRoute="top">
+                                TOP
+                            </PageTab>
+                            <PageTab
+                                href={route("create")}
+                                currentRoute="create"
+                            >
+                                記事投稿
+                            </PageTab>
+                            <PageTab
+                                href={route("mypage")}
+                                currentRoute="mypage"
+                            >
+                                マイページ
+                            </PageTab>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -65,7 +69,6 @@ export default function Authenticated({
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
-
                                                 <svg
                                                     className="ml-2 -mr-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -98,47 +101,6 @@ export default function Authenticated({
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
-                        </div>
-
-                        <div className="-mr-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() =>
-                                    setShowingNavigationDropdown(
-                                        (previousState) => !previousState
-                                    )
-                                }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg
-                                    className="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        className={
-                                            !showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={
-                                            showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -187,3 +149,5 @@ export default function Authenticated({
         </div>
     );
 }
+
+export default memo(Authenticated);
