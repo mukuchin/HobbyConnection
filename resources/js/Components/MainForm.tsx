@@ -225,4 +225,4 @@ const MainForm: React.FC<MainFormProps> = ({
     );
 };
 
-export default MainForm;
+export default React.memo(MainForm);
