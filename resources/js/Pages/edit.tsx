@@ -1,6 +1,6 @@
 // 記事編集ページ
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
