@@ -14,7 +14,7 @@ interface MainFormProps {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
     handleChangeSubFormInput: (
-        e: React.ChangeEvent<HTMLTextAreaElement>,
+        e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
         index: number
     ) => void;
     cancelImagePreview: () => void;

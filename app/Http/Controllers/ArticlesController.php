@@ -52,7 +52,7 @@ class ArticlesController extends Controller
     public function update(BlogRequest $request, Article $article)
     {
         $this->updateArticle($request, $article);
-        $this->updatePosts($request->input('sub_form_data'), $article->id);
+        $this->updatePosts($request, $request->input('sub_form_data'), $article->id);
         return redirect()->route('show', ['article' => $article->id]);
     }
 
@@ -127,6 +127,10 @@ class ArticlesController extends Controller
                         'article_id' => $articleId,
                         'comment' => $data['comment'],
                     ]);
+                    if (isset($data['image'])) {
+                        $path = $data['image']->store('post_images', 's3');
+                        $post->image = $path;
+                    }
                     $post->save();
                 }
             }
@@ -134,7 +138,7 @@ class ArticlesController extends Controller
     }
 
     // サブフォームの更新処理
-    private function updatePosts($subFormData, $articleId)
+    private function updatePosts($request, $subFormData, $articleId)
     {
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
 
@@ -144,6 +148,19 @@ class ArticlesController extends Controller
                     // 既存のデータを更新
                     $post = Post::find($data['id']);
                     $post->comment = $data['comment'];
+
+                    // 画像のアップロード処理
+                    if ($request->hasFile('image')) {
+                        if ($post->image) {
+                            Storage::disk('s3')->delete($post->image);
+                        }
+                        $path = $request->file('image')->store('post_images', 's3');
+                        $post->image = $path;
+                    } elseif ($request->input('delete_image') === 'true') {
+                        Storage::disk('s3')->delete($post->image);
+                        $post->image = null;
+                    }
+
                     $post->save();
 
                     // 更新されたPostのIDを配列から削除
@@ -159,6 +176,13 @@ class ArticlesController extends Controller
                         'article_id' => $articleId,
                         'comment' => $data['comment'],
                     ]);
+
+                    // 画像のアップロード処理
+                    if ($request->hasFile('image')) {
+                        $path = $request->file('image')->store('post_images', 's3');
+                        $post->image = $path;
+                    }
+
                     $post->save();
                 }
             }
@@ -167,6 +191,7 @@ class ArticlesController extends Controller
         // 不要なPostを削除
         Post::whereIn('id', $existingPostIds)->delete();
     }
+        
     // メインフォームとサブフォームのデータを結合
     private function getArticleWithPosts($article)
     {

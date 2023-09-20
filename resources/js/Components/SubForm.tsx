@@ -9,7 +9,7 @@ interface SubFormProps {
     id?: number;
     index: number;
     handleChange: (
-        e: React.ChangeEvent<HTMLTextAreaElement>,
+        e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
         index: number
     ) => void;
     values: {
@@ -36,12 +36,18 @@ const SubForm: React.FC<SubFormProps> = ({
     return (
         <div className="form-group">
             <label htmlFor={`sub_form_data_${index}`}>投稿 {index + 1}</label>
+            {/* サブフォームの画像入力欄 */}
+            <input
+                type="file"
+                name={`sub_form_data[${index}][image]`}
+                onChange={(e) => handleChange(e, index)}
+            />
             {/* サブフォームのコメント入力欄 */}
             <textarea
                 className="form-control"
                 id={`sub_form_data_${index}`}
                 name={`sub_form_data[${index}][comment]`}
-                value={data}
+                value={values.sub_form_data[index].comment}
                 onChange={(e) => handleChange(e, index)}
             ></textarea>
             {/* サブフォームのid。サブフォームのidがある場合のみ表示する。 */}
