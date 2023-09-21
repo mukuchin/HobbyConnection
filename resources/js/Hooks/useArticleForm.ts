@@ -9,11 +9,11 @@ export interface FormValues {
     period_start: string;
     period_end: string;
     description: string;
-    image?: string | ArrayBuffer | null;
+    image?: string | null;
     sub_form_data: {
         id?: number;
         comment: string;
-        image?: string | ArrayBuffer | null;
+        image?: string | null;
         file?: File;
     }[];
     delete_image?: string;
@@ -120,10 +120,22 @@ export function useArticleForm(
         }
     };
 
-    // 画像のプレビューをキャンセルする
-    const cancelImagePreview = useCallback(() => {
-        updateValues({ image: null, delete_image: "true" });
-    }, [updateValues]);
+    // 画像のプレビューをキャンセルする。メインフォームの画像とサブフォームの画像の両方に対応
+    const cancelImagePreview = (index?: number) => {
+        if (typeof index === "number") {
+            // サブフォームの画像
+            const newSubFormData = [...values.sub_form_data];
+            newSubFormData[index] = {
+                ...newSubFormData[index],
+                image: null,
+                file: undefined,
+            };
+            updateValues({ sub_form_data: newSubFormData });
+        } else {
+            // メインフォームの画像
+            updateValues({ image: null, delete_image: "true" });
+        }
+    };
 
     // フォームを送信する
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

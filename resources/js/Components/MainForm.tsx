@@ -199,12 +199,12 @@ const MainForm: React.FC<MainFormProps> = ({
                 {values.sub_form_data.map((data, index) => (
                     <SubForm
                         key={data.id || index}
-                        data={data.comment}
                         id={data.id}
                         index={index}
                         handleChange={handleChangeSubFormInput}
                         values={values}
                         setValues={setValues}
+                        cancelImagePreview={cancelImagePreview}
                     />
                 ))}
                 <button

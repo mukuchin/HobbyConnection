@@ -201,6 +201,7 @@ class ArticlesController extends Controller
             $articleWithPosts[] = [
                 'id' => $post->id,
                 'comment' => $post->comment,
+                'image' => $post->image,
             ];
         }
         return empty($articleWithPosts) ? [''] : $articleWithPosts;
