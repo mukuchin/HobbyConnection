@@ -1,11 +1,10 @@
 // サブフォームコンポーネント
 
-import React from "react";
+import React, { useRef } from "react";
 import { FormValues, useAddDeleteSubForm } from "@/Hooks/useArticleForm";
 
 // このコンポーネントで使用するpropsの型定義
 interface SubFormProps {
-    data: string;
     id?: number;
     index: number;
     handleChange: (
@@ -17,25 +16,68 @@ interface SubFormProps {
         period_start: string;
         period_end: string;
         description: string;
-        sub_form_data: { id?: number | undefined; comment: string }[];
+        sub_form_data: {
+            id?: number;
+            comment: string;
+            image?: string | null;
+        }[];
     };
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
+    cancelImagePreview: (index: number) => void;
 }
 
 // サブフォーム
 const SubForm: React.FC<SubFormProps> = ({
-    data,
     index,
     handleChange,
     values,
     setValues,
+    cancelImagePreview,
 }) => {
     // サブフォームの追加・削除を行うカスタムフック
     const { deleteSubForm } = useAddDeleteSubForm(values, setValues);
 
+    // ファイル入力の参照を作成
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    // URLかどうかを判定する関数
+    const isFullURL = (url: string) => {
+        try {
+            new URL(url);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    };
+
     return (
         <div className="form-group">
             <label htmlFor={`sub_form_data_${index}`}>投稿 {index + 1}</label>
+            {/* サブフォームのプレビュー画像。画像がある場合のみ表示する。 */}
+            {values.sub_form_data[index].image && (
+                <div className="mb-4">
+                    <img
+                        src={
+                            isFullURL(
+                                values.sub_form_data[index].image as string
+                            )
+                                ? (values.sub_form_data[index].image as string)
+                                : `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${values.sub_form_data[index].image}`
+                        }
+                        alt="サブフォームのプレビュー画像"
+                        className="mb-4"
+                        width="300"
+                    />
+                    {/* 記事TOP画像のプレビューをキャンセルするボタン */}
+                    <button
+                        type="button"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => cancelImagePreview(index)}
+                    >
+                        削除
+                    </button>
+                </div>
+            )}
             {/* サブフォームの画像入力欄 */}
             <input
                 type="file"

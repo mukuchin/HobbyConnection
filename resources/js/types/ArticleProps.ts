@@ -6,7 +6,7 @@ export type ArticleItems = {
     period_end: string;
     description: string;
     image_top: string;
-    sub_form_data: { id: number; comment: string }[];
+    sub_form_data: { id: number; comment: string; image?: string }[];
     user: ArticleUser;
     created_at: string;
     updated_at: string;

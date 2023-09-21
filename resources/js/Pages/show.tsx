@@ -69,7 +69,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
                                     alt="TOP画像"
                                     className="mb-4"
-                                    width="1000"
+                                    width="500"
                                 />
                             )}
                             {/* 概要 */}
@@ -85,7 +85,17 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                     key={index}
                                                     className="mb-4"
                                                 >
-                                                    [{index + 1}]{data.comment}
+                                                    [{index + 1}]
+                                                    {/* 画像を表示 */}
+                                                    {data.image && (
+                                                        <img
+                                                            src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${data.image}`}
+                                                            alt="サブフォームの画像"
+                                                            className="mb-4"
+                                                            width="100"
+                                                        />
+                                                    )}
+                                                    {data.comment}
                                                 </li>
                                             )
                                     )}
