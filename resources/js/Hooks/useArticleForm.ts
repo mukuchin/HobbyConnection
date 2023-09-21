@@ -1,3 +1,5 @@
+// 記事フォームのカスタムフック
+
 import { ChangeEvent, FormEvent, useCallback } from "react";
 import { router } from "@inertiajs/react";
 
@@ -12,10 +14,12 @@ export interface FormValues {
         id?: number;
         comment: string;
         image?: string | ArrayBuffer | null;
+        file?: File;
     }[];
     delete_image?: string;
 }
 
+// フォームの入力値の初期値
 interface MainFormHook {
     handleChangeInput: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,6 +32,7 @@ interface MainFormHook {
     cancelImagePreview: () => void;
 }
 
+// サブフォームの追加・削除
 interface SubFormHook {
     addSubForm: () => void;
     deleteSubForm: (index: number) => void;
@@ -35,20 +40,24 @@ interface SubFormHook {
 
 const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
 
+// ファイルの拡張子が許可されているかどうか
 const isValidFileExtension = (filename: string) => {
     const fileExtension = filename.split(".").pop()?.toLowerCase();
     return fileExtension && allowedExtensions.includes(fileExtension);
 };
 
+// フォームの入力値の初期値
 export function useArticleForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string
 ): MainFormHook {
+    // フォームの入力値を更新する
     const updateValues = (updatedValues: Partial<FormValues>) => {
         setValues((prev) => ({ ...prev, ...updatedValues }));
     };
 
+    // 画像のプレビューを表示する
     const handleImageChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index?: number
@@ -71,6 +80,7 @@ export function useArticleForm(
                     newSubFormData[index] = {
                         ...newSubFormData[index],
                         image: target.result,
+                        file: file,
                     };
                     updateValues({ sub_form_data: newSubFormData });
                 } else {
@@ -81,6 +91,7 @@ export function useArticleForm(
         reader.readAsDataURL(file);
     };
 
+    // フォームの入力値を更新する
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index?: number
@@ -97,22 +108,45 @@ export function useArticleForm(
                     sub_form_data: newSubFormData,
                 }));
             } else if (fieldName === "image") {
+                // サブフォームの画像
                 handleImageChange(e, index);
             }
         } else if (name === "image") {
+            // メインフォームの画像
             handleImageChange(e);
         } else {
+            // その他のフォーム
             updateValues({ [name]: value });
         }
     };
 
+    // 画像のプレビューをキャンセルする
     const cancelImagePreview = useCallback(() => {
         updateValues({ image: null, delete_image: "true" });
     }, [updateValues]);
 
+    // フォームを送信する
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const formData = new FormData(e.currentTarget);
+
+        // メインフォームの画像ファイルを追加
+        const mainImageInput = e.currentTarget.elements.namedItem(
+            "image"
+        ) as HTMLInputElement;
+        if (mainImageInput?.files?.[0]) {
+            formData.append("image", mainImageInput.files[0]);
+        }
+
+        // サブフォームの画像ファイルを追加
+        values.sub_form_data.forEach((data, index) => {
+            if (data.file) {
+                // ここでfileキーが存在するかをチェック
+                formData.append(`sub_form_data[${index}][image]`, data.file);
+            }
+        });
+
         router.post(endpoint, formData, {
             onBefore: (visit) => {
                 visit.headers["Content-Type"] = "multipart/form-data";
@@ -128,6 +162,7 @@ export function useArticleForm(
     };
 }
 
+// サブフォームの追加・削除
 export function useAddDeleteSubForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>
@@ -136,6 +171,7 @@ export function useAddDeleteSubForm(
         setValues((prev) => ({ ...prev, ...updatedValues }));
     };
 
+    // サブフォームを追加する
     const addSubForm = useCallback(() => {
         const newSubFormData = [
             ...values.sub_form_data,
@@ -144,6 +180,7 @@ export function useAddDeleteSubForm(
         updateValues({ sub_form_data: newSubFormData });
     }, [values, updateValues]);
 
+    // サブフォームを削除する
     const deleteSubForm = useCallback(
         (index: number) => {
             const newSubFormData = values.sub_form_data.filter(
