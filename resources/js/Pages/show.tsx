@@ -79,23 +79,25 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 <ul>
                                     {sub_form_data.map(
                                         (data, index) =>
-                                            // サブフォームのデータが無いときは、何も表示しない。
-                                            data.comment && (
-                                                <li
-                                                    key={index}
-                                                    className="mb-4"
-                                                >
-                                                    [{index + 1}]
-                                                    {/* 画像を表示 */}
+                                            // サブフォームの画像とコメントのいずれかがある場合のみ表示する。
+                                            (data.image || data.comment) && (
+                                                <li key={index}>
+                                                    [{index + 1}]{" "}
+                                                    {/* サブフォームの画像。S3に保存した画像を表示する。画像がある場合のみ表示する。 */}
                                                     {data.image && (
                                                         <img
                                                             src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${data.image}`}
                                                             alt="サブフォームの画像"
                                                             className="mb-4"
-                                                            width="100"
+                                                            width="300"
                                                         />
                                                     )}
-                                                    {data.comment}
+                                                    {/* サブフォームのコメント */}
+                                                    {data.comment && (
+                                                        <p className="mb-4">
+                                                            {data.comment}
+                                                        </p>
+                                                    )}
                                                 </li>
                                             )
                                     )}

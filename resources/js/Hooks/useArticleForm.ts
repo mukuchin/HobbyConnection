@@ -15,6 +15,7 @@ export interface FormValues {
         comment: string;
         image?: string | null;
         file?: File;
+        delete_image?: string;
     }[];
     delete_image?: string;
 }
@@ -129,6 +130,7 @@ export function useArticleForm(
                 ...newSubFormData[index],
                 image: null,
                 file: undefined,
+                delete_image: "true",
             };
             updateValues({ sub_form_data: newSubFormData });
         } else {
@@ -141,6 +143,15 @@ export function useArticleForm(
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        console.log(values.sub_form_data);
+
+        // コメントまたは画像が存在するサブフォームだけをフィルタリング
+        const filteredSubFormData = values.sub_form_data.filter(
+            (data) => data.comment.trim() !== null || data.file !== undefined
+        );
+
+        console.log(filteredSubFormData);
+
         const formData = new FormData(e.currentTarget);
 
         // メインフォームの画像ファイルを追加
@@ -151,13 +162,15 @@ export function useArticleForm(
             formData.append("image", mainImageInput.files[0]);
         }
 
-        // サブフォームの画像ファイルを追加
-        values.sub_form_data.forEach((data, index) => {
+        // フィルタリングされたサブフォームの画像ファイルを追加
+        filteredSubFormData.forEach((data, index) => {
             if (data.file) {
-                // ここでfileキーが存在するかをチェック
                 formData.append(`sub_form_data[${index}][image]`, data.file);
             }
+            formData.append(`sub_form_data[${index}][comment]`, data.comment);
         });
+
+        console.log(...formData.entries());
 
         router.post(endpoint, formData, {
             onBefore: (visit) => {

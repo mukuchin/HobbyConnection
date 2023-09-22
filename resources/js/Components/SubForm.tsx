@@ -20,6 +20,7 @@ interface SubFormProps {
             id?: number;
             comment: string;
             image?: string | null;
+            delete_image?: string;
         }[];
     };
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
@@ -78,6 +79,12 @@ const SubForm: React.FC<SubFormProps> = ({
                     </button>
                 </div>
             )}
+            {/* サブフォームの画像削除フラグ */}
+            <input
+                type="hidden"
+                name={`sub_form_data[${index}][delete_image]`}
+                value={values.sub_form_data[index].delete_image || ""}
+            />
             {/* サブフォームの画像入力欄 */}
             <input
                 type="file"
