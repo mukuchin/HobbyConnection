@@ -51,6 +51,7 @@ class ArticlesController extends Controller
     // 記事の更新処理
     public function update(BlogRequest $request, Article $article)
     {
+        // dd($request);
         $this->updateArticle($request, $article);
         $this->updatePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);
@@ -96,6 +97,7 @@ class ArticlesController extends Controller
     // メインフォームの更新処理
     private function updateArticle($request, $article)
     {
+        // dd($request->file('image'));
         $article->fill([
             'title' => $request->title,
             'period_start' => $request->period_start,
@@ -141,14 +143,22 @@ class ArticlesController extends Controller
     // サブフォームの更新処理
     private function updatePosts($subFormData, $articleId)
     {
+        // dd($subFormData);
+
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
 
+        // dd($existingPostIds);
+
         foreach ($subFormData as $data) {
-            if (!empty($data['comment'])) {
+            if (!empty($data['comment']) || !empty($data['image'])) {
                 if (isset($data['id']) && in_array($data['id'], $existingPostIds)) {
                     // 既存のデータを更新
-                    $post = Post::find($data['id']);
-                    $post->comment = $data['comment'];
+                    if (!empty($data['comment'] || !empty($data['image']))) {
+                        $post = Post::find($data['id']);
+                        $post->comment = $data['comment'];
+                        // dd($post);
+                    }
+                    // dd($post);
 
                     // 画像のアップロード処理
                     if (isset($data['image'])) {
@@ -157,7 +167,9 @@ class ArticlesController extends Controller
                         }
                         $path = $data['image']->store('post_images', 's3');
                         $post->image = $path;
-                    } elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
+                    } 
+                    // 画像の削除処理
+                    elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
                         Storage::disk('s3')->delete($post->image);
                         $post->image = null;
                     }
@@ -178,10 +190,13 @@ class ArticlesController extends Controller
                         'comment' => $data['comment'],
                     ]);
 
+                    // dd($data);
+
                     // 画像のアップロード処理
                     if (isset($data['image'])) {
                         $path = $data['image']->store('post_images', 's3');
                         $post->image = $path;
+                        // dd($post);
                     }
 
                     $post->save();
