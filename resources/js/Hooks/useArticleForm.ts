@@ -1,6 +1,6 @@
 // 記事フォームのカスタムフック
 
-import { ChangeEvent, FormEvent, useCallback } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { router } from "@inertiajs/react";
 
 // フォームの入力値の型
@@ -62,13 +62,34 @@ export function useArticleForm(
         setValues((prev) => ({ ...prev, ...updatedValues }));
     };
 
+    // 前回選択されたファイルを保持するステート
+    const [lastSelectedFile, setLastSelectedFile] = useState<File | null>(null);
+
     // 画像のプレビューを表示する
     const handleImageChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index?: number
     ) => {
         const target = e.target as HTMLInputElement;
-        const file = target.files?.[0];
+
+        // ファイルが選択されていない場合、前回のファイルを復元
+        if (!target.files || target.files.length === 0) {
+            if (lastSelectedFile) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(lastSelectedFile);
+                target.files = dataTransfer.files;
+            }
+            return;
+        }
+
+        const file = target.files[0];
+
+        // 前回選択されたファイルを更新
+        setLastSelectedFile(file);
+
+        // 前回選択されたファイルを更新
+        setLastSelectedFile(file);
+
         if (!file || !isValidFileExtension(file.name)) {
             alert(
                 "無効なファイル形式です。jpg, gif, pngのみ許可されています。"
@@ -86,10 +107,11 @@ export function useArticleForm(
                         ...newSubFormData[index],
                         image: target.result,
                         file: file,
+                        delete_image: false,
                     };
                     updateValues({ sub_form_data: newSubFormData });
                 } else {
-                    updateValues({ image: target.result });
+                    updateValues({ image: target.result, delete_image: false });
                 }
             }
         };
