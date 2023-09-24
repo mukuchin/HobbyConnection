@@ -23,6 +23,7 @@ export default function create({ auth }: PageProps) {
         handleSubmit,
         handleChangeSubFormInput,
         cancelImagePreview,
+        cancelCancelImagePreview,
     } = useArticleForm(values, setValues, "/posts");
 
     return (
@@ -57,6 +58,9 @@ export default function create({ auth }: PageProps) {
                                             }
                                             cancelImagePreview={
                                                 cancelImagePreview
+                                            }
+                                            cancelCancelImagePreview={
+                                                cancelCancelImagePreview
                                             }
                                         />
                                     </div>
