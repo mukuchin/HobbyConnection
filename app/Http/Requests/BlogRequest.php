@@ -27,6 +27,8 @@ class BlogRequest extends FormRequest
             'period_end' => ['nullable', 'date'],
             'description' => ['required', 'string', 'max:1000'],
             'image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
+            'sub_form_data.*.comment' => ['nullable', 'string'],
+            'sub_form_data.*.image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
         ];
 
         // period_end が入力されている場合のみ、after_or_equal:period_start ルールを追加
@@ -58,6 +60,9 @@ class BlogRequest extends FormRequest
             'description.max' => '概要は1000文字以内で入力してください',
             'image.mimes' => '無効なファイル形式です。jpg, jpeg, gif, pngのみ許可されています。',
             'image.max' => '画像サイズは2MB以下である必要があります。',
+            'sub_form_data.*.comment.string' => 'コメントは文字列で入力してください',
+            'sub_form_data.*.image.mimes' => '無効なファイル形式です。jpg, jpeg, gif, pngのみ許可されています。',
+            'sub_form_data.*.image.max' => '画像サイズは2MB以下である必要があります。',
         ];
     }
 }

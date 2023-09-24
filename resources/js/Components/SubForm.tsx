@@ -114,6 +114,12 @@ const SubForm: React.FC<SubFormProps> = ({
                 ref={fileInputRef}
                 errors={errors}
             />
+            {/* エラーメッセージの表示 */}
+            {errors[`sub_form_data.${index}.image`] && (
+                <p className="text-red-500 text-xs mt-1">
+                    {errors[`sub_form_data.${index}.image`]}
+                </p>
+            )}
             {/* サブフォームのコメント入力欄 */}
             <InputField
                 label="コメント"
@@ -124,6 +130,12 @@ const SubForm: React.FC<SubFormProps> = ({
                 onChange={(e) => handleChange(e, index)}
                 errors={errors}
             />
+            {/* エラーメッセージの表示 */}
+            {errors[`sub_form_data.${index}.comment`] && (
+                <p className="text-red-500 text-xs mt-1">
+                    {errors[`sub_form_data.${index}.comment`]}
+                </p>
+            )}
             {/* サブフォームのid。サブフォームのidがある場合のみ表示する。*/}
             <input
                 type="hidden"
