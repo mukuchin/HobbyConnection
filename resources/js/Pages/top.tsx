@@ -38,7 +38,7 @@ export default function top({ auth, article }: TopProps) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <h1 className="font-bold text-3xl mb-4">
-                                記事一覧
+                                全ての記事
                             </h1>
                             {data.map((item) => (
                                 <ArticleList key={item.id} article={item} />

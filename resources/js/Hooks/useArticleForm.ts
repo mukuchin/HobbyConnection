@@ -15,9 +15,9 @@ export interface FormValues {
         comment: string;
         image?: string | null;
         file?: File;
-        delete_image?: string;
+        delete_image?: boolean;
     }[];
-    delete_image?: string;
+    delete_image?: boolean;
 }
 
 // フォームの入力値の初期値
@@ -31,6 +31,7 @@ interface MainFormHook {
     ) => void;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
     cancelImagePreview: () => void;
+    cancelCancelImagePreview: () => void;
 }
 
 // サブフォームの追加・削除
@@ -130,12 +131,28 @@ export function useArticleForm(
                 ...newSubFormData[index],
                 image: null,
                 file: undefined,
-                delete_image: "true",
+                delete_image: true,
+            };
+            updateValues({ sub_form_data: newSubFormData });
+        } else if (values.image) {
+            // メインフォームの画像。
+            updateValues({ image: null, delete_image: true });
+        }
+    };
+
+    // 画像のプレビューのキャンセルをキャンセルする。メインフォームの画像とサブフォームの画像の両方に対応
+    const cancelCancelImagePreview = (index?: number) => {
+        if (typeof index === "number") {
+            // サブフォームの画像
+            const newSubFormData = [...values.sub_form_data];
+            newSubFormData[index] = {
+                ...newSubFormData[index],
+                delete_image: false,
             };
             updateValues({ sub_form_data: newSubFormData });
         } else {
-            // メインフォームの画像
-            updateValues({ image: null, delete_image: "true" });
+            // メインフォームの画像。
+            updateValues({ delete_image: false });
         }
     };
 
@@ -143,11 +160,11 @@ export function useArticleForm(
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(values.sub_form_data);
+        console.log(values);
 
         // コメントまたは画像が存在するサブフォームだけをフィルタリング
         const filteredSubFormData = values.sub_form_data.filter(
-            (data) => data.comment.trim() !== null || data.file !== undefined
+            (data) => data.comment || data.image
         );
 
         console.log(filteredSubFormData);
@@ -167,10 +184,14 @@ export function useArticleForm(
             if (data.file) {
                 formData.append(`sub_form_data[${index}][image]`, data.file);
             }
-            formData.append(`sub_form_data[${index}][comment]`, data.comment);
+            // サブフォームのコメントを追加。コメントがnullの場合は空文字を追加
+            formData.append(
+                `sub_form_data[${index}][comment]`,
+                data.comment || ""
+            );
         });
 
-        console.log(...formData.entries());
+        // console.log(...formData.entries());
 
         router.post(endpoint, formData, {
             onBefore: (visit) => {
@@ -184,6 +205,7 @@ export function useArticleForm(
         handleChangeSubFormInput: handleChange,
         handleSubmit,
         cancelImagePreview,
+        cancelCancelImagePreview,
     };
 }
 

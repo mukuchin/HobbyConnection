@@ -18,6 +18,7 @@ interface MainFormProps {
         index: number
     ) => void;
     cancelImagePreview: () => void;
+    cancelCancelImagePreview: () => void;
 }
 
 // 入力フィールドをレンダリングするコンポーネント
@@ -79,14 +80,22 @@ const InputField = React.forwardRef<
 
 // メインフォーム
 const MainForm: React.FC<MainFormProps> = ({
+    // メインフォームのprops
     values,
     handleChangeInput,
     handleSubmit,
     setValues,
     handleChangeSubFormInput,
     cancelImagePreview,
+    cancelCancelImagePreview,
 }) => {
     const { errors } = usePage().props;
+
+    // values.delete_imageの初期値はfalseとする。
+    if (values.delete_image === undefined) {
+        values.delete_image = false;
+    }
+
     const { addSubForm } = useAddDeleteSubForm(values, setValues);
 
     // ファイル入力の参照を作成
@@ -177,21 +186,25 @@ const MainForm: React.FC<MainFormProps> = ({
             <input
                 type="hidden"
                 name="delete_image"
-                value={values.delete_image || ""}
+                value={
+                    values.delete_image
+                        ? (true as unknown as string)
+                        : (false as unknown as string)
+                }
             />
             {/* 記事TOP画像。
                 記事投稿ページでは、"記事TOP画像"、記事編集ページでは、"記事TOP画像を変更する"と表示する。 */}
-            <label htmlFor="image">
-                {values.image ? "変更する記事TOP画像を選択" : "記事TOP画像"}
-            </label>
             <InputField
-                label=""
+                label={values.image ? "変更する画像を選択" : "画像を選択"}
                 type="file"
                 id="image"
                 name="image"
-                onChange={handleChangeInput}
+                onChange={(e) => {
+                    handleChangeInput(e);
+                    cancelCancelImagePreview();
+                }}
                 errors={errors}
-                ref={fileInputRef}
+                
             />
             {/* 投稿（サブフォーム） */}
             <div className="p-6 text-gray-900">
@@ -205,6 +218,7 @@ const MainForm: React.FC<MainFormProps> = ({
                         values={values}
                         setValues={setValues}
                         cancelImagePreview={cancelImagePreview}
+                        cancelCancelImagePreview={cancelCancelImagePreview}
                     />
                 ))}
                 <button
