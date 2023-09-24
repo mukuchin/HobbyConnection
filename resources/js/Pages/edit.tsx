@@ -47,7 +47,6 @@ export default function edit({ auth, article }: EditProps) {
         handleSubmit,
         handleChangeSubFormInput,
         cancelImagePreview,
-        cancelCancelImagePreview,
     } = useArticleForm(values, setValues, `/posts/${id}`);
 
     return (
@@ -90,9 +89,6 @@ export default function edit({ auth, article }: EditProps) {
                                             }
                                             cancelImagePreview={
                                                 cancelImagePreview
-                                            }
-                                            cancelCancelImagePreview={
-                                                cancelCancelImagePreview
                                             }
                                         />
                                     </div>
