@@ -17,12 +17,12 @@ export default function VerifyEmail({ status }: { status?: string }) {
             <Head title="Email Verification" />
 
             <div className="mb-4 text-sm text-gray-600">
-                ご登録ありがとうございます！ご登録を開始する前に、Eメールアドレスをご確認ください。Eメールが届いていない場合は、再度お送りいたします。
+                ご登録ありがとうございます！ご登録を開始する前に、メールアドレスをご確認ください。メールが届いていない場合は、再度お送りいたします。
             </div>
 
             {status === "verification-link-sent" && (
                 <div className="mb-4 font-medium text-sm text-green-600">
-                    登録時に入力されたEメールアドレスに新しい認証リンクが送信されました。
+                    登録時に入力されたメールアドレスに新しい認証リンクが送信されました。
                 </div>
             )}
 

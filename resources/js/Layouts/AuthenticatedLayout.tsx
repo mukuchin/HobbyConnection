@@ -27,8 +27,7 @@ function Authenticated({
     header,
     children,
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+    const [showingNavigationDropdown] = useState(false);
 
     return (
         <div>
@@ -89,14 +88,14 @@ function Authenticated({
                                         <Dropdown.Link
                                             href={route("profile.edit")}
                                         >
-                                            Profile
+                                            プロフィール
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("logout")}
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            ログアウト
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
