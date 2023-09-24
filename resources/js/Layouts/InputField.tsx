@@ -13,7 +13,7 @@ const InputField = React.forwardRef<
         onChange: (
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => void;
-        errors: { [key: string]: string };
+        errors: any;
     }
 >((props, ref) => {
     const { label, type, id, name, value, onChange, errors } = props;

@@ -45,10 +45,13 @@ interface SubFormHook {
 
 const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
 
-// ファイルの拡張子が許可されているかどうか
+// ファイルの拡張子が許可されているかどうかを判定する
 const isValidFileExtension = (filename: string) => {
-    const fileExtension = filename.split(".").pop()?.toLowerCase();
-    return fileExtension && allowedExtensions.includes(fileExtension);
+    const extension = filename.split(".").pop()?.toLowerCase();
+    if (!extension || !allowedExtensions.includes(extension)) {
+        return false;
+    }
+    return true;
 };
 
 // フォームの入力値の初期値
@@ -152,6 +155,10 @@ export function useArticleForm(
         fileInputRef: React.RefObject<HTMLInputElement>,
         index?: number
     ) => {
+        // ユーザーに確認を求める
+        if (!window.confirm("画像を削除してもよろしいですか？")) {
+            return; // キャンセルをクリックした場合、処理を終了
+        }
         if (typeof index === "number") {
             // サブフォームの画像
             const newSubFormData = [...values.sub_form_data];
@@ -193,14 +200,10 @@ export function useArticleForm(
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(values);
-
         // コメントまたは画像が存在するサブフォームだけをフィルタリング
         const filteredSubFormData = values.sub_form_data.filter(
             (data) => data.comment || data.image
         );
-
-        console.log(filteredSubFormData);
 
         const formData = new FormData(e.currentTarget);
 
@@ -223,8 +226,6 @@ export function useArticleForm(
                 data.comment || ""
             );
         });
-
-        // console.log(...formData.entries());
 
         router.post(endpoint, formData, {
             onBefore: (visit) => {
@@ -263,6 +264,13 @@ export function useAddDeleteSubForm(
     // サブフォームを削除する
     const deleteSubForm = useCallback(
         (index: number) => {
+            // ユーザーに確認を求める
+            if (
+                !window.confirm(`投稿${index + 1}を削除してもよろしいですか？`)
+            ) {
+                return; // キャンセルをクリックした場合、処理を終了
+            }
+
             const newSubFormData = values.sub_form_data.filter(
                 (_, i) => i !== index
             );

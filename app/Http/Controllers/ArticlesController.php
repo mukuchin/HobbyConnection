@@ -36,7 +36,6 @@ class ArticlesController extends Controller
     // 記事の保存処理
     public function store(BlogRequest $request)
     {
-        dd($request);
         $article = $this->saveArticle($request);
         $this->savePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);
@@ -52,17 +51,30 @@ class ArticlesController extends Controller
     // 記事の更新処理
     public function update(BlogRequest $request, Article $article)
     {
-        // dd($request);
         $this->updateArticle($request, $article);
         $this->updatePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);
     }
 
     // 記事の削除処理
-    public function destroy(Article $article)
-    {
-        $article->forceDelete();
+public function destroy(Article $article)
+{
+    // Articleのメイン画像を削除
+    if ($article->image_top) {
+        Storage::disk('s3')->delete($article->image_top);
     }
+
+    // 該当のArticleに関連するすべてのPostの画像を削除
+    foreach ($article->posts as $post) {
+        if ($post->image) {
+            Storage::disk('s3')->delete($post->image);
+        }
+    }
+
+    // Article自体を削除
+    $article->forceDelete();
+}
+
 
     // 記事の閲覧ページ
     public function show(Article $article)
@@ -79,7 +91,6 @@ class ArticlesController extends Controller
     // メインフォームの保存処理
     private function saveArticle($request)
     {
-        // dd($request);
         $article = new Article;
         $article->fill([
             'user_id' => Auth::id(),
@@ -144,7 +155,6 @@ class ArticlesController extends Controller
     // サブフォームの更新処理
     private function updatePosts($subFormData, $articleId)
     {
-        // dd($subFormData);
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
         foreach ($subFormData as $data) {
             $post = Post::find($data['id']);
