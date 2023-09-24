@@ -51,6 +51,7 @@ class ArticlesController extends Controller
     // 記事の更新処理
     public function update(BlogRequest $request, Article $article)
     {
+        // dd($request);
         $this->updateArticle($request, $article);
         $this->updatePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);

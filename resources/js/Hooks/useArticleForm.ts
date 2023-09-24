@@ -30,7 +30,10 @@ interface MainFormHook {
         index: number
     ) => void;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-    cancelImagePreview: () => void;
+    cancelImagePreview: (
+        fileInputRef: React.RefObject<HTMLInputElement>,
+        index?: number
+    ) => void;
     cancelCancelImagePreview: () => void;
 }
 
@@ -123,7 +126,10 @@ export function useArticleForm(
     };
 
     // 画像のプレビューをキャンセルする。メインフォームの画像とサブフォームの画像の両方に対応
-    const cancelImagePreview = (index?: number) => {
+    const cancelImagePreview = (
+        fileInputRef: React.RefObject<HTMLInputElement>,
+        index?: number
+    ) => {
         if (typeof index === "number") {
             // サブフォームの画像
             const newSubFormData = [...values.sub_form_data];
@@ -137,6 +143,11 @@ export function useArticleForm(
         } else if (values.image) {
             // メインフォームの画像。
             updateValues({ image: null, delete_image: true });
+        }
+
+        // ファイル入力の値をリセット
+        if (fileInputRef && fileInputRef.current) {
+            fileInputRef.current.value = "";
         }
     };
 
