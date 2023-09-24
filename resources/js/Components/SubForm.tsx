@@ -20,12 +20,11 @@ interface SubFormProps {
             id?: number;
             comment: string;
             image?: string | null;
-            delete_image?: boolean;
+            delete_image?: string;
         }[];
     };
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
     cancelImagePreview: (index: number) => void;
-    cancelCancelImagePreview: (index: number) => void;
 }
 
 // サブフォーム
@@ -35,7 +34,6 @@ const SubForm: React.FC<SubFormProps> = ({
     values,
     setValues,
     cancelImagePreview,
-    cancelCancelImagePreview,
 }) => {
     // サブフォームの追加・削除を行うカスタムフック
     const { deleteSubForm } = useAddDeleteSubForm(values, setValues);
@@ -85,33 +83,19 @@ const SubForm: React.FC<SubFormProps> = ({
             <input
                 type="hidden"
                 name={`sub_form_data[${index}][delete_image]`}
-                value={
-                    values.sub_form_data[index].delete_image
-                        ? (true as unknown as string)
-                        : (false as unknown as string)
-                }
+                value={values.sub_form_data[index].delete_image || ""}
             />
-            <label htmlFor={`sub_form_data_${index}_image`}>
-                {values.sub_form_data[index].image
-                    ? "変更する画像を選択"
-                    : "画像を選択"}
-            </label>
             {/* サブフォームの画像入力欄 */}
             <input
                 type="file"
                 name={`sub_form_data[${index}][image]`}
-                onChange={(e) => {
-                    handleChange(e, index);
-                    cancelCancelImagePreview(index);
-                }}
-                ref={fileInputRef as React.Ref<HTMLInputElement>}
+                onChange={(e) => handleChange(e, index)}
             />
             {/* サブフォームのコメント入力欄 */}
             <textarea
                 className="form-control"
                 id={`sub_form_data_${index}`}
                 name={`sub_form_data[${index}][comment]`}
-                // サブフォームのコメントの初期値は、サブフォームの値。nullの場合は、空文字を設定する。
                 value={values.sub_form_data[index].comment}
                 onChange={(e) => handleChange(e, index)}
             ></textarea>

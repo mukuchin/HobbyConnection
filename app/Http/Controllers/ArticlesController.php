@@ -51,6 +51,7 @@ class ArticlesController extends Controller
     // 記事の更新処理
     public function update(BlogRequest $request, Article $article)
     {
+        // dd($request);
         $this->updateArticle($request, $article);
         $this->updatePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);
@@ -77,7 +78,6 @@ class ArticlesController extends Controller
     // メインフォームの保存処理
     private function saveArticle($request)
     {
-        // dd($request);
         $article = new Article;
         $article->fill([
             'user_id' => Auth::id(),
@@ -97,6 +97,7 @@ class ArticlesController extends Controller
     // メインフォームの更新処理
     private function updateArticle($request, $article)
     {
+        // dd($request->file('image'));
         $article->fill([
             'title' => $request->title,
             'period_start' => $request->period_start,
@@ -121,7 +122,7 @@ class ArticlesController extends Controller
     {
         if ($subFormData && is_array($subFormData)) {
             foreach ($subFormData as $data) {
-                if (isset($data['comment']) || isset($data['image'])) {
+                if (!empty($data['comment'])) {
                     $post = new Post;
                     $post->fill([
                         'user_id' => Auth::id(),
@@ -143,16 +144,22 @@ class ArticlesController extends Controller
     private function updatePosts($subFormData, $articleId)
     {
         // dd($subFormData);
+
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
+
+        // dd($existingPostIds);
+
         foreach ($subFormData as $data) {
-            $post = Post::find($data['id']);
-            // 既存のデータを更新
-            // 画像またはコメントが既に存在する場合
-            if (Post::where('id', $data['id'])->where(function ($query) {
-                $query->whereNotNull('image')->orWhereNotNull('comment');
-            })->exists()){
-                // 画像が新たに選択されている場合
-                if (isset($data['image'])) {
+            if (!empty($data['comment']) || !empty($data['image'])) {
+                if (isset($data['id']) && in_array($data['id'], $existingPostIds)) {
+                    // 既存のデータを更新
+                    if (!empty($data['comment'] || !empty($data['image']))) {
+                        $post = Post::find($data['id']);
+                        $post->comment = $data['comment'];
+                        // dd($post);
+                    }
+                    // dd($post);
+
                     // 画像のアップロード処理
                     if (isset($data['image'])) {
                         if ($post->image) {
@@ -160,44 +167,40 @@ class ArticlesController extends Controller
                         }
                         $path = $data['image']->store('post_images', 's3');
                         $post->image = $path;
+                    } 
+                    // 画像の削除処理
+                    elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
+                        Storage::disk('s3')->delete($post->image);
+                        $post->image = null;
                     }
-                }
-                // 画像を削除する場合
-                elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
-                    Storage::disk('s3')->delete($post->image);
-                    $post->image = null;
-                }
-                // コメントが既存のものと異なる場合
-                if ($data['comment'] !== Post::find($data['id'])->comment) {
+
+                    $post->save();
+
+                    // 更新されたPostのIDを配列から削除
+                    $index = array_search($data['id'], $existingPostIds);
+                    if ($index !== false) {
+                        unset($existingPostIds[$index]);
+                    }
+                } else {
+                    // 新しいデータを挿入
+                    $post = new Post;
                     $post->fill([
-                        'comment' => $data['comment']
+                        'user_id' => Auth::id(),
+                        'article_id' => $articleId,
+                        'comment' => $data['comment'],
                     ]);
-                }
-                $post->save();
 
-                // 更新されたPostのIDを配列から削除
-                $index = array_search($data['id'], $existingPostIds);
-                if ($index !== false) {
-                    unset($existingPostIds[$index]);
-                }
-            }
-            // 既存のデータが存在しない場合
-            else {
-                // 新しいデータを挿入
-                $post = new Post;
-                $post->fill([
-                    'user_id' => Auth::id(),
-                    'article_id' => $articleId,
-                    'comment' => $data['comment'],
-                ]);
+                    // dd($data);
 
-                // 画像のアップロード処理
-                if (isset($data['image'])) {
-                    $path = $data['image']->store('post_images', 's3');
-                    $post->image = $path;
+                    // 画像のアップロード処理
+                    if (isset($data['image'])) {
+                        $path = $data['image']->store('post_images', 's3');
+                        $post->image = $path;
+                        // dd($post);
+                    }
+
+                    $post->save();
                 }
-                
-                $post->save();
             }
         }
 
