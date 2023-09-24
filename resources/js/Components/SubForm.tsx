@@ -2,7 +2,8 @@
 
 import React, { useRef } from "react";
 import { FormValues, useAddDeleteSubForm } from "@/Hooks/useArticleForm";
-
+import InputField from "../Layouts/InputField";
+import { usePage } from "@inertiajs/react";
 // このコンポーネントで使用するpropsの型定義
 interface SubFormProps {
     id?: number;
@@ -24,7 +25,10 @@ interface SubFormProps {
         }[];
     };
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
-    cancelImagePreview: (index: number) => void;
+    cancelImagePreview: (
+        fileInputRef: React.RefObject<HTMLInputElement>,
+        index?: number
+    ) => void;
     cancelCancelImagePreview: (index: number) => void;
 }
 
@@ -40,6 +44,9 @@ const SubForm: React.FC<SubFormProps> = ({
     // サブフォームの追加・削除を行うカスタムフック
     const { deleteSubForm } = useAddDeleteSubForm(values, setValues);
 
+    // エラーを取得
+    const { errors } = usePage().props;
+
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -54,8 +61,13 @@ const SubForm: React.FC<SubFormProps> = ({
     };
 
     return (
-        <div className="form-group">
-            <label htmlFor={`sub_form_data_${index}`}>投稿 {index + 1}</label>
+        <div className="form-group p-4 border rounded-md shadow-md">
+            <label
+                htmlFor={`sub_form_data_${index}`}
+                className="block font-bold text-lg mb-2"
+            >
+                投稿 {index + 1}
+            </label>
             {/* サブフォームのプレビュー画像。画像がある場合のみ表示する。 */}
             {values.sub_form_data[index].image && (
                 <div className="mb-4">
@@ -68,16 +80,18 @@ const SubForm: React.FC<SubFormProps> = ({
                                 : `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${values.sub_form_data[index].image}`
                         }
                         alt="サブフォームのプレビュー画像"
-                        className="mb-4"
+                        className="mb-4 rounded-md shadow-md"
                         width="300"
                     />
                     {/* 記事TOP画像のプレビューをキャンセルするボタン */}
                     <button
                         type="button"
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => cancelImagePreview(index)}
+                        onClick={() => {
+                            cancelImagePreview(fileInputRef, index);
+                        }}
                     >
-                        削除
+                        画像を削除
                     </button>
                 </div>
             )}
@@ -91,31 +105,34 @@ const SubForm: React.FC<SubFormProps> = ({
                         : (false as unknown as string)
                 }
             />
-            <label htmlFor={`sub_form_data_${index}_image`}>
-                {values.sub_form_data[index].image
-                    ? "変更する画像を選択"
-                    : "画像を選択"}
-            </label>
             {/* サブフォームの画像入力欄 */}
-            <input
+            <InputField
+                label={
+                    values.sub_form_data[index].image
+                        ? "変更する画像を選択"
+                        : "画像を選択"
+                }
                 type="file"
+                id={`sub_form_data_${index}_image`}
                 name={`sub_form_data[${index}][image]`}
                 onChange={(e) => {
                     handleChange(e, index);
                     cancelCancelImagePreview(index);
                 }}
-                ref={fileInputRef as React.Ref<HTMLInputElement>}
+                ref={fileInputRef}
+                errors={errors}
             />
             {/* サブフォームのコメント入力欄 */}
-            <textarea
-                className="form-control"
+            <InputField
+                label="コメント"
+                type="textarea"
                 id={`sub_form_data_${index}`}
                 name={`sub_form_data[${index}][comment]`}
-                // サブフォームのコメントの初期値は、サブフォームの値。nullの場合は、空文字を設定する。
                 value={values.sub_form_data[index].comment}
                 onChange={(e) => handleChange(e, index)}
-            ></textarea>
-            {/* サブフォームのid。サブフォームのidがある場合のみ表示する。 */}
+                errors={errors}
+            />
+            {/* サブフォームのid。サブフォームのidがある場合のみ表示する。*/}
             <input
                 type="hidden"
                 name={`sub_form_data[${index}][id]`}
@@ -124,7 +141,7 @@ const SubForm: React.FC<SubFormProps> = ({
             {/* サブフォームの削除ボタン */}
             <button
                 type="button"
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 onClick={() => deleteSubForm(index)}
             >
                 投稿 {index + 1} を削除

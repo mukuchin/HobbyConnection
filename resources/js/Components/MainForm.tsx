@@ -18,7 +18,10 @@ interface MainFormProps {
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
         index: number
     ) => void;
-    cancelImagePreview: () => void;
+    cancelImagePreview: (
+        fileInputRef: React.RefObject<HTMLInputElement>,
+        index?: number
+    ) => void;
     cancelCancelImagePreview: () => void;
 }
 
@@ -33,6 +36,7 @@ const MainForm: React.FC<MainFormProps> = ({
     cancelImagePreview,
     cancelCancelImagePreview,
 }) => {
+    // エラーを取得
     const { errors } = usePage().props;
 
     // values.delete_imageの初期値はfalseとする。
@@ -114,14 +118,10 @@ const MainForm: React.FC<MainFormProps> = ({
                         type="button"
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-4"
                         onClick={() => {
-                            cancelImagePreview();
-                            // ファイル入力のvalueをリセット
-                            if (fileInputRef.current) {
-                                fileInputRef.current.value = "";
-                            }
+                            cancelImagePreview(fileInputRef);
                         }}
                     >
-                        削除
+                        画像を削除
                     </button>
                 </div>
             )}
@@ -147,6 +147,7 @@ const MainForm: React.FC<MainFormProps> = ({
                     handleChangeInput(e);
                     cancelCancelImagePreview();
                 }}
+                ref={fileInputRef}
                 errors={errors}
             />
             {/* 投稿（サブフォーム） */}
