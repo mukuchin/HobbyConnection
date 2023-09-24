@@ -4,6 +4,8 @@ import React, { useRef } from "react";
 import { FormValues, useAddDeleteSubForm } from "@/Hooks/useArticleForm";
 import InputField from "../Layouts/InputField";
 import { usePage } from "@inertiajs/react";
+import { isFullURL } from "../Hooks/useURLValidators";
+
 // このコンポーネントで使用するpropsの型定義
 interface SubFormProps {
     id?: number;
@@ -49,16 +51,6 @@ const SubForm: React.FC<SubFormProps> = ({
 
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    // URLかどうかを判定する関数
-    const isFullURL = (url: string) => {
-        try {
-            new URL(url);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    };
 
     return (
         <div className="form-group p-4 border rounded-md shadow-md">

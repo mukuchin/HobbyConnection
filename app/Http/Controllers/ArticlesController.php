@@ -36,6 +36,7 @@ class ArticlesController extends Controller
     // 記事の保存処理
     public function store(BlogRequest $request)
     {
+        dd($request);
         $article = $this->saveArticle($request);
         $this->savePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);

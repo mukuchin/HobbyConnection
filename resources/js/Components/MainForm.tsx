@@ -5,6 +5,7 @@ import { usePage } from "@inertiajs/react";
 import { FormValues, useAddDeleteSubForm } from "../Hooks/useArticleForm";
 import SubForm from "./SubForm";
 import InputField from "../Layouts/InputField";
+import { isFullURL } from "../Hooks/useURLValidators";
 
 // このコンポーネントで使用するpropsの型定義
 interface MainFormProps {
@@ -39,25 +40,11 @@ const MainForm: React.FC<MainFormProps> = ({
     // エラーを取得
     const { errors } = usePage().props;
 
-    // values.delete_imageの初期値はfalseとする。
-    if (values.delete_image === undefined) {
-        values.delete_image = false;
-    }
-
+    // サブフォームの追加・削除を行うカスタムフック
     const { addSubForm } = useAddDeleteSubForm(values, setValues);
 
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    // URLかどうかを判定する関数
-    const isFullURL = (url: string) => {
-        try {
-            new URL(url);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    };
 
     return (
         <form onSubmit={handleSubmit}>
