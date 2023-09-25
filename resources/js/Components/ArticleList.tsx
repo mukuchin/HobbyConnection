@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
 import { useDeleteMyArticle } from "@/Hooks/useDeleteMyArticle";
+import LikeButton from "./LikeButton";
 
 // このコンポーネントで使用するpropsの型定義
 interface ArticleListProps {
@@ -50,6 +51,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                     width="200"
                                 />
                             )}
+                            <LikeButton
+                                articleId={id}
+                                initialIsLiked={false}
+                                initialLikesCount={0}
+                            />
                         </div>
                         {/* マイページで使用する際は、編集ボタンと削除ボタンを表示する。 */}
                         {isMyPage && (
