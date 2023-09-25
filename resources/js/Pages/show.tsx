@@ -5,6 +5,7 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
 import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
+import LikeButton from "@/Components/LikeButton";
 
 // Propsの型定義
 interface ShowProps extends PageProps {
@@ -74,6 +75,12 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             )}
                             {/* 概要 */}
                             <p className="mb-4">{description}</p>
+                            {/* いいねボタン */}
+                            <LikeButton
+                                articleId={article.id}
+                                initialIsLiked={false}
+                                initialLikesCount={0}
+                            />
                             {/* サブフォームの表示。サブフォームが空ではない時にのみリスト形式で表示する。 */}
                             {sub_form_data && (
                                 <ul>

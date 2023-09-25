@@ -41,7 +41,13 @@ class Article extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function likes() {
+    public function likeEntries() {
         return $this->hasMany('App\Models\Like');
     }
+    
+    public function likedByUsers() {
+        return $this->belongsToMany('App\Models\User', 'likes');
+    }
+    
+    
 }
