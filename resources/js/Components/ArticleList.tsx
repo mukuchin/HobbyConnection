@@ -51,7 +51,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                     width="200"
                                 />
                             )}
-                            <LikeButton articleId={id} />
+                            <LikeButton
+                                articleId={id}
+                                initialIsLiked={false}
+                                initialLikesCount={0}
+                            />
                         </div>
                         {/* マイページで使用する際は、編集ボタンと削除ボタンを表示する。 */}
                         {isMyPage && (

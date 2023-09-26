@@ -19,6 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/likes/{articleId}',[LikeController::class, 'toggleLike'])->name('toggleLike')->middleware('auth:sanctum');
-Route::get('/likes/data/{articleId}', [LikeController::class, 'getLikeData']);
-
+Route::post('/likes/{articleId}',[LikeController::class, 'toggleLike'])->name('toggleLike');
