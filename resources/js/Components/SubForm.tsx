@@ -14,18 +14,7 @@ interface SubFormProps {
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
         index: number
     ) => void;
-    values: {
-        title: string;
-        period_start: string;
-        period_end: string;
-        description: string;
-        sub_form_data: {
-            id?: number;
-            comment: string;
-            image?: string | null;
-            delete_image?: boolean;
-        }[];
-    };
+    values: FormValues;
     setValues: React.Dispatch<React.SetStateAction<FormValues>>;
     cancelImagePreview: (
         fileInputRef: React.RefObject<HTMLInputElement>,

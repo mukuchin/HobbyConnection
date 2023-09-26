@@ -28,7 +28,6 @@ interface MainFormProps {
 
 // メインフォーム
 const MainForm: React.FC<MainFormProps> = ({
-    // メインフォームのprops
     values,
     handleChangeInput,
     handleSubmit,

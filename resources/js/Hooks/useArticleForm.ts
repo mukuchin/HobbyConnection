@@ -85,10 +85,8 @@ export function useArticleForm(
             return;
         }
 
+        // ファイルが選択されている場合、選択されたファイルを取得
         const file = target.files[0];
-
-        // 前回選択されたファイルを更新
-        setLastSelectedFile(file);
 
         // 前回選択されたファイルを更新
         setLastSelectedFile(file);
