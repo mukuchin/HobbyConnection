@@ -10,12 +10,14 @@ import LikeButton from "./LikeButton";
 interface ArticleListProps {
     article: ArticleItems;
     isMyPage?: boolean;
+    isLoggedIn: boolean;
 }
 
 // 記事一覧を表示するコンポーネント
 const ArticleList: React.FC<ArticleListProps> = ({
     article,
     isMyPage,
+    isLoggedIn,
 }: ArticleListProps) => {
     const { id, title, description, image_top, user, created_at, updated_at } =
         article;
@@ -51,7 +53,10 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                     width="200"
                                 />
                             )}
-                            <LikeButton articleId={id} />
+                            <LikeButton
+                                articleId={id}
+                                isLoggedIn={isLoggedIn}
+                            />
                         </div>
                         {/* マイページで使用する際は、編集ボタンと削除ボタンを表示する。 */}
                         {isMyPage && (

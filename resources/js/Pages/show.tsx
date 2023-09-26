@@ -7,12 +7,6 @@ import { PageProps } from "@/types";
 import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 import LikeButton from "@/Components/LikeButton";
 
-// --------------------------------------------------
-// テスト用
-// ユーザーがログインしているかどうかを判定するコンポーネント
-import CurrentUser from "@/Components/CurrentUser";
-// --------------------------------------------------
-
 // Propsの型定義
 interface ShowProps extends PageProps {
     article: ArticleItems;
@@ -44,12 +38,6 @@ export default function show({ auth, article, article_user }: ShowProps) {
             ) : (
                 <GuestLayout />
             )}
-
-            {/* -------------------------------------------------- */}
-            {/* テスト用 */}
-            {/* ユーザーがログインしているかどうかを判定するコンポーネント */}
-            <CurrentUser />
-            {/* -------------------------------------------------- */}
 
             {/* 記事の閲覧 */}
             <div className="py-12">
@@ -88,7 +76,10 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             {/* 概要 */}
                             <p className="mb-4">{description}</p>
                             {/* いいねボタン */}
-                            <LikeButton articleId={article.id} />
+                            <LikeButton
+                                articleId={article.id}
+                                isLoggedIn={isLoggedIn}
+                            />
                             {/* サブフォームの表示。サブフォームが空ではない時にのみリスト形式で表示する。 */}
                             {sub_form_data && (
                                 <ul>

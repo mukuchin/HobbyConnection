@@ -7,12 +7,6 @@ import { PageProps } from "@/types";
 import { ArticleItems } from "@/types/ArticleProps";
 import Pagination from "@/Components/Pagination";
 
-// --------------------------------------------------
-// テスト用
-// ユーザーがログインしているかどうかを判定するコンポーネント
-import CurrentUser from "@/Components/CurrentUser";
-// --------------------------------------------------
-
 // Propsの型定義
 interface MyPageProps extends PageProps {
     article: {
@@ -32,12 +26,6 @@ export default function mypage({ auth, article }: MyPageProps) {
 
             {/* ナビゲーションバー */}
             <AuthenticatedLayout user={auth.user} />
-
-            {/* -------------------------------------------------- */}
-            {/* テスト用 */}
-            {/* ユーザーがログインしているかどうかを判定するコンポーネント */}
-            <CurrentUser />
-            {/* -------------------------------------------------- */}
 
             {/* プロフィールを表示 */}
             <div className="py-12">
@@ -76,6 +64,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                                     key={item.id}
                                     article={item}
                                     isMyPage={true}
+                                    isLoggedIn={true}
                                 />
                             ))}
                         </div>
