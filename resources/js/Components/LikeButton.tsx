@@ -1,25 +1,37 @@
 // いいねボタンのコンポーネント
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 interface LikeButtonProps {
     articleId: number;
-    initialIsLiked: boolean;
-    initialLikesCount: number;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({
-    articleId,
-    initialIsLiked,
-    initialLikesCount,
-}) => {
-    const [isLiked, setIsLiked] = useState(initialIsLiked);
-    const [likesCount, setLikesCount] = useState(initialLikesCount);
+const LikeButton: React.FC<LikeButtonProps> = ({ articleId }) => {
+    const [isLiked, setIsLiked] = useState(false);
+    const [likesCount, setLikesCount] = useState(0);
 
+    // コンポーネントがマウントされたときにAPIを呼び出す
+    useEffect(() => {
+        const fetchLikeData = async () => {
+            try {
+                const response = await axios.get(
+                    `/api/likes/data/${articleId}`
+                );
+                setIsLiked(response.data.isLiked);
+                setLikesCount(response.data.likesCount);
+            } catch (error) {
+                console.error("Error fetching like data:", error);
+            }
+        };
+
+        fetchLikeData();
+    }, [articleId]);
+
+    // いいねの状態を切り替える関数
     const toggleLike = async () => {
         try {
-            // ここでバックエンドのAPIを呼び出して「いいね」の状態を更新します。
+            // ここでバックエンドのAPIを呼び出して「いいね」の状態を更新する
             const response = await axios.post(`/api/likes/${articleId}`);
             setIsLiked(response.data.isLiked);
             setLikesCount(response.data.likesCount);
