@@ -5,9 +5,10 @@ import axios from "axios";
 
 interface LikeButtonProps {
     articleId: number;
+    isLoggedIn: boolean;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ articleId }) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
 
@@ -30,13 +31,18 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId }) => {
 
     // いいねの状態を切り替える関数
     const toggleLike = async () => {
-        try {
-            // ここでバックエンドのAPIを呼び出して「いいね」の状態を更新する
-            const response = await axios.post(`/api/likes/${articleId}`);
-            setIsLiked(response.data.isLiked);
-            setLikesCount(response.data.likesCount);
-        } catch (error) {
-            console.error("Error toggling like:", error);
+        // ログインしていない場合は、いいねできないようにする
+        if (isLoggedIn === true) {
+            try {
+                // ここでバックエンドのAPIを呼び出して「いいね」の状態を更新する
+                const response = await axios.post(`/api/likes/${articleId}`);
+                setIsLiked(response.data.isLiked);
+                setLikesCount(response.data.likesCount);
+            } catch (error) {
+                console.error("Error toggling like:", error);
+            }
+        } else {
+            alert("いいねをするには、ログインしてください。");
         }
     };
 

@@ -8,12 +8,6 @@ import { PageProps } from "@/types";
 import { ArticleItems } from "@/types/ArticleProps";
 import Pagination from "@/Components/Pagination";
 
-// --------------------------------------------------
-// テスト用
-// ユーザーがログインしているかどうかを判定するコンポーネント
-import CurrentUser from "@/Components/CurrentUser";
-// --------------------------------------------------
-
 // Propsの型定義
 interface TopProps extends PageProps {
     article: {
@@ -39,12 +33,6 @@ export default function top({ auth, article }: TopProps) {
                 <GuestLayout />
             )}
 
-            {/* -------------------------------------------------- */}
-            {/* テスト用 */}
-            {/* ユーザーがログインしているかどうかを判定するコンポーネント */}
-            <CurrentUser />
-            {/* -------------------------------------------------- */}
-
             {/* 投稿された記事の一覧を表示 */}
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -54,7 +42,11 @@ export default function top({ auth, article }: TopProps) {
                                 全ての記事
                             </h1>
                             {data.map((item) => (
-                                <ArticleList key={item.id} article={item} />
+                                <ArticleList
+                                    key={item.id}
+                                    article={item}
+                                    isLoggedIn={isLoggedIn}
+                                />
                             ))}
                         </div>
                         {/* ペジネーション */}

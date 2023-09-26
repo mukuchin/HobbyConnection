@@ -18,9 +18,9 @@ class LikeController extends Controller
         // -----------------------------------
         // テスト用
         // 認証されていない場合はエラーを返す
-        if (!auth()->check()) {
-            return response()->json(['message' => 'User not authenticated'], 401);
-        }
+        // if (!auth()->check()) {
+        //     return response()->json(['message' => 'User not authenticated'], 401);
+        // }
         // -----------------------------------
         
 
@@ -32,9 +32,7 @@ class LikeController extends Controller
 
         if ($isLiked) {
             // すでに「いいね」をしている場合は削除
-            Like::where('user_id', $user->id)
-                ->where('article_id', $articleId)
-                ->delete();
+            Like::where('user_id', $user->id)->where('article_id', $articleId)->delete();
         } else {
             // まだ「いいね」をしていない場合は追加
             Like::create([
