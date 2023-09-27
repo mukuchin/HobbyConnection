@@ -10,6 +10,7 @@ export type ArticleItems = {
     user: ArticleUser;
     created_at: string;
     updated_at: string;
+    tags: string[];
 };
 
 // 記事を投稿したユーザーの型

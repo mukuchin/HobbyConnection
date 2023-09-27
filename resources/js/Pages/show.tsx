@@ -24,6 +24,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
         sub_form_data,
         created_at,
         updated_at,
+        tags,
     } = article;
     const { name } = article_user;
 
@@ -56,6 +57,18 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             <p className="mb-4">
                                 更新日時：{updated_at.slice(0, 10)}
                             </p>
+                            {/* タグ。タグがある場合のみリスト形式で表示する。 */}
+                            <ul className="mb-4">
+                                タグ：
+                                {tags.map((tag, index) => (
+                                    <span
+                                        key={index}
+                                        className="mr-2 border border-gray-500 px-2"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </ul>
                             {/* 期間。開始日または終了日がある場合のみ表示する。 */}
                             {(period_start || period_end) && (
                                 <p className="mb-4">

@@ -25,6 +25,7 @@ export default function edit({ auth, article }: EditProps) {
         image_top,
         created_at,
         updated_at,
+        tags,
     } = article;
 
     // 各値の設定。初期値は、記事の値。
@@ -39,7 +40,7 @@ export default function edit({ auth, article }: EditProps) {
             comment: data.comment,
             image: data.image,
         })),
-        tags: [],
+        tags: tags,
         delete_image: false,
     });
 

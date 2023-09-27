@@ -19,8 +19,16 @@ const ArticleList: React.FC<ArticleListProps> = ({
     isMyPage,
     isLoggedIn,
 }: ArticleListProps) => {
-    const { id, title, description, image_top, user, created_at, updated_at } =
-        article;
+    const {
+        id,
+        title,
+        description,
+        image_top,
+        user,
+        created_at,
+        updated_at,
+        tags,
+    } = article;
     const { name } = user;
     const { confirmDelete } = useDeleteMyArticle(id);
 
@@ -44,6 +52,19 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 更新日時：{updated_at.slice(0, 10)}
                             </p>
                             <p className="text-sm">概要：{description}</p>
+                            {/* タグ */}
+
+                            <div className="flex flex-wrap">
+                                <div className="mr-2">タグ：</div>
+                                {tags.map((tag, index) => (
+                                    <span
+                                        key={index}
+                                        className="mr-2 border border-gray-500 px-2"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
                             {/* 画像がある記事のみ画像を表示する。 */}
                             {image_top && (
                                 <img
