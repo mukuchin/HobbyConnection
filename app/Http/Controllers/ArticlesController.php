@@ -18,6 +18,9 @@ class ArticlesController extends Controller
     public function top()
     {
         $articles = Article::with('user')->latest('updated_at')->paginate(5);
+        foreach ($articles as $article) {
+            $article['tags'] = $article->tags()->pluck('name');
+        }
         return Inertia::render('top', ['article' => $articles]);
     }
 
@@ -25,6 +28,9 @@ class ArticlesController extends Controller
     public function mypage()
     {   
         $articles = Article::with('user')->where('user_id', Auth::id())->latest('updated_at')->paginate(5);
+        foreach ($articles as $article) {
+            $article['tags'] = $article->tags()->pluck('name');
+        }
         return Inertia::render('mypage', ['article' => $articles]);
     }
 
@@ -46,6 +52,7 @@ class ArticlesController extends Controller
     public function edit(Article $article)
     {
         $article['sub_form_data'] = $this->getArticleWithPosts($article);
+        $article['tags'] = $article->tags()->pluck('name');
         return Inertia::render('edit', ['article' => $article]);
     }
 
@@ -81,6 +88,7 @@ public function destroy(Article $article)
     public function show(Article $article)
     {
         $article['sub_form_data'] = $this->getArticleWithPosts($article);
+        $article['tags'] = $article->tags()->pluck('name');
         $user = User::find($article->user_id);
         return Inertia::render('show', ['article' => $article, 'article_user' => $user]);
     }
@@ -108,7 +116,7 @@ public function destroy(Article $article)
         }
         $article->save();
 
-        // タグの保存処理。タグは配列で受け取る
+        // タグの保存処理。タグは配列で受け取る。
         if ($request->tags) {
             foreach ($request->tags as $tag) {
                 $tag = Tag::firstOrCreate(['name' => $tag]);
@@ -138,6 +146,26 @@ public function destroy(Article $article)
             $article->image_top = null;
         }
         $article->save();
+
+        // タグの更新処理。タグは配列で受け取る。
+        // 既存のタグを削除
+        $article->tags()->detach();
+        // 新しいタグを保存
+        if ($request->tags) {
+            foreach ($request->tags as $tag) {
+                if ($tag) {
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+                    $article->tags()->attach($tag);
+                }
+            }
+        }
+        // article_tagテーブルから不要なタグを削除
+        $tags = Tag::all();
+        foreach ($tags as $tag) {
+            if ($tag->articles()->count() === 0) {
+                $tag->delete();
+            }
+        }
     }
 
     // サブフォームの保存処理
