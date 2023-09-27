@@ -65,23 +65,31 @@ class ArticlesController extends Controller
     }
 
     // 記事の削除処理
-public function destroy(Article $article)
-{
-    // Articleのメイン画像を削除
-    if ($article->image_top) {
-        Storage::disk('s3')->delete($article->image_top);
-    }
+    public function destroy(Article $article)
+    {
+        // Articleのメイン画像を削除
+        if ($article->image_top) {
+            Storage::disk('s3')->delete($article->image_top);
+        }
 
-    // 該当のArticleに関連するすべてのPostの画像を削除
-    foreach ($article->posts as $post) {
-        if ($post->image) {
-            Storage::disk('s3')->delete($post->image);
+        // 該当のArticleに関連するすべてのPostの画像を削除
+        foreach ($article->posts as $post) {
+            if ($post->image) {
+                Storage::disk('s3')->delete($post->image);
+            }
+        }
+
+        // Article自体を削除
+        $article->forceDelete();
+
+        // article_tagテーブル、tagテーブルから不要なタグを削除
+        $tags = Tag::all();
+        foreach ($tags as $tag) {
+            if ($tag->articles()->count() === 0) {
+                $tag->delete();
+            }
         }
     }
-
-    // Article自体を削除
-    $article->forceDelete();
-}
 
 
     // 記事の閲覧ページ
