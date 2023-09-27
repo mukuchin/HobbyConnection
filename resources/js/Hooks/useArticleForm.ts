@@ -18,6 +18,7 @@ export interface FormValues {
         delete_image?: boolean;
     }[];
     delete_image?: boolean;
+    tags: string[];
 }
 
 // フォームの入力値の初期値
@@ -204,6 +205,11 @@ export function useArticleForm(
         );
 
         const formData = new FormData(e.currentTarget);
+
+        // タグを追加
+        values.tags.forEach((tag, index) => {
+            formData.append(`tags[${index}]`, tag);
+        });
 
         // メインフォームの画像ファイルを追加
         const mainImageInput = e.currentTarget.elements.namedItem(

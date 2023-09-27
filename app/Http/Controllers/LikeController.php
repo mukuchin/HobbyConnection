@@ -15,20 +15,8 @@ class LikeController extends Controller
     {
         $user = auth()->user();
 
-        // -----------------------------------
-        // テスト用
-        // 認証されていない場合はエラーを返す
-        // if (!auth()->check()) {
-        //     return response()->json(['message' => 'User not authenticated'], 401);
-        // }
-        // -----------------------------------
-        
-
-        // -----------------------------------
-        // エラー発生箇所
         // ユーザーが指定された記事に「いいね」をしているか確認
         $isLiked = Like::where('user_id', $user->id)->where('article_id', $articleId)->exists();
-        // -----------------------------------
 
         if ($isLiked) {
             // すでに「いいね」をしている場合は削除
@@ -40,11 +28,6 @@ class LikeController extends Controller
                 'article_id' => $articleId
             ]);
         }
-
-        // -----------------------------------
-        // テスト用
-        // $isLiked = false;
-        // -----------------------------------
 
         // 新しい「いいね」の状態を取得
         $newIsLiked = !$isLiked;

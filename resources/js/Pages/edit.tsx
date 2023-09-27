@@ -39,6 +39,8 @@ export default function edit({ auth, article }: EditProps) {
             comment: data.comment,
             image: data.image,
         })),
+        tags: [],
+        delete_image: false,
     });
 
     // カスタムフック
