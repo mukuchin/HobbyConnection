@@ -45,6 +45,24 @@ const MainForm: React.FC<MainFormProps> = ({
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    // タグを追加する関数
+    const addTag = (tag: string) => {
+        if (tag && !values.tags.includes(tag)) {
+            setValues((prevValues) => ({
+                ...prevValues,
+                tags: [...prevValues.tags, tag],
+            }));
+        }
+    };
+
+    // タグを削除する関数
+    const removeTag = (index: number) => {
+        setValues((prevValues) => ({
+            ...prevValues,
+            tags: prevValues.tags.filter((_, i) => i !== index),
+        }));
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <h3 className="font-bold text-3xl mb-4">記事TOP</h3>
@@ -136,6 +154,58 @@ const MainForm: React.FC<MainFormProps> = ({
                 ref={fileInputRef}
                 errors={errors}
             />
+            {/* タグの入力フィールド*/}
+            <div className="mb-4">
+                <label
+                    htmlFor="tag"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    タグ
+                </label>
+                <input
+                    type="text"
+                    id="tag"
+                    name="tags[]"
+                    placeholder="タグを入力"
+                    className="mt-1 p-2 border rounded"
+                    onKeyDown={(e) => {
+                        if (e.keyCode === 13) {
+                            e.preventDefault();
+                            const input = e.currentTarget;
+                            if (input.value.trim() !== "") {
+                                // 空白のみのタグを追加しないようにする
+                                addTag(input.value);
+                                input.value = "";
+                            }
+                        }
+                    }}
+                />
+
+                <button
+                    type="button"
+                    onClick={(e) => {
+                        const input = e.currentTarget
+                            .previousElementSibling as HTMLInputElement;
+                        addTag(input.value);
+                        input.value = "";
+                    }}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                >
+                    タグを追加
+                </button>
+            </div>
+
+            {/* タグの表示と削除機能を追加する */}
+            <div className="mb-4">
+                {values.tags.map((tag, index) => (
+                    <span key={index} className="mr-2">
+                        {tag}
+                        <button type="button" onClick={() => removeTag(index)}>
+                            ❌
+                        </button>
+                    </span>
+                ))}
+            </div>
             {/* 投稿（サブフォーム） */}
             <div className="p-6 text-gray-900">
                 <h1 className="font-bold text-3xl mb-4">投稿</h1>

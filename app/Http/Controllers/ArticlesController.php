@@ -8,6 +8,7 @@ use Auth;
 use App\Models\Article;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Tag;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -99,11 +100,21 @@ public function destroy(Article $article)
             'period_end' => $request->period_end,
             'description' => $request->description,
         ]);
+
+        // 画像の保存処理
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('top_images', 's3');
             $article->image_top = $path;
         }
         $article->save();
+
+        // タグの保存処理。タグは配列で受け取る
+        if ($request->tags) {
+            foreach ($request->tags as $tag) {
+                $tag = Tag::firstOrCreate(['name' => $tag]);
+                $article->tags()->attach($tag);
+            }
+        }
         return $article;
     }
 

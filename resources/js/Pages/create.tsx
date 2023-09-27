@@ -5,16 +5,18 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
-import { useArticleForm } from "@/Hooks/useArticleForm";
+import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
 
 export default function create({ auth }: PageProps) {
     // 各値の初期値は、空文字列
-    const [values, setValues] = useState({
+    const [values, setValues] = useState<FormValues>({
         title: "",
         period_start: "",
         period_end: "",
         description: "",
         sub_form_data: [{ comment: "" }],
+        tags: [],
+        delete_image: false,
     });
 
     // カスタムフック
