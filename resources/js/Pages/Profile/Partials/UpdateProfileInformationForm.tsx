@@ -33,12 +33,12 @@ export default function UpdateProfileInformation({
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">
+                <h2 className="text-xl font-medium text-gray-900">
                     プロフィール情報
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    アカウントのプロフィール情報とメールアドレスを更新してください。
+                    ユーザー名とメールアドレスを更新してください。
                 </p>
             </header>
 
@@ -77,20 +77,20 @@ export default function UpdateProfileInformation({
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
-                        <p className="text-sm mt-2 text-gray-800">
+                        <p className="text-lg mt-2 text-gray-800">
                             メールアドレスが未確認です。
                             <Link
                                 href={route("verification.send")}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="underline text-lg text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 こちらをクリックして認証メールを再送信してください。
                             </Link>
                         </p>
 
                         {status === "verification-link-sent" && (
-                            <div className="mt-2 font-medium text-sm text-green-600">
+                            <div className="mt-2 font-medium text-lg text-green-600">
                                 新しい認証リンクがメールアドレスに送信されました。
                             </div>
                         )}

@@ -25,7 +25,7 @@ export default function mypage({ auth, article }: MyPageProps) {
             <AuthenticatedLayout user={auth.user} />
             <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                    <h1 className="font-bold text-3xl mb-4">プロフィール</h1>
+                    <h1 className="font-bold text-4xl mb-4">プロフィール</h1>
                     <p className="mb-4">名前：{auth.user.name}</p>
                     <p className="mb-4">メールアドレス：{auth.user.email}</p>
                     <a
@@ -36,7 +36,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                     </a>
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow-md">
-                    <h1 className="font-bold text-3xl mb-4">投稿した記事</h1>
+                    <h1 className="font-bold text-4xl mb-4">投稿した記事</h1>
                     {data.map((item) => (
                         <ArticleList
                             key={item.id}

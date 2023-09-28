@@ -36,6 +36,8 @@ interface MainFormHook {
         index?: number
     ) => void;
     cancelCancelImagePreview: () => void;
+    addTag: (tag: string) => void;
+    removeTag: (index: number) => void;
 }
 
 // サブフォームの追加・削除
@@ -68,6 +70,24 @@ export function useArticleForm(
 
     // 前回選択されたファイルを保持するステート
     const [lastSelectedFile, setLastSelectedFile] = useState<File | null>(null);
+
+    // タグを追加する関数
+    const addTag = (tag: string) => {
+        if (tag && !values.tags.includes(tag)) {
+            setValues((prevValues) => ({
+                ...prevValues,
+                tags: [...prevValues.tags, tag],
+            }));
+        }
+    };
+
+    // タグを削除する関数
+    const removeTag = (index: number) => {
+        setValues((prevValues) => ({
+            ...prevValues,
+            tags: prevValues.tags.filter((_, i) => i !== index),
+        }));
+    };
 
     // 画像のプレビューを表示する
     const handleImageChange = (
@@ -244,6 +264,8 @@ export function useArticleForm(
         handleSubmit,
         cancelImagePreview,
         cancelCancelImagePreview,
+        addTag,
+        removeTag,
     };
 }
 

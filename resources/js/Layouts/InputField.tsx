@@ -5,7 +5,7 @@ const InputField = React.forwardRef<
     // このコンポーネントで使用するpropsの型定義
     HTMLInputElement | HTMLTextAreaElement,
     {
-        label: string;
+        label: string | JSX.Element;
         type: string;
         id: string;
         name: string;
@@ -21,13 +21,13 @@ const InputField = React.forwardRef<
         <div className="mb-4">
             <label
                 htmlFor={id}
-                className="block text-sm font-medium text-gray-700"
+                className="block text-xl font-medium text-gray-700"
             >
                 {label}
             </label>
             {type === "textarea" ? (
                 <textarea
-                    className="form-control mt-1 p-2 border rounded"
+                    className="form-control mt-1 p-2 w-full h-48 border rounded"
                     id={id}
                     name={name}
                     value={value}
@@ -36,7 +36,7 @@ const InputField = React.forwardRef<
             ) : type === "file" ? (
                 <input
                     type={type}
-                    className="form-control mt-1 p-2 border rounded"
+                    className="form-control mt-1 p-2 w-full border rounded"
                     id={id}
                     name={name}
                     ref={ref as React.Ref<HTMLInputElement>}
@@ -45,7 +45,7 @@ const InputField = React.forwardRef<
             ) : (
                 <input
                     type={type}
-                    className="form-control mt-1 p-2 border rounded"
+                    className="form-control mt-1 p-2 w-full border rounded"
                     id={id}
                     name={name}
                     value={value}
@@ -53,7 +53,7 @@ const InputField = React.forwardRef<
                 />
             )}
             {errors[name] && (
-                <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
+                <p className="text-red-500 text-lg mt-1">{errors[name]}</p>
             )}
         </div>
     );

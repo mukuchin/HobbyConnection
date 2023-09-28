@@ -50,7 +50,7 @@ export default function DeleteUserForm({
     return (
         <section className={`space-y-6 ${className}`}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">
+                <h2 className="text-xl font-medium text-gray-900">
                     アカウント削除
                 </h2>
 
