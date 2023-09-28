@@ -46,30 +46,42 @@ export default function show({ auth, article, article_user }: ShowProps) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {/* タイトル */}
-                            <h1 className="font-bold text-3xl mb-4">{title}</h1>
-                            {/* ユーザー名 */}
-                            <p className="mb-4">投稿者：{name}</p>
-                            {/* 投稿日時 */}
-                            <p className="mb-4">
-                                作成日時：{created_at.slice(0, 10)}
-                            </p>
-                            {/* 更新日時 */}
-                            <p className="mb-4">
-                                更新日時：{updated_at.slice(0, 10)}
-                            </p>
-                            {/* タグ。タグがある場合のみリスト形式で表示する。 */}
-                            <ul className="mb-4">
-                                タグ：
-                                {tags.map((tag, index) => (
-                                    <span
-                                        key={index}
-                                        className="mr-2 border border-gray-500 px-2"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </ul>
-                            {/* 期間。開始日または終了日がある場合のみ表示する。 */}
+                            <h1 className="font-bold text-3xl mb-4 text-center">
+                                {title}
+                            </h1>
+                            {/* いいねボタン。右に寄せる */}
+                            <div className="text-right mb-4">
+                                <LikeButton
+                                    articleId={article.id}
+                                    isLoggedIn={isLoggedIn}
+                                />
+                            </div>
+                            {/* ユーザー名、作成日時、更新日時、タグ、期間、TOP画像、概要。左寄せ */}
+                            <div className="text-left">
+                                {/* ユーザー名 */}
+                                <p className="mb-4">投稿者：{name}</p>
+                                {/* 投稿日時 */}
+                                <p className="mb-4">
+                                    作成日時：{created_at.slice(0, 10)}
+                                </p>
+                                {/* 更新日時 */}
+                                <p className="mb-4">
+                                    更新日時：{updated_at.slice(0, 10)}
+                                </p>
+                                {/* タグ */}
+                                <div className="mb-4">
+                                    タグ：
+                                    {tags.map((tag, index) => (
+                                        <span
+                                            key={index}
+                                            className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                            {/* 期間 */}
                             {(period_start || period_end) && (
                                 <p className="mb-4">
                                     期間：
@@ -77,65 +89,76 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     〜{period_end && period_end.slice(0, 10)}
                                 </p>
                             )}
-                            {/* TOP画像。S3に保存した画像を表示する。画像がある場合のみ表示する。 */}
-                            {image_top && (
-                                <img
-                                    src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
-                                    alt="TOP画像"
-                                    className="mb-4"
-                                    width="500"
-                                />
-                            )}
-                            {/* 概要 */}
-                            <p className="mb-4">{description}</p>
-                            {/* いいねボタン */}
-                            <LikeButton
-                                articleId={article.id}
-                                isLoggedIn={isLoggedIn}
-                            />
-                            {/* サブフォームの表示。サブフォームが空ではない時にのみリスト形式で表示する。 */}
+                            {/* 中央に寄せる */}
+                            <div className="flex flex-col items-center">
+                                {/* TOP画像 */}
+                                {image_top && (
+                                    <div className="text-center mb-4">
+                                        <img
+                                            src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
+                                            alt="TOP画像"
+                                            width="500"
+                                        />
+                                    </div>
+                                )}
+                                {/* 概要 */}
+                                <p className="mb-4 text-center">
+                                    {description}
+                                </p>
+                            </div>
+
+                            {/* サブフォームの表示 */}
                             {sub_form_data && (
                                 <ul>
                                     {sub_form_data.map(
                                         (data, index) =>
-                                            // サブフォームの画像とコメントのいずれかがある場合のみ表示する。
                                             (data.image || data.comment) && (
-                                                <li key={index}>
-                                                    [{index + 1}]{" "}
-                                                    {/* サブフォームの画像。S3に保存した画像を表示する。画像がある場合のみ表示する。 */}
-                                                    {data.image && (
-                                                        <img
-                                                            src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${data.image}`}
-                                                            alt="サブフォームの画像"
-                                                            className="mb-4"
-                                                            width="300"
-                                                        />
-                                                    )}
-                                                    {/* サブフォームのコメント */}
-                                                    {data.comment && (
-                                                        <p className="mb-4">
-                                                            {data.comment}
-                                                        </p>
-                                                    )}
+                                                <li
+                                                    key={index}
+                                                    className="mb-4"
+                                                >
+                                                    <div className="flex flex-col items-center">
+                                                        {/* サブフォームの画像 */}
+                                                        {data.image && (
+                                                            <div className="mb-4 text-center">
+                                                                {" "}
+                                                                {/* ここにtext-centerを追加 */}
+                                                                <img
+                                                                    src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${data.image}`}
+                                                                    alt="サブフォームの画像"
+                                                                    width="300"
+                                                                />
+                                                            </div>
+                                                        )}
+                                                        {/* サブフォームのコメント */}
+                                                        {data.comment && (
+                                                            <p>
+                                                                {data.comment}
+                                                            </p>
+                                                        )}
+                                                    </div>
                                                 </li>
                                             )
                                     )}
                                 </ul>
                             )}
-                            {/* TOPページに戻る */}
-                            <a
-                                href="/"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            >
-                                TOPページへ
-                            </a>
-                            {/* マイページに戻る */}
-                            <a
-                                href="/mypage"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            >
-                                マイページへ
-                            </a>
+                            {/* ボタン群 */}
+                            <div className="text-center mt-4">
+                                {/* TOPページに戻る */}
+                                <a
+                                    href="/"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                                >
+                                    TOPページへ
+                                </a>
+                                {/* マイページに戻る */}
+                                <a
+                                    href="/mypage"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    マイページへ
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
