@@ -29,22 +29,28 @@ export default function top({ auth, article }: TopProps) {
             ) : (
                 <GuestLayout />
             )}
-            <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white p-4 rounded-lg shadow-md">
-                    <h1 className="font-bold text-3xl mb-4">全ての記事</h1>
-                    {data.map((item) => (
-                        <ArticleList
-                            key={item.id}
-                            article={item}
-                            isLoggedIn={isLoggedIn}
-                        />
-                    ))}
-                    <Pagination
-                        auth={auth}
-                        page={current_page}
-                        lastPage={last_page}
-                        baseUrl="/"
-                    />
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900">
+                            <h1 className="font-bold text-4xl mb-4">
+                                全ての記事
+                            </h1>
+                            {data.map((item) => (
+                                <ArticleList
+                                    key={item.id}
+                                    article={item}
+                                    isLoggedIn={isLoggedIn}
+                                />
+                            ))}
+                            <Pagination
+                                auth={auth}
+                                page={current_page}
+                                lastPage={last_page}
+                                baseUrl="/"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

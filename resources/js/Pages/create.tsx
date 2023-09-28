@@ -26,6 +26,8 @@ export default function create({ auth }: PageProps) {
         handleChangeSubFormInput,
         cancelImagePreview,
         cancelCancelImagePreview,
+        addTag,
+        removeTag,
     } = useArticleForm(values, setValues, "/posts");
 
     return (
@@ -36,7 +38,7 @@ export default function create({ auth }: PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <h1 className="font-bold text-3xl mb-4">
+                            <h1 className="font-bold text-4xl mb-4">
                                 記事投稿
                             </h1>
                             <div className="container">
@@ -58,6 +60,8 @@ export default function create({ auth }: PageProps) {
                                             cancelCancelImagePreview={
                                                 cancelCancelImagePreview
                                             }
+                                            addTag={addTag}
+                                            removeTag={removeTag}
                                         />
                                     </div>
                                 </div>

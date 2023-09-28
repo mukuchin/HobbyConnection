@@ -38,29 +38,30 @@ function Guest({
                             <PageTab href={route("top")} currentRoute="top">
                                 TOP
                             </PageTab>
-                            <PageTab href={route("create")} currentRoute="create">
+                            <PageTab
+                                href={route("create")}
+                                currentRoute="create"
+                            >
                                 記事投稿
                             </PageTab>
-                            <PageTab href={route("mypage")} currentRoute="mypage">
+                            <PageTab
+                                href={route("mypage")}
+                                currentRoute="mypage"
+                            >
                                 マイページ
                             </PageTab>
                         </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <NavLink
-                                href={route("login")}
-                                active={route().current("login")}
-                                className="text-sm text-gray-700 underline"
-                            >
+                        <div className="flex">
+                            <PageTab href={route("login")} currentRoute="login">
                                 ログイン
-                            </NavLink>
-                            <NavLink
+                            </PageTab>
+                            <PageTab
                                 href={route("register")}
-                                active={route().current("register")}
-                                className="ml-4 text-sm text-gray-700 underline"
+                                currentRoute="register"
                             >
                                 新規ユーザー登録
-                            </NavLink>
+                            </PageTab>
                         </div>
                     </div>
                 </div>

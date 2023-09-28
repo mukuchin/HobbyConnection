@@ -51,7 +51,7 @@ export default function UpdatePasswordForm({
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">
+                <h2 className="text-xl font-medium text-gray-900">
                     パスワード更新
                 </h2>
 

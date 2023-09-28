@@ -24,6 +24,8 @@ interface MainFormProps {
         index?: number
     ) => void;
     cancelCancelImagePreview: () => void;
+    addTag: (tag: string) => void;
+    removeTag: (index: number) => void;
 }
 
 // メインフォーム
@@ -35,6 +37,8 @@ const MainForm: React.FC<MainFormProps> = ({
     handleChangeSubFormInput,
     cancelImagePreview,
     cancelCancelImagePreview,
+    addTag,
+    removeTag,
 }) => {
     // エラーを取得
     const { errors } = usePage().props;
@@ -45,28 +49,15 @@ const MainForm: React.FC<MainFormProps> = ({
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    // タグを追加する関数
-    const addTag = (tag: string) => {
-        if (tag && !values.tags.includes(tag)) {
-            setValues((prevValues) => ({
-                ...prevValues,
-                tags: [...prevValues.tags, tag],
-            }));
-        }
-    };
-
-    // タグを削除する関数
-    const removeTag = (index: number) => {
-        setValues((prevValues) => ({
-            ...prevValues,
-            tags: prevValues.tags.filter((_, i) => i !== index),
-        }));
-    };
-
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="border rounded-md p-4">
                 <h3 className="font-bold text-3xl mb-4">記事TOP</h3>
+                {/* *についての説明。 */}
+                <p className="mb-4">
+                    <span className="text-red-500">*</span>は必須項目です。
+                </p>
+                {/* 画像のプレビュー */}
                 <div className="flex">
                     <div className="w-1/2 pr-4">
                         {values.image && (
@@ -82,7 +73,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 />
                                 <button
                                     type="button"
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 px-4 rounded"
                                     onClick={() => {
                                         cancelImagePreview(fileInputRef);
                                     }}
@@ -98,27 +89,40 @@ const MainForm: React.FC<MainFormProps> = ({
                             value={values.delete_image ? "true" : "false"}
                         />
 
-                        <InputField
-                            label={
-                                values.image
-                                    ? "変更する画像を選択"
-                                    : "画像を選択"
-                            }
-                            type="file"
-                            id="image"
-                            name="image"
-                            onChange={(e) => {
-                                handleChangeInput(e);
-                                cancelCancelImagePreview();
-                            }}
-                            ref={fileInputRef}
-                            errors={errors}
-                        />
+                        {/* 画像のアップロード。記事TOPの枠の下側に表示 */}
+                        <div className="mb-4">
+                            <InputField
+                                label={
+                                    values.image
+                                        ? "変更する画像を選択"
+                                        : "画像を選択"
+                                }
+                                type="file"
+                                id="image"
+                                name="image"
+                                onChange={(e) => {
+                                    handleChangeInput(e);
+                                    cancelCancelImagePreview();
+                                }}
+                                ref={fileInputRef}
+                                errors={errors}
+                            />
+                            {/* ファイル形式・サイズの注意書き */}
+                            <p className=" text-gray-500">
+                                画像は最大2MBまでです。ファイル形式はjpg, jpeg,
+                                gif, pngに対応しています。
+                            </p>
+                        </div>
                     </div>
 
                     <div className="w-1/2">
                         <InputField
-                            label="タイトル"
+                            label={
+                                <>
+                                    タイトル
+                                    <span className="text-red-500">*</span>
+                                </>
+                            }
                             type="text"
                             id="title"
                             name="title"
@@ -148,7 +152,12 @@ const MainForm: React.FC<MainFormProps> = ({
                         />
 
                         <InputField
-                            label="概要"
+                            label={
+                                <>
+                                    概要
+                                    <span className="text-red-500">*</span>
+                                </>
+                            }
                             type="textarea"
                             id="description"
                             name="description"
@@ -158,21 +167,21 @@ const MainForm: React.FC<MainFormProps> = ({
                         />
 
                         {/* タグ関連の部分 */}
-                        <div className="mb-4">
-                            <label
-                                htmlFor="tag"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                タグ
-                            </label>
+                        <label
+                            htmlFor="tag"
+                            className="block text-xl font-medium text-gray-700"
+                        >
+                            タグ
+                        </label>
+                        <div className="w-full flex items-center space-x-4">
                             <input
                                 type="text"
                                 id="tag"
                                 name="tags[]"
                                 placeholder="タグを入力"
-                                className="mt-1 p-2 border rounded"
+                                className="mt-1 p-2 border rounded flex-grow"
                                 onKeyDown={(e) => {
-                                    if (e.keyCode === 13) {
+                                    if (e.key === "Enter") {
                                         e.preventDefault();
                                         const input = e.currentTarget;
                                         if (input.value.trim() !== "") {
@@ -182,7 +191,6 @@ const MainForm: React.FC<MainFormProps> = ({
                                     }
                                 }}
                             />
-
                             <button
                                 type="button"
                                 onClick={(e) => {
@@ -191,7 +199,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                     addTag(input.value);
                                     input.value = "";
                                 }}
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                                className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-2 px-4 rounded"
                             >
                                 タグを追加
                             </button>
@@ -234,7 +242,7 @@ const MainForm: React.FC<MainFormProps> = ({
                 <div className="mb-4 flex justify-center">
                     <button
                         type="button"
-                        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-3xl font-bold py-2 w-full rounded"
                         onClick={addSubForm}
                     >
                         投稿を追加
@@ -242,12 +250,15 @@ const MainForm: React.FC<MainFormProps> = ({
                 </div>
             </div>
 
-            <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-                記事を保存
-            </button>
+            {/* 記事の保存ボタン。記事投稿ページなら「投稿する」、記事編集ページなら「更新する」と表示する。*/}
+            <div className="flex justify-center">
+                <button
+                    type="submit"
+                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-bold py-2 px-4 rounded"
+                >
+                    {location.pathname === "/create" ? "投稿する" : "更新する"}
+                </button>
+            </div>
         </form>
     );
 };
