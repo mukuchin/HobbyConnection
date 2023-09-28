@@ -30,12 +30,8 @@ export default function create({ auth }: PageProps) {
 
     return (
         <>
-            {/*  ページ名・タブ名表示 */}
             <AppHead title="記事投稿" />
-
-            {/* ナビゲーションバー */}
             <AuthenticatedLayout user={auth.user} />
-
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -43,8 +39,6 @@ export default function create({ auth }: PageProps) {
                             <h1 className="font-bold text-3xl mb-4">
                                 記事投稿
                             </h1>
-
-                            {/* フォーム */}
                             <div className="container">
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">

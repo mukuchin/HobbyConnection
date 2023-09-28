@@ -18,32 +18,34 @@ const InputField = React.forwardRef<
 >((props, ref) => {
     const { label, type, id, name, value, onChange, errors } = props;
     return (
-        <div className="form-group">
-            <label htmlFor={id}>{label}</label>
+        <div className="mb-4">
+            <label
+                htmlFor={id}
+                className="block text-sm font-medium text-gray-700"
+            >
+                {label}
+            </label>
             {type === "textarea" ? (
-                // テキストエリアの場合
                 <textarea
-                    className="form-control"
+                    className="form-control mt-1 p-2 border rounded"
                     id={id}
                     name={name}
                     value={value}
                     onChange={onChange}
                 ></textarea>
             ) : type === "file" ? (
-                // ファイル入力の場合
                 <input
                     type={type}
-                    className="form-control"
+                    className="form-control mt-1 p-2 border rounded"
                     id={id}
                     name={name}
                     ref={ref as React.Ref<HTMLInputElement>}
                     onChange={onChange}
                 />
             ) : (
-                // その他の場合
                 <input
                     type={type}
-                    className="form-control"
+                    className="form-control mt-1 p-2 border rounded"
                     id={id}
                     name={name}
                     value={value}
