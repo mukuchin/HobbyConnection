@@ -38,6 +38,9 @@ interface MainFormHook {
     cancelCancelImagePreview: () => void;
     addTag: (tag: string) => void;
     removeTag: (index: number) => void;
+    handleConfirmSubmit: (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
 }
 
 // サブフォームの追加・削除
@@ -258,6 +261,20 @@ export function useArticleForm(
         });
     };
 
+    // 確認のアラートを表示する関数
+    const handleConfirmSubmit = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        const message =
+            location.pathname === "/create"
+                ? "記事を投稿しますか？"
+                : "記事を更新しますか？";
+
+        if (!window.confirm(message)) {
+            e.preventDefault();
+        }
+    };
+
     return {
         handleChangeInput: handleChange,
         handleChangeSubFormInput: handleChange,
@@ -266,6 +283,7 @@ export function useArticleForm(
         cancelCancelImagePreview,
         addTag,
         removeTag,
+        handleConfirmSubmit,
     };
 }
 

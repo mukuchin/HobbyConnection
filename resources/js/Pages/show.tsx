@@ -6,6 +6,7 @@ import AppHead from "../Layouts/AppHead";
 import { PageProps } from "@/types";
 import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 import LikeButton from "@/Components/LikeButton";
+import useFormatDate from "@/Hooks/useFormatDate";
 
 // Propsの型定義
 interface ShowProps extends PageProps {
@@ -27,6 +28,8 @@ export default function show({ auth, article, article_user }: ShowProps) {
         tags,
     } = article;
     const { name } = article_user;
+
+    const formatDate = useFormatDate();
 
     return (
         <>
@@ -51,27 +54,39 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     {title}
                                 </h1>
                             </div>
-                            {/* いいねボタン */}
-                            <div className="flex flex-row-reverse mb-4">
-                                <LikeButton
-                                    articleId={article.id}
-                                    isLoggedIn={isLoggedIn}
-                                />
+                            <div className="flex justify-between items-center mb-4">
+                                {/* ユーザー名 */}
+                                <p className="text-xl">投稿者：{name}</p>
+                                {/* <div className="flex items-center">
+                                    <span className="mr-2 text-xl font-semibold">
+                                        よかったら「いいね！」
+                                    </span>
+                                    <LikeButton
+                                        articleId={article.id}
+                                        isLoggedIn={isLoggedIn}
+                                    />
+                                </div> */}
                             </div>
                             <div className="text-left">
-                                {/* ユーザー名 */}
-                                <p className="mb-4 text-xl">投稿者：{name}</p>
                                 {/* 投稿日時 */}
                                 <p className="mb-4 text-xl">
-                                    作成日時：{created_at.slice(0, 10)}
+                                    作成日時：{formatDate(created_at)}
                                 </p>
                                 {/* 更新日時 */}
                                 <p className="mb-4 text-xl">
-                                    更新日時：{updated_at.slice(0, 10)}
+                                    更新日時：{formatDate(updated_at)}
                                 </p>
+                                {/* 期間 */}
+                                {(period_start || period_end) && (
+                                    <p className="mb-4 text-xl">
+                                        期間：
+                                        {period_start &&
+                                            formatDate(period_start)}
+                                        〜{period_end && formatDate(period_end)}
+                                    </p>
+                                )}
                                 {/* タグ */}
-                                <div className="mb-4 text-xl">
-                                    タグ：
+                                <div className="mb-4">
                                     {tags.map((tag, index) => (
                                         <span
                                             key={index}
@@ -82,15 +97,6 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     ))}
                                 </div>
                             </div>
-                            {/* 期間 */}
-                            {(period_start || period_end) && (
-                                <p className="mb-4 text-xl">
-                                    期間：
-                                    {period_start && period_start.slice(0, 10)}
-                                    〜{period_end && period_end.slice(0, 10)}
-                                </p>
-                            )}
-                            {/* 中央に寄せる */}
                             <div className="flex flex-col items-center">
                                 {/* TOP画像 */}
                                 {image_top && (
@@ -151,6 +157,16 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     )}
                                 </ul>
                             )}
+                            {/* いいねボタン */}
+                            <div className="flex justify-end items-center mb-4">
+                                <span className="mr-2 text-xl font-semibold">
+                                    よかったら「いいね！」
+                                </span>
+                                <LikeButton
+                                    articleId={article.id}
+                                    isLoggedIn={isLoggedIn}
+                                />
+                            </div>
                         </div>
                     </div>
                     {/* ボタン群 */}

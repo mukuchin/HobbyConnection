@@ -65,7 +65,6 @@ const SubForm: React.FC<SubFormProps> = ({
                                 }
                                 alt="サブフォームのプレビュー画像"
                                 className="mb-4 rounded-md shadow-md"
-                                width="500"
                             />
                             <button
                                 type="button"

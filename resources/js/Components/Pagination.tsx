@@ -10,6 +10,12 @@ interface PaginationProps extends PageProps {
     page: number; // 現在のページ番号
     lastPage: number; // 最後のページ番号
     baseUrl: string; // ページネーションリンクの基本URL
+    paginationInfo: {
+        // ページネーション情報
+        total: number;
+        perPage: number;
+        currentPage: number;
+    };
 }
 
 // ペジネーションコンポーネント
@@ -17,6 +23,7 @@ const Pagination: React.FC<PaginationProps> = ({
     page,
     lastPage,
     baseUrl,
+    paginationInfo,
 }: PaginationProps) => {
     // ページネーションの表示数
     const displayPage = 3;
@@ -60,9 +67,9 @@ const Pagination: React.FC<PaginationProps> = ({
                 href={`${baseUrl}?page=${1}`}
                 className={`${
                     page === 1
-                        ? "bg-blue-500 hover:bg-blue-700 text-white"
+                        ? "bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-1 px-4 rounded"
                         : "bg-white hover:bg-gray-100 text-gray-800"
-                } border border-gray-400 px-4 py-1 mr-1 rounded`}
+                } border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded`}
             >
                 {1}
             </Link>
@@ -74,7 +81,7 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(
             <span
                 key="start-ellipsis"
-                className="border border-gray-400 px-4 py-1 mr-1 rounded"
+                className="border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
             >
                 ...
             </span>
@@ -91,7 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         i === page
                             ? "bg-blue-500 hover:bg-blue-700 text-white"
                             : "bg-white hover:bg-gray-100 text-gray-800"
-                    } border border-gray-400 px-4 py-1 mr-1 rounded`}
+                    } border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded`}
                 >
                     {i}
                 </Link>
@@ -104,7 +111,7 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(
             <span
                 key="end-ellipsis"
-                className="border border-gray-400 px-4 py-1 mr-1 rounded"
+                className="border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
             >
                 ...
             </span>
@@ -121,35 +128,48 @@ const Pagination: React.FC<PaginationProps> = ({
                     page === lastPage
                         ? "bg-blue-500 hover:bg-blue-700 text-white"
                         : "bg-white hover:bg-gray-100 text-gray-800"
-                } border border-gray-400 px-4 py-1 mr-1 rounded`}
+                } border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded`}
             >
                 {lastPage}
             </Link>
         );
     }
 
+    const startItem =
+        (paginationInfo.currentPage - 1) * paginationInfo.perPage + 1;
+    const endItem = Math.min(
+        paginationInfo.currentPage * paginationInfo.perPage,
+        paginationInfo.total
+    );
+
     return (
-        <div className="flex justify-center">
-            {/* 前のページへのリンク */}
-            {page > 1 && (
-                <Link
-                    href={`${baseUrl}?page=${page - 1}`}
-                    className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 px-4 py-1 mr-1 rounded"
-                >
-                    前のページ
-                </Link>
-            )}
-            {/* ページネーションの各ページへのリンク */}
-            {pages}
-            {/* 次のページへのリンク */}
-            {page < lastPage && (
-                <Link
-                    href={`${baseUrl}?page=${page + 1}`}
-                    className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 px-4 py-1 mr-1 rounded"
-                >
-                    次のページ
-                </Link>
-            )}
+        <div className="flex flex-col items-center">
+            <div className="flex justify-center">
+                {/* 前のページへのリンク */}
+                {page > 1 && (
+                    <Link
+                        href={`${baseUrl}?page=${page - 1}`}
+                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
+                    >
+                        前へ
+                    </Link>
+                )}
+                {/* ページネーションの各ページへのリンク */}
+                {pages}
+                {/* 次のページへのリンク */}
+                {page < lastPage && (
+                    <Link
+                        href={`${baseUrl}?page=${page + 1}`}
+                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
+                    >
+                        次へ
+                    </Link>
+                )}
+            </div>
+            <div className="mt-2 text-xl">
+                {paginationInfo.total}本中 {startItem}本～{endItem}
+                本目
+            </div>
         </div>
     );
 };

@@ -13,6 +13,8 @@ interface TopProps extends PageProps {
     article: {
         current_page: number;
         last_page: number;
+        total: number;
+        per_page: number;
         data: ArticleItems[];
     };
 }
@@ -48,6 +50,11 @@ export default function top({ auth, article }: TopProps) {
                                 page={current_page}
                                 lastPage={last_page}
                                 baseUrl="/"
+                                paginationInfo={{
+                                    total: article.total,
+                                    perPage: article.per_page,
+                                    currentPage: article.current_page,
+                                }}
                             />
                         </div>
                     </div>

@@ -21,7 +21,14 @@ class ArticlesController extends Controller
         foreach ($articles as $article) {
             $article['tags'] = $article->tags()->pluck('name');
         }
-        return Inertia::render('top', ['article' => $articles]);
+        return Inertia::render('top', [
+            'article' => $articles,
+            'paginationInfo' => [
+                'total' => $articles->total(),
+                'perPage' => $articles->perPage(),
+                'currentPage' => $articles->currentPage(),
+            ]
+        ]);
     }
 
     // マイページ
@@ -31,7 +38,14 @@ class ArticlesController extends Controller
         foreach ($articles as $article) {
             $article['tags'] = $article->tags()->pluck('name');
         }
-        return Inertia::render('mypage', ['article' => $articles]);
+        return Inertia::render('mypage', [
+            'article' => $articles,
+            'paginationInfo' => [
+                'total' => $articles->total(),
+                'perPage' => $articles->perPage(),
+                'currentPage' => $articles->currentPage(),
+            ]
+        ]);
     }
 
     // 記事投稿ページ
@@ -125,10 +139,13 @@ class ArticlesController extends Controller
         $article->save();
 
         // タグの保存処理。タグは配列で受け取る。
+        // タグが設定された場合のみ保存
         if ($request->tags) {
             foreach ($request->tags as $tag) {
-                $tag = Tag::firstOrCreate(['name' => $tag]);
-                $article->tags()->attach($tag);
+                if (!empty($tag)) {
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+                    $article->tags()->attach($tag);
+                }
             }
         }
         return $article;
