@@ -127,6 +127,7 @@ const SubForm: React.FC<SubFormProps> = ({
                             value={values.sub_form_data[index].comment}
                             onChange={(e) => handleChange(e, index)}
                             errors={errors}
+                            textareaHeight="h-96"
                         />
 
                         {errors[`sub_form_data.${index}.comment`] && (
