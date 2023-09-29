@@ -12,6 +12,8 @@ interface MyPageProps extends PageProps {
     article: {
         current_page: number;
         last_page: number;
+        total: number;
+        per_page: number;
         data: ArticleItems[];
     };
 }
@@ -26,11 +28,13 @@ export default function mypage({ auth, article }: MyPageProps) {
             <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white p-4 rounded-lg shadow-md mb-6">
                     <h1 className="font-bold text-4xl mb-4">プロフィール</h1>
-                    <p className="mb-4">名前：{auth.user.name}</p>
-                    <p className="mb-4">メールアドレス：{auth.user.email}</p>
+                    <p className="text-xl mb-4">名前：{auth.user.name}</p>
+                    <p className="text-xl mb-4">
+                        メールアドレス：{auth.user.email}
+                    </p>
                     <a
                         href="/profile"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-2 px-4 rounded"
                     >
                         プロフィールを編集する
                     </a>
@@ -50,6 +54,11 @@ export default function mypage({ auth, article }: MyPageProps) {
                         page={current_page}
                         lastPage={last_page}
                         baseUrl="/mypage"
+                        paginationInfo={{
+                            total: article.total,
+                            perPage: article.per_page,
+                            currentPage: article.current_page,
+                        }}
                     />
                 </div>
             </div>

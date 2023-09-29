@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
 import { useDeleteMyArticle } from "@/Hooks/useDeleteMyArticle";
 import LikeButton from "./LikeButton";
+import useFormatDate from "@/Hooks/useFormatDate";
 
 // このコンポーネントで使用するpropsの型定義
 interface ArticleListProps {
@@ -32,6 +33,8 @@ const ArticleList: React.FC<ArticleListProps> = ({
     const { name } = user;
     const { confirmDelete } = useDeleteMyArticle(id);
 
+    const formatDate = useFormatDate();
+
     return (
         <div className="py-6">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -39,26 +42,27 @@ const ArticleList: React.FC<ArticleListProps> = ({
                     <div className="mb-4">
                         <Link
                             href={`/posts/${id}`}
-                            className="text-blue-500 hover:text-blue-600 text-xl font-semibold"
+                            className="text-blue-500 hover:text-blue-600 text-3xl font-semibold"
                         >
                             {title}
                         </Link>
-                        <div className="text-sm text-gray-600 mt-2">
+                        <div className="text-xl text-gray-600 mt-2">
                             <span>投稿者：{name}</span>
                             <span className="ml-4">
-                                作成日時：{created_at.slice(0, 10)}
+                                作成日時：{formatDate(created_at)}
                             </span>
                             <span className="ml-4">
-                                更新日時：{updated_at.slice(0, 10)}
+                                更新日時：{formatDate(updated_at)}
                             </span>
                         </div>
-                        <p className="mt-2 text-gray-700">{description}</p>
+                        <p className="mt-2 text-lg text-gray-700">
+                            {description}
+                        </p>
                         <div className="flex flex-wrap mt-2">
-                            <div className="mr-2 font-semibold">タグ：</div>
                             {tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm"
+                                    className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xl"
                                 >
                                     {tag}
                                 </span>
@@ -71,35 +75,37 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 className="mt-4 w-full h-56 object-cover rounded-md"
                             />
                         )}
-                        <div className="mt-4">
+                        <div className="mt-4 flex justify-between items-center">
+                            {/* いいねボタン */}
                             <LikeButton
                                 articleId={id}
                                 isLoggedIn={isLoggedIn}
                             />
+                            {isMyPage && (
+                                <div className="flex items-center">
+                                    <Link
+                                        href={`/posts/${id}/edit`}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-2 px-4 rounded ml-4"
+                                    >
+                                        編集
+                                    </Link>
+                                    <form
+                                        action={`/posts/${id}`}
+                                        method="post"
+                                        onSubmit={confirmDelete}
+                                        className="ml-4"
+                                    >
+                                        <button
+                                            type="submit"
+                                            className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 px-4 rounded"
+                                        >
+                                            削除
+                                        </button>
+                                    </form>
+                                </div>
+                            )}
                         </div>
                     </div>
-                    {isMyPage && (
-                        <div className="flex mt-4">
-                            <Link
-                                href={`/posts/${id}/edit`}
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
-                            >
-                                編集
-                            </Link>
-                            <form
-                                action={`/posts/${id}`}
-                                method="post"
-                                onSubmit={confirmDelete}
-                            >
-                                <button
-                                    type="submit"
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                >
-                                    削除
-                                </button>
-                            </form>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

@@ -49,6 +49,20 @@ const MainForm: React.FC<MainFormProps> = ({
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    // 確認のアラートを表示する関数
+    const handleConfirmSubmit = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        const message =
+            location.pathname === "/create"
+                ? "記事を投稿しますか？"
+                : "記事を更新しますか？";
+
+        if (!window.confirm(message)) {
+            e.preventDefault();
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="border rounded-md p-4">
@@ -210,7 +224,9 @@ const MainForm: React.FC<MainFormProps> = ({
                             {values.tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="inline-flex items-center mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xl"
+                                    className={`inline-flex items-center mb-4 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xl ${
+                                        index === 0 ? "ml-2" : ""
+                                    }`}
                                 >
                                     {tag}
                                     <button
@@ -270,6 +286,7 @@ const MainForm: React.FC<MainFormProps> = ({
                 <button
                     type="submit"
                     className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-bold py-2 px-4 rounded"
+                    onClick={handleConfirmSubmit}
                 >
                     {location.pathname === "/create" ? "投稿する" : "更新する"}
                 </button>
