@@ -46,35 +46,36 @@ export default function show({ auth, article, article_user }: ShowProps) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {/* タイトル */}
-                            <h1 className="font-bold text-3xl mb-4 text-center">
-                                {title}
-                            </h1>
-                            {/* いいねボタン。右に寄せる */}
-                            <div className="text-right mb-4">
+                            <div className="flex justify-center mb-4">
+                                <h1 className="font-bold text-5xl text-left">
+                                    {title}
+                                </h1>
+                            </div>
+                            {/* いいねボタン */}
+                            <div className="flex flex-row-reverse mb-4">
                                 <LikeButton
                                     articleId={article.id}
                                     isLoggedIn={isLoggedIn}
                                 />
                             </div>
-                            {/* ユーザー名、作成日時、更新日時、タグ、期間、TOP画像、概要。左寄せ */}
                             <div className="text-left">
                                 {/* ユーザー名 */}
-                                <p className="mb-4">投稿者：{name}</p>
+                                <p className="mb-4 text-xl">投稿者：{name}</p>
                                 {/* 投稿日時 */}
-                                <p className="mb-4">
+                                <p className="mb-4 text-xl">
                                     作成日時：{created_at.slice(0, 10)}
                                 </p>
                                 {/* 更新日時 */}
-                                <p className="mb-4">
+                                <p className="mb-4 text-xl">
                                     更新日時：{updated_at.slice(0, 10)}
                                 </p>
                                 {/* タグ */}
-                                <div className="mb-4">
+                                <div className="mb-4 text-xl">
                                     タグ：
                                     {tags.map((tag, index) => (
                                         <span
                                             key={index}
-                                            className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm"
+                                            className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full  text-xl"
                                         >
                                             {tag}
                                         </span>
@@ -83,7 +84,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             </div>
                             {/* 期間 */}
                             {(period_start || period_end) && (
-                                <p className="mb-4">
+                                <p className="mb-4 text-xl">
                                     期間：
                                     {period_start && period_start.slice(0, 10)}
                                     〜{period_end && period_end.slice(0, 10)}
@@ -93,18 +94,21 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             <div className="flex flex-col items-center">
                                 {/* TOP画像 */}
                                 {image_top && (
-                                    <div className="text-center mb-4">
+                                    <div className="text-center mb-2">
                                         <img
                                             src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
                                             alt="TOP画像"
-                                            width="500"
+                                            width="full"
+                                            className="mb-4 rounded-md shadow-md"
                                         />
                                     </div>
                                 )}
                                 {/* 概要 */}
-                                <p className="mb-4 text-center">
-                                    {description}
-                                </p>
+                                <div className="flex justify-center mb-20">
+                                    <div className="text-2xl text-left">
+                                        {description}
+                                    </div>
+                                </div>
                             </div>
 
                             {/* サブフォームの表示 */}
@@ -120,46 +124,84 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                     <div className="flex flex-col items-center">
                                                         {/* サブフォームの画像 */}
                                                         {data.image && (
-                                                            <div className="mb-4 text-center">
+                                                            <div className="mb-2 text-center">
                                                                 {" "}
                                                                 {/* ここにtext-centerを追加 */}
                                                                 <img
                                                                     src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${data.image}`}
                                                                     alt="サブフォームの画像"
-                                                                    width="300"
+                                                                    width="1000"
+                                                                    className="mb-4 rounded-md shadow-md"
                                                                 />
                                                             </div>
                                                         )}
                                                         {/* サブフォームのコメント */}
-                                                        {data.comment && (
-                                                            <p>
-                                                                {data.comment}
-                                                            </p>
-                                                        )}
+                                                        <div className="w-full max-w-full text-2xl text-left break-all mb-10">
+                                                            {data.comment && (
+                                                                <p>
+                                                                    {
+                                                                        data.comment
+                                                                    }
+                                                                </p>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </li>
                                             )
                                     )}
                                 </ul>
                             )}
-                            {/* ボタン群 */}
-                            <div className="text-center mt-4">
-                                {/* TOPページに戻る */}
-                                <a
-                                    href="/"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
-                                >
-                                    TOPページへ
-                                </a>
-                                {/* マイページに戻る */}
-                                <a
-                                    href="/mypage"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                >
-                                    マイページへ
-                                </a>
-                            </div>
                         </div>
+                    </div>
+                    {/* ボタン群 */}
+                    <div className="flex flex-col items-start justify-center mt-3">
+                        {/* TOPページに戻る */}
+                        <a
+                            href="/"
+                            className="flex items-center text-gray-500 hover:text-gray-700"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-16 h-16 mr-2"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                                />
+                            </svg>
+                            <div className="text-3xl font-bold">
+                                TOPページへ
+                            </div>
+                        </a>
+
+                        {/* マイページに戻る */}
+                        <a
+                            href="/mypage"
+                            className="flex items-center w-55 mt-5 text-gray-500 hover:text-gray-700"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-16 h-16 mr-2"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                                />
+                            </svg>
+                            <div className="text-3xl font-bold">
+                                マイページへ
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

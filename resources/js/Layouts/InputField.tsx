@@ -14,9 +14,11 @@ const InputField = React.forwardRef<
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => void;
         errors: any;
+        textareaHeight?: string;
     }
 >((props, ref) => {
-    const { label, type, id, name, value, onChange, errors } = props;
+    const { label, type, id, name, value, onChange, errors, textareaHeight } =
+        props;
     return (
         <div className="mb-4">
             <label
@@ -27,7 +29,9 @@ const InputField = React.forwardRef<
             </label>
             {type === "textarea" ? (
                 <textarea
-                    className="form-control mt-1 p-2 w-full h-48 border rounded"
+                    className={`form-control mt-1 p-2 w-full border rounded ${
+                        textareaHeight || "h-48"
+                    }`}
                     id={id}
                     name={name}
                     value={value}
