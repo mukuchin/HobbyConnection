@@ -7,6 +7,7 @@ import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
 import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
 import { ArticleItems } from "@/types/ArticleProps";
+import { useFormatDate } from "@/Hooks/useFormatDate";
 
 // Propsの型定義
 interface EditProps extends PageProps {
@@ -55,6 +56,9 @@ export default function edit({ auth, article }: EditProps) {
         removeTag,
     } = useArticleForm(values, setValues, `/posts/${id}`);
 
+    // 日付をフォーマットする関数
+    const formatDate = useFormatDate();
+
     return (
         <>
             <AppHead title="記事編集" />
@@ -67,10 +71,10 @@ export default function edit({ auth, article }: EditProps) {
                                 記事編集
                             </h1>
                             <p className="mb-4">
-                                作成日時：{created_at.slice(0, 10)}
+                                作成日時：{formatDate(created_at)}
                             </p>
                             <p className="mb-4">
-                                更新日時：{updated_at.slice(0, 10)}
+                                更新日時：{formatDate(updated_at)}
                             </p>
                             <div className="container">
                                 <div className="row justify-content-center">

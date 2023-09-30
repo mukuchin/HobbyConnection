@@ -108,17 +108,18 @@ export default function Login({
                         </div>
 
                         <div className="flex items-center justify-end mt-4 space-x-4">
-                            {canResetPassword && (
+                            {/* パスワードリセット機能は未実装 */}
+                            {/* {canResetPassword && (
                                 <Link
                                     href={route("password.request")}
-                                    className="underline text-sm text-gray-600 hover:text-gray-900"
+                                    className="underline text-gray-600 hover:text-gray-900"
                                 >
                                     パスワードを忘れた方はこちら
                                 </Link>
-                            )}
+                            )} */}
                             <Link
                                 href={route("register")}
-                                className="underline text-sm text-gray-600 hover:text-gray-900"
+                                className="underline text-gray-600 hover:text-gray-900"
                             >
                                 新規ユーザー登録
                             </Link>
