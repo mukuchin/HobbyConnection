@@ -16,7 +16,11 @@ interface PageTabProps {
 
 const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
     <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-        <NavLink href={href} active={route().current(currentRoute)}>
+        <NavLink
+            href={href}
+            active={route().current(currentRoute)}
+            className="text-xl"
+        >
             {children}
         </NavLink>
     </div>
@@ -33,11 +37,11 @@ function Authenticated({
         <div>
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
+                    <div className="flex justify-between h-20">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo />
                                 </Link>
                             </div>
 
@@ -65,7 +69,7 @@ function Authenticated({
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-2xl leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
                                                 <svg
@@ -88,7 +92,7 @@ function Authenticated({
                                         <Dropdown.Link
                                             href={route("profile.edit")}
                                         >
-                                            プロフィール
+                                            プロフィール編集
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("logout")}
