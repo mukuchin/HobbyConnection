@@ -45,7 +45,7 @@ const SubForm: React.FC<SubFormProps> = ({
         <div className="form-group p-4 border rounded-md shadow-md">
             <label
                 htmlFor={`sub_form_data_${index}`}
-                className="block font-bold text-2xl mb-2"
+                className="block font-bold text-xl mb-2"
             >
                 投稿 {index + 1}
             </label>
@@ -68,7 +68,7 @@ const SubForm: React.FC<SubFormProps> = ({
                             />
                             <button
                                 type="button"
-                                className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 px-4 rounded"
+                                className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded"
                                 onClick={() => {
                                     cancelImagePreview(fileInputRef, index);
                                 }}
@@ -110,7 +110,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         </p>
                     )}
                     {/* ファイル形式・サイズの注意書き */}
-                    <p className=" text-gray-500">
+                    <p className=" text-sm text-gray-500">
                         画像は最大2MBまでです。ファイル形式はjpg, jpeg, gif,
                         pngに対応しています。
                     </p>
@@ -144,7 +144,7 @@ const SubForm: React.FC<SubFormProps> = ({
 
                     <button
                         type="button"
-                        className="mt-4 bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 rounded"
+                        className="mt-4 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 rounded"
                         onClick={() => deleteSubForm(index)}
                     >
                         投稿 {index + 1} を削除

@@ -67,9 +67,9 @@ const Pagination: React.FC<PaginationProps> = ({
                 href={`${baseUrl}?page=${1}`}
                 className={`${
                     page === 1
-                        ? "bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-1 px-4 rounded"
+                        ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-4 rounded"
                         : "bg-white hover:bg-gray-100 text-gray-800"
-                } border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded`}
+                } border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded`}
             >
                 {1}
             </Link>
@@ -81,7 +81,7 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(
             <span
                 key="start-ellipsis"
-                className="border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
+                className="border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded"
             >
                 ...
             </span>
@@ -98,7 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         i === page
                             ? "bg-blue-500 hover:bg-blue-700 text-white"
                             : "bg-white hover:bg-gray-100 text-gray-800"
-                    } border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded`}
+                    } border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded`}
                 >
                     {i}
                 </Link>
@@ -111,7 +111,7 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(
             <span
                 key="end-ellipsis"
-                className="border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
+                className="border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded"
             >
                 ...
             </span>
@@ -128,7 +128,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     page === lastPage
                         ? "bg-blue-500 hover:bg-blue-700 text-white"
                         : "bg-white hover:bg-gray-100 text-gray-800"
-                } border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded`}
+                } border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded`}
             >
                 {lastPage}
             </Link>
@@ -149,7 +149,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 {page > 1 && (
                     <Link
                         href={`${baseUrl}?page=${page - 1}`}
-                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
+                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-sm font-bold py-1 px-2 mr-1 rounded"
                     >
                         前へ
                     </Link>
@@ -160,7 +160,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 {page < lastPage && (
                     <Link
                         href={`${baseUrl}?page=${page + 1}`}
-                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-lg font-bold py-1 px-4 mr-1 rounded"
+                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-sm font-bold py-1 px-2 mr-1 rounded"
                     >
                         次へ
                     </Link>
