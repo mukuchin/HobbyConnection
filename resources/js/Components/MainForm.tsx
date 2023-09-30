@@ -66,9 +66,9 @@ const MainForm: React.FC<MainFormProps> = ({
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="border rounded-md p-4">
-                <h3 className="font-bold text-3xl mb-4">記事TOP</h3>
+                <h3 className="font-bold text-2xl mb-4">記事TOP</h3>
                 {/* *についての説明。 */}
-                <p className="mb-4">
+                <p className="mb-4 text-sm text-gray-600">
                     <span className="text-red-500">*</span>は必須項目です。
                 </p>
                 {/* 画像のプレビュー */}
@@ -87,7 +87,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 />
                                 <button
                                     type="button"
-                                    className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 px-4 rounded"
+                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded"
                                     onClick={() => {
                                         cancelImagePreview(fileInputRef);
                                     }}
@@ -122,7 +122,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 errors={errors}
                             />
                             {/* ファイル形式・サイズの注意書き */}
-                            <p className=" text-gray-500">
+                            <p className="text-sm text-gray-500">
                                 画像は最大2MBまでです。ファイル形式はjpg, jpeg,
                                 gif, pngに対応しています。
                             </p>
@@ -214,7 +214,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                     addTag(input.value);
                                     input.value = "";
                                 }}
-                                className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-2 px-4 rounded"
+                                className="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded"
                             >
                                 タグを追加
                             </button>
@@ -224,7 +224,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             {values.tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className={`inline-flex items-center mb-4 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xl ${
+                                    className={`inline-flex items-center mb-4 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-lg ${
                                         index === 0 ? "ml-2" : ""
                                     }`}
                                 >
@@ -257,7 +257,7 @@ const MainForm: React.FC<MainFormProps> = ({
             </div>
 
             <div className="border rounded-md p-4">
-                <h3 className="font-bold text-3xl mb-4">投稿</h3>
+                <h3 className="font-bold text-2xl mb-4">投稿</h3>
                 {values.sub_form_data.map((data, index) => (
                     <SubForm
                         key={data.id || index}

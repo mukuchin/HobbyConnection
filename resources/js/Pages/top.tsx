@@ -35,7 +35,7 @@ export default function top({ auth, article }: TopProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <h1 className="font-bold text-4xl mb-4">
+                            <h1 className="font-bold text-2xl mb-4">
                                 全ての記事
                             </h1>
                             {data.map((item) => (

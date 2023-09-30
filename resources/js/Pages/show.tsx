@@ -51,35 +51,33 @@ export default function show({ auth, article, article_user }: ShowProps) {
                         <div className="p-6 text-gray-900">
                             {/* タイトル */}
                             <div className="flex justify-center mb-4">
-                                <h1 className="font-bold text-5xl text-left">
+                                <h1 className="font-bold text-4xl text-left">
                                     {title}
                                 </h1>
                             </div>
                             <div className="flex justify-between items-center mb-4">
                                 {/* ユーザー名 */}
-                                <p className="text-xl">
-                                    <div className="flex items-center">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            className="w-6 h-6"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                                            />
-                                        </svg>
-                                        <span className="ml-2">{name}</span>
-                                    </div>
+                                <p className="flex items-center">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                                        />
+                                    </svg>
+                                    <span className="ml-2">{name}</span>
                                 </p>
                             </div>
 
                             {/* 投稿日時 */}
-                            <p className="mb-4 text-xl flex items-center">
+                            <p className="mb-4 flex items-center">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -99,7 +97,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 </span>
                             </p>
                             {/* 更新日時 */}
-                            <p className="mb-4 text-xl flex items-center">
+                            <p className="mb-4 flex items-center">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -120,7 +118,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             </p>
                             {/* 期間 */}
                             {(period_start || period_end) && (
-                                <p className="mb-4 text-xl flex items-center">
+                                <p className="mb-4 flex items-center">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -147,7 +145,9 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     {tags.map((tag, index) => (
                                         <span
                                             key={index}
-                                            className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full  text-xl"
+                                            className={
+                                                "inline-flex items-center mb-4 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-lg mr-2"
+                                            }
                                         >
                                             {tag}
                                         </span>
@@ -161,14 +161,14 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                         <img
                                             src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
                                             alt="TOP画像"
-                                            width="full"
+                                            width="600"
                                             className="mb-4 rounded-md shadow-md"
                                         />
                                     </div>
                                 )}
                                 {/* 概要 */}
                                 <div className="flex justify-center mb-20">
-                                    <div className="text-2xl text-left">
+                                    <div className="text-lg text-left">
                                         {description}
                                     </div>
                                 </div>
@@ -193,13 +193,13 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                                 <img
                                                                     src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${data.image}`}
                                                                     alt="サブフォームの画像"
-                                                                    width="1000"
+                                                                    width="600"
                                                                     className="mb-4 rounded-md shadow-md"
                                                                 />
                                                             </div>
                                                         )}
                                                         {/* サブフォームのコメント */}
-                                                        <div className="w-full max-w-full text-2xl text-left break-all mb-10">
+                                                        <div className="w-full max-w-full text-lg text-left break-all mb-10">
                                                             {data.comment && (
                                                                 <p>
                                                                     {
@@ -239,7 +239,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-16 h-16 mr-2"
+                                className="w-10 h-10 mr-2"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -247,7 +247,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
                                 />
                             </svg>
-                            <div className="text-3xl font-bold">
+                            <div className="text-xl font-bold">
                                 TOPページへ
                             </div>
                         </a>
@@ -263,7 +263,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-16 h-16 mr-2"
+                                className="w-10 h-10 mr-2"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -271,7 +271,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
                                 />
                             </svg>
-                            <div className="text-3xl font-bold">
+                            <div className="text-xl font-bold">
                                 マイページへ
                             </div>
                         </a>

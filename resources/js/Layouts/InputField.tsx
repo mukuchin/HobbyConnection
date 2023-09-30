@@ -23,7 +23,7 @@ const InputField = React.forwardRef<
         <div className="mb-4">
             <label
                 htmlFor={id}
-                className="block text-xl font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-700"
             >
                 {label}
             </label>

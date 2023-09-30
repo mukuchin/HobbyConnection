@@ -16,7 +16,7 @@ const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
         <NavLink
             href={href}
             active={route().current(currentRoute)}
-            className="text-xl"
+            className="text-lg"
         >
             {children}
         </NavLink>

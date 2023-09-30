@@ -46,11 +46,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                         {/* 記事のタイトル */}
                         <Link
                             href={`/posts/${id}`}
-                            className="text-blue-500 hover:text-blue-600 text-3xl font-semibold"
+                            className="text-blue-500 hover:text-blue-600 text-2xl font-semibold"
                         >
                             {title}
                         </Link>
-                        <div className="flex flex-row text-xl text-gray-600 mt-2">
+                        <div className="flex flex-row text-base text-gray-600 mt-2">
                             {/* 記事の作成者 */}
                             <span>
                                 <div className="flex items-center">
@@ -60,7 +60,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-4 h-4"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -80,7 +80,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                         viewBox="0 0 24 24"
                                         stroke-width="1.5"
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-4 h-4"
                                     >
                                         <path
                                             stroke-linecap="round"
@@ -102,7 +102,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-4 h-4"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -125,7 +125,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-6 h-6"
+                                            className="w-4 h-4"
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -141,8 +141,8 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 )}
                             </span>
                         </div>
-                        {/* 記事の期間 */}
-                        <p className="mt-2 text-lg text-gray-700">
+                        {/* 記事の概要 */}
+                        <p className="mt-2 text-base text-gray-700">
                             {description}
                         </p>
                         {/* タグ */}
@@ -150,7 +150,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             {tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xl"
+                                    className="mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-lg"
                                 >
                                     {tag}
                                 </span>
