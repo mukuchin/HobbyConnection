@@ -71,9 +71,10 @@ const MainForm: React.FC<MainFormProps> = ({
                 <p className="mb-4 text-sm text-gray-600">
                     <span className="text-red-500">*</span>は必須項目です。
                 </p>
-                {/* 画像のプレビュー */}
-                <div className="flex">
-                    <div className="w-1/2 pr-4">
+
+                <div className="flex flex-col md:flex-row">
+                    {/* 画像のプレビュー */}
+                    <div className="w-full md:w-1/2 pr-4">
                         {values.image && (
                             <div className="mb-4">
                                 <img
@@ -129,7 +130,7 @@ const MainForm: React.FC<MainFormProps> = ({
                         </div>
                     </div>
 
-                    <div className="w-1/2">
+                    <div className="flex flex-col w-full md:w-1/2">
                         <InputField
                             label={
                                 <>

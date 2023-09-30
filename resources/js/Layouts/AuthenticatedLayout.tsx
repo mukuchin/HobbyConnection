@@ -15,11 +15,11 @@ interface PageTabProps {
 }
 
 const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
-    <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+    <div className="space-x-8 sm:-my-px ml-10 flex">
         <NavLink
             href={href}
             active={route().current(currentRoute)}
-            className="text-lg"
+            className="text-sm md:text-lg"
         >
             {children}
         </NavLink>
@@ -37,14 +37,13 @@ function Authenticated({
         <div>
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="ml-8 shrink-0 flex items-center">
+                        <Link href="/">
+                            <ApplicationLogo />
+                        </Link>
+                    </div>
                     <div className="flex justify-between h-20">
                         <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo />
-                                </Link>
-                            </div>
-
                             <PageTab href={route("top")} currentRoute="top">
                                 TOP
                             </PageTab>
@@ -62,14 +61,14 @@ function Authenticated({
                             </PageTab>
                         </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
+                        <div className="flex items-center sm:ml-6">
                             <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-lg leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
                                                 <svg
