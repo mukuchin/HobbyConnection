@@ -12,11 +12,11 @@ interface PageTabProps {
 }
 
 const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
-    <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+    <div className="space-x-8 sm:-my-px ml-10 flex">
         <NavLink
             href={href}
             active={route().current(currentRoute)}
-            className="text-lg"
+            className="text-sm md:text-lg"
         >
             {children}
         </NavLink>
@@ -31,14 +31,13 @@ function Guest({
         <div>
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="ml-8 shrink-0 flex items-center">
+                        <Link href="/">
+                            <ApplicationLogo />
+                        </Link>
+                    </div>
                     <div className="flex justify-between h-20">
                         <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo />
-                                </Link>
-                            </div>
-
                             <PageTab href={route("top")} currentRoute="top">
                                 TOP
                             </PageTab>
@@ -60,12 +59,14 @@ function Guest({
                             <PageTab href={route("login")} currentRoute="login">
                                 ログイン
                             </PageTab>
-                            <PageTab
-                                href={route("register")}
-                                currentRoute="register"
-                            >
-                                新規ユーザー登録
-                            </PageTab>
+                            <div className="hidden sm:flex sm:items-center sm:ml-6">
+                                <PageTab
+                                    href={route("register")}
+                                    currentRoute="register"
+                                >
+                                    新規ユーザー登録
+                                </PageTab>
+                            </div>
                         </div>
                     </div>
                 </div>

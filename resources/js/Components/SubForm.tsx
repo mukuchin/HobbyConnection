@@ -49,8 +49,9 @@ const SubForm: React.FC<SubFormProps> = ({
             >
                 投稿 {index + 1}
             </label>
-            <div className="flex">
-                <div className="w-1/2 pr-4">
+            <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/2 pr-4">
+                    {/* 画像のプレビュー */}
                     {values.sub_form_data[index].image && (
                         <div className="mb-4">
                             <img
@@ -78,6 +79,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         </div>
                     )}
 
+                    {/* 画像の削除フラグ */}
                     <input
                         type="hidden"
                         name={`sub_form_data[${index}][delete_image]`}
@@ -88,6 +90,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         }
                     />
 
+                    {/* 画像の入力 */}
                     <InputField
                         label={
                             values.sub_form_data[index].image
@@ -116,7 +119,8 @@ const SubForm: React.FC<SubFormProps> = ({
                     </p>
                 </div>
 
-                <div className="w-1/2 flex flex-col justify-between">
+                {/* コメントの入力 */}
+                <div className="w-full md:w-1/2 flex flex-col justify-between">
                     <div>
                         <InputField
                             label="コメント"
@@ -126,7 +130,7 @@ const SubForm: React.FC<SubFormProps> = ({
                             value={values.sub_form_data[index].comment}
                             onChange={(e) => handleChange(e, index)}
                             errors={errors}
-                            textareaHeight="h-96"
+                            textareaHeight="h-48 md:h-96"
                         />
 
                         {errors[`sub_form_data.${index}.comment`] && (
