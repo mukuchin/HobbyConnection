@@ -46,11 +46,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                         {/* 記事のタイトル */}
                         <Link
                             href={`/posts/${id}`}
-                            className="text-blue-500 hover:text-blue-600 text-2xl font-semibold"
+                            className="text-blue-500 hover:text-blue-600 text-xl sm:text-2xl font-semibold"
                         >
                             {title}
                         </Link>
-                        <div className="flex flex-col md:flex-row text-base text-gray-600 mt-2">
+                        <div className="flex flex-col md:flex-row text-sm sm:text-base text-gray-600 mt-2">
                             {/* 記事の作成者 */}
                             <span className="mr-4 mt-2 lg:mt-0">
                                 <div className="flex items-center">
@@ -113,7 +113,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             </span>
                         </div>
                         {/* 期間 */}
-                        <div className="mt-2 mr-4">
+                        <div className="mt-2 mr-4 text-sm sm:text-base">
                             {(period_start || period_end) && (
                                 <div className="flex items-center">
                                     <svg
@@ -138,7 +138,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             )}
                         </div>
                         {/* 記事の概要 */}
-                        <p className="mt-2 text-base text-gray-700">
+                        <p className="mt-2 text-sm sm:text-base text-gray-700">
                             {description}
                         </p>
                         {/* タグ */}
@@ -146,7 +146,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             {tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="mt-2 mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-lg"
+                                    className="mt-2 mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text:sm sm:text-base"
                                 >
                                     {tag}
                                 </span>

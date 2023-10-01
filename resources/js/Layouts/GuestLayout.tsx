@@ -4,6 +4,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 import React, { PropsWithChildren, ReactNode, memo } from "react";
 import NavLink from "@/Components/NavLink";
+import Dropdown from "@/Components/Dropdown";
 
 interface PageTabProps {
     href: string;
@@ -55,17 +56,59 @@ function Guest({
                             </PageTab>
                         </div>
 
-                        <div className="flex">
+                        {/* 画面が広い時に表示する。 */}
+                        <div className="hidden sm:-my-px sm:ml-6 sm:flex">
                             <PageTab href={route("login")} currentRoute="login">
                                 ログイン
                             </PageTab>
-                            <div className="hidden sm:flex sm:items-center sm:ml-6">
-                                <PageTab
-                                    href={route("register")}
-                                    currentRoute="register"
-                                >
-                                    新規ユーザー登録
-                                </PageTab>
+                            <PageTab
+                                href={route("register")}
+                                currentRoute="register"
+                            >
+                                新規ユーザー登録
+                            </PageTab>
+                        </div>
+                        {/* 画面が狭い時にハンバーガーアイコンにする。 */}
+                        <div className="sm:hidden flex items-center sm:ml-6">
+                            <div className="ml-3 relative">
+                                <Dropdown>
+                                    <Dropdown.Trigger>
+                                        <span className="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-lg leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    className="w-6 h-6"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </Dropdown.Trigger>
+
+                                    <Dropdown.Content>
+                                        <Dropdown.Link href={route("login")}>
+                                            ログイン
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route("register")}
+                                            method="post"
+                                            as="button"
+                                        >
+                                            新規ユーザー登録
+                                        </Dropdown.Link>
+                                    </Dropdown.Content>
+                                </Dropdown>
                             </div>
                         </div>
                     </div>

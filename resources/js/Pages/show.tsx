@@ -45,7 +45,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
             )}
 
             {/* 記事の閲覧 */}
-            <div className="py-12">
+            <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
@@ -225,56 +225,56 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 />
                             </div>
                         </div>
-                    </div>
-                    {/* ボタン群 */}
-                    <div className="flex flex-col items-start justify-center mt-3">
-                        {/* TOPページに戻る */}
-                        <a
-                            href="/"
-                            className="flex items-center text-gray-500 hover:text-gray-700"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-10 h-10 mr-2"
+                        {/* ボタン群 */}
+                        <div className="ml-8 mb-8 flex flex-col items-start justify-center mt-3">
+                            {/* TOPページに戻る */}
+                            <a
+                                href="/"
+                                className="flex items-center text-gray-500 hover:text-gray-700"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
-                                />
-                            </svg>
-                            <div className="text-xl font-bold">
-                                TOPページへ
-                            </div>
-                        </a>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-10 h-10 mr-2"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                                    />
+                                </svg>
+                                <div className="text-xl font-bold">
+                                    TOPページへ
+                                </div>
+                            </a>
 
-                        {/* マイページに戻る */}
-                        <a
-                            href="/mypage"
-                            className="flex items-center w-55 mt-5 text-gray-500 hover:text-gray-700"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-10 h-10 mr-2"
+                            {/* マイページに戻る */}
+                            <a
+                                href="/mypage"
+                                className="flex items-center w-55 mt-5 text-gray-500 hover:text-gray-700"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
-                                />
-                            </svg>
-                            <div className="text-xl font-bold">
-                                マイページへ
-                            </div>
-                        </a>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-10 h-10 mr-2"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                                    />
+                                </svg>
+                                <div className="text-xl font-bold">
+                                    マイページへ
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
