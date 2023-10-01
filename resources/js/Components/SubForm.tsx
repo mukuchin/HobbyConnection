@@ -42,7 +42,7 @@ const SubForm: React.FC<SubFormProps> = ({
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     return (
-        <div className="form-group p-4 border rounded-md shadow-md">
+        <div className="mb-4 form-group p-4 border rounded-md shadow-md">
             <label
                 htmlFor={`sub_form_data_${index}`}
                 className="block font-bold text-xl mb-2"
