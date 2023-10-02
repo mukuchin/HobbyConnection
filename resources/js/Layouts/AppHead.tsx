@@ -11,7 +11,7 @@ export default function Site({ title }: SiteProps) {
         <Head>
             <title>
                 {/* タブ名を表示する */}
-                {title ? `${title} - ホビーコネクション` : "ホビーコネクション"}
+                {title ? `${title} - Hobby Connection` : "Hobby Connection"}
             </title>
         </Head>
     );
