@@ -34,7 +34,7 @@ export default function top({ auth, article }: TopProps) {
             {/* ホビーコネクションの紹介 */}
             <div className="bg-black">
                 <div className="bg-top bg-cover bg-no-repeat bg-center p-6 py-64 shadow-md text-white">
-                    <h1 className="font-bold text-4xl sm:text-5xl mb-6 text-center">
+                    <h1 className="font-bold text-4xl sm:text-5xl mb-32 text-center">
                         人生に新しいワクワクを。
                     </h1>
                     <div className="flex justify-center">
@@ -54,10 +54,10 @@ export default function top({ auth, article }: TopProps) {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center items-center text-xl sm:text-3xl">
+                    <div className="mt-48 flex justify-center text-xl sm:text-3xl">
                         <a
                             href="/create"
-                            className="inline-block mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-300"
+                            className="ml-16 inline-block mr-16 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-300"
                         >
                             記事を投稿する
                         </a>
