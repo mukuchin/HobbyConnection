@@ -1,67 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Hobby Connection
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## デプロイ先
 
-## About Laravel
+## 概要
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+自分の趣味をみんなに共有するブログサイトです。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+本アプリは共通の趣味を持ったユーザ同士で盛り上がったり、新しい趣味を見つけられるようにすることで人生をより楽しくすること目指しています。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+特に、記事を投稿したユーザ自身に興味を持ち、そのユーザの別の趣味に触れることで、新たな趣味をつくるというプロセスを作りたいです。
 
-## Learning Laravel
+## 開発人数
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1 人
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 使用技術
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 開発環境
 
-## Laravel Sponsors
+-   WSL2（Ubuntu 22.04 LTS）
+-   Docker
+-   Visual Studio Code
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 開発言語
 
-### Premium Partners
+-   TypeScript
+-   PHP
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### フレームワーク
 
-## Contributing
+-   Laravel10
+-   React
+-   Inertia
+-   Tailwind CSS
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### データベース
 
-## Code of Conduct
+-   MySQL
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### インフラ
 
-## Security Vulnerabilities
+-   heloku
+-   AWS？
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 画像ファイル管理
 
-## License
+-   AWS S3
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# HobbyConnection
+## 機能一覧
+
+### 現在搭載されている機能
+
+-   ログイン機能
+-   ユーザ新規登録機能
+-   プロフィール設定機能
+-   記事閲覧機能
+-   記事投稿機能
+-   記事編集機能
+-   投稿追加機能（画像・コメント）
+-   記事 TOP 設定機能（記事タイトル・期間・画像・概要）
+-   タグ機能
+-   いいね機能
+
+### 今後搭載予定の機能
+
+-   ユーザフォロー機能
+-   閲覧した記事にコメントする機能
+-   記事検索機能（タグ）
+-   ユーザ検索機能（ユーザ名）
+    検索したユーザのプロフィール・記事を閲覧できる機能（タグをクリックすると、そのタグを設定した記事が一覧表示されるようにする）
+-   記事を一番下までスクロールすると、投稿したユーザのプロフィールが強調して表示される機能
+
+## 何故開発しようと思ったか
+
+開発しようと思った理由は以下の３つです。
+
+1. 実際に趣味を体験できない人でも体験した気分を味わえるようなものを作ってみたいと思ったから
+2. 楽しい体験を伝えることで人を楽しませるものを作ってみたいと思ったから
+3. 今まで触れてこなかった趣味を体験することで、プラスの感情を作ってみたいと思ったから
+
+以下でそれぞれの理由について説明します。
+
+#### 1. 実際に趣味を体験できない人でも体験した気分を味わえるようなものを作ってみたいと思ったから
+
+私は Vtuber が好きで、以前この動画([https://www.youtube.com/watch?v=iA8zNXWO2iI](https://www.youtube.com/watch?v=iA8zNXWO2iI))を観ていたのですが、その際に一度くらい自分のお金で旅行に行ってみたいと思いました。しかし、私には旅行に行けるほどのお金や時間はありません。その時にふと私は、私以外にもお金や時間がない人や、怪我や病気等で行くことが出来ない人もいると気付きました。つまり、趣味を体験したくても体験できないという人がこの世界には沢山いると気付いたのです。そこで、そういった人達が趣味を体験した気分を味わえるようなものがあれば良いと思いました。
+
+#### 2. 楽しい体験を伝えることで人を楽しませるものを作ってみたいと思ったから
+
+先程の動画を観たことで、楽しい体験を伝えることで人を楽しませるものを作ってみたいと思いました。私は実際にその場にいませんでしたが、移動中の雑談や、グランピング、トランプを楽しんでいる様子を観ていて、楽しいと感じました。これにより、私は実際に体験できなくてもその場の楽しさを伝えることが出来ると実感し、体験の楽しさを伝えるものを作ってみたいと思いました。
+
+#### 3. 今まで触れてこなかった趣味を体験することで、プラスの感情を作ってみたいと思ったから
+
+先程の動画は、Vtuber というコンテンツを起点として、視聴者を旅行というコンテンツにつなげるものだと考えております。また、私は新たな趣味を見つけると、人生が豊かになると考えています。例えば、私は Vtuber というコンテンツに初めて触れたとき、「かわいい」「面白い」「一緒にいて楽しい」といった感情が湧き上がって幸せになりました。ご自身の経験に照らし合わせて想像して下さい。新たな趣味を見つけたときの気持ちはどのようなものでしたか？「楽しい」「面白い」「好き」等プラスの感情が湧き上がってきませんでしたか？私は先程の動画を見て、このような感情を作ってみたいと思いました。
+
+以上の理由から、私は趣味を共有できる Web アプリを作ってみたいと思いました。Hobby Connection を使用することで、趣味を体験して楽しみ、新たな趣味を見つけて、人生が今よりも豊かになれば嬉しいです。
+
+## [サイトストラクチャ](https://drive.google.com/file/d/1r9j9nggoobS2rChpoOU6z4YkgNXmqe_z/view?usp=sharing)
+
+## [ワイヤフレーム](https://app.diagrams.net/#G1rMCmTkB2WtT4swPb3ieEt_686NVUhFAk)
+
+## [ER 図](https://drive.google.com/file/d/1r8Pw335I2oew5LOtUtZQcrVuXPY7uuU8/view?usp=sharing)
+
+## 今後の改善案
+
+-   コンポーネントや関数のメモ化を試みたが、ナビゲーションバーぐらいしか上手くいかなかった。具体的には、以下の点が上手くいかなかった。
+
+    -   サブフォームがレンダリングされると親コンポーネントのメインフォームとページ（create.tsx、edit.tsx）が再レンダリングされてしまう。
+    -   メインフォームが入力されると子コンポーネントのサブフォームと親コンポーネントのページ（create.tsx、edit.tsx）が再レンダリングされてしまう。しかし、サブフォームをメモ化するとサブフォームをループでレンダリングするメインフォームがレンダリングされないので、サブフォームで入力・削除するとそのサブフォーム以降のサブフォームが消滅する。
+    -   React Dev Tools の Profiler でパフォーマンスを計測しようとしたが、「Profiling not supported. Profiling support requires either a development or profiling build of React v16.5+.」と表示され、使用できない。開発環境の React は v18.2.0 であり、条件を満たしているのにも関わらず、サポート対象外となってしまう。
+
+    序盤からメモ化することを想定してコンポーネントを設計しないとパフォーマンス改善に取り組むことすら出来なくなるのだと学んだ。今後はこのようなことがないように、他のエンジニアにコードレビューをしてもらいながら開発するようにしたい。
