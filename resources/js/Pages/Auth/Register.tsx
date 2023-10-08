@@ -32,7 +32,7 @@ export default function Register() {
             <AppHead title="新規ユーザ登録" />
 
             <div className="flex flex-col items-center justify-center min-h-screen">
-                <div className="max-w-md w-full space-y-4">
+                <div className="max-w-md w-full space-y-4 font-noto-sans-jp">
                     <form onSubmit={submit} className="space-y-4">
                         <div>
                             <InputLabel htmlFor="name" value="ユーザ名" />

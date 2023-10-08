@@ -84,6 +84,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
                     </svg>
                 )}
             </button>
+            {/* いいねの数 */}
             <span className="text-3xl text-center w-10">{likesCount}</span>
         </div>
     );

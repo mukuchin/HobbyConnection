@@ -14,6 +14,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                'noto-sans-jp': ['Noto Sans JP', 'sans-serif'],
             },
             backgroundImage: {
                 'various-hobby': "url('/images/VariousHobby.jpg')",

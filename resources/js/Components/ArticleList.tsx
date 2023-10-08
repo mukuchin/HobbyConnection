@@ -46,11 +46,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                         {/* 記事のタイトル */}
                         <Link
                             href={`/posts/${id}`}
-                            className="text-blue-500 hover:text-blue-600 text-xl sm:text-2xl font-semibold"
+                            className="flex justify-center text-blue-500 hover:text-blue-600 text-xl sm:text-2xl font-noto-sans-jp font-semibold"
                         >
                             {title}
                         </Link>
-                        <div className="flex flex-col md:flex-row text-sm sm:text-base text-gray-600 mt-2">
+                        <div className="font-noto-sans-jp flex flex-col md:flex-row text-sm sm:text-base text-gray-600 mt-2">
                             {/* 記事の作成者 */}
                             <span className="mr-4 mt-2 lg:mt-0">
                                 <div className="flex items-center">
@@ -113,7 +113,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             </span>
                         </div>
                         {/* 期間 */}
-                        <div className="mt-2 mr-4 text-sm sm:text-base">
+                        <div className="font-noto-sans-jp mt-2 mr-4 text-sm sm:text-base">
                             {(period_start || period_end) && (
                                 <div className="flex items-center">
                                     <svg
@@ -138,11 +138,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             )}
                         </div>
                         {/* 記事の概要 */}
-                        <p className="mt-2 text-sm sm:text-base text-gray-700">
+                        <p className="mt-2 text-sm sm:text-base text-gray-700 font-noto-sans-jp">
                             {description}
                         </p>
                         {/* タグ */}
-                        <div className="flex flex-wrap mt-2">
+                        <div className="font-noto-sans-jp flex flex-wrap mt-2">
                             {tags.map((tag, index) => (
                                 <span
                                     key={index}
@@ -167,10 +167,10 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 isLoggedIn={isLoggedIn}
                             />
                             {isMyPage && (
-                                <div className="flex items-center">
+                                <div className="font-noto-sans-jp flex items-center">
                                     <Link
                                         href={`/posts/${id}/edit`}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-2 px-4 rounded ml-4"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-semibold py-2 px-4 rounded ml-4"
                                     >
                                         編集
                                     </Link>
@@ -182,7 +182,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                     >
                                         <button
                                             type="submit"
-                                            className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 px-4 rounded"
+                                            className="bg-red-500 hover:bg-red-700 text-white text-xl font-semibold py-2 px-4 rounded"
                                         >
                                             削除
                                         </button>

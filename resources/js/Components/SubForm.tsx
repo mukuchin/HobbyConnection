@@ -42,7 +42,7 @@ const SubForm: React.FC<SubFormProps> = ({
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     return (
-        <div className="mb-4 form-group p-4 border rounded-md shadow-md">
+        <div className="mb-4 form-group p-4 border rounded-md shadow-md font-noto-sans-jp">
             <label
                 htmlFor={`sub_form_data_${index}`}
                 className="block font-bold text-xl mb-2"
@@ -148,7 +148,7 @@ const SubForm: React.FC<SubFormProps> = ({
 
                     <button
                         type="button"
-                        className="mt-4 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 rounded"
+                        className="mt-4 bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-2 rounded"
                         onClick={() => deleteSubForm(index)}
                     >
                         投稿 {index + 1} を削除

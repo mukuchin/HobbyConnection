@@ -29,29 +29,29 @@ export default function mypage({ auth, article }: MyPageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <h1 className="font-bold text-3xl mb-4">
+                            <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
                                 マイページ
                             </h1>
                             <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                                 <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                                    <h1 className="font-bold text-2xl mb-4">
+                                    <h1 className="font-noto-sans-jp font-bold  text-2xl mb-4">
                                         プロフィール
                                     </h1>
-                                    <p className="text-lg mb-4">
+                                    <p className="font-noto-sans-jp text-lg mb-4">
                                         名前：{auth.user.name}
                                     </p>
-                                    <p className="text-lg mb-4">
+                                    <p className="font-noto-sans-jp text-lg mb-4">
                                         メールアドレス：{auth.user.email}
                                     </p>
                                     <a
                                         href="/profile"
-                                        className="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded"
+                                        className="font-noto-sans-jp font-semibold bg-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-4 rounded"
                                     >
                                         プロフィールを編集する
                                     </a>
                                 </div>
                                 <div className="bg-white p-4 rounded-lg shadow-md">
-                                    <h1 className="font-bold text-2xl mb-4">
+                                    <h1 className="font-noto-sans-jp font-semibold text-2xl mb-4">
                                         投稿した記事
                                     </h1>
                                     {data.map((item) => (
