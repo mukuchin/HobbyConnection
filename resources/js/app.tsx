@@ -1,5 +1,6 @@
 import "./bootstrap";
 import "../css/app.css";
+import { Helmet } from "react-helmet";
 
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
@@ -15,7 +16,14 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<App {...props} />);
+        root.render(
+            <>
+                <Helmet>
+                    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+                </Helmet>
+                <App {...props} />
+            </>
+        );
     },
     progress: {
         color: "#4B5563",

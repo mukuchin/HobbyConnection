@@ -50,7 +50,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {/* タイトル */}
-                            <div className="flex justify-center mb-4">
+                            <div className="font-noto-sans-jp flex justify-center mb-4">
                                 <h1 className="font-bold text-4xl text-left">
                                     {title}
                                 </h1>
@@ -146,7 +146,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                         <span
                                             key={index}
                                             className={
-                                                "inline-flex items-center mb-4 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-lg mr-2"
+                                                "inline-flex items-center mb-4 bg-gray-200 font-noto-sans-jp text-gray-700 px-2 py-1 rounded-full text-lg mr-2"
                                             }
                                         >
                                             {tag}
@@ -167,7 +167,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     </div>
                                 )}
                                 {/* 概要 */}
-                                <div className="flex justify-center mb-20">
+                                <div className="font-noto-sans-jp flex justify-center mb-20">
                                     <div className="text-lg text-left">
                                         {description}
                                     </div>
@@ -199,7 +199,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                             </div>
                                                         )}
                                                         {/* サブフォームのコメント */}
-                                                        <div className="w-full max-w-full text-lg text-left break-all mb-10">
+                                                        <div className="flex justify-center text-lg text-left break-all mb-10">
                                                             {data.comment && (
                                                                 <p>
                                                                     {
@@ -216,7 +216,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             )}
                             {/* いいねボタン */}
                             <div className="flex justify-end items-center mb-4">
-                                <span className="mr-2 text-xl font-semibold">
+                                <span className="mr-2 text-xl font-noto-sans-jp font-semibold">
                                     よかったら「いいね！」
                                 </span>
                                 <LikeButton
@@ -246,7 +246,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                         d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
                                     />
                                 </svg>
-                                <div className="text-xl font-bold">
+                                <div className="text-xl font-noto-sans-jp font-bold">
                                     TOPページへ
                                 </div>
                             </a>
@@ -270,7 +270,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                         d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
                                     />
                                 </svg>
-                                <div className="text-xl font-bold">
+                                <div className="text-xl font-noto-sans-jp font-bold">
                                     マイページへ
                                 </div>
                             </a>

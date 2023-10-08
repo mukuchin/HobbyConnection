@@ -65,7 +65,7 @@ const MainForm: React.FC<MainFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="border rounded-md p-4">
+            <div className="border rounded-md p-4 font-noto-sans-jp">
                 <h3 className="font-bold text-2xl mb-4">記事TOP</h3>
                 {/* *についての説明。 */}
                 <p className="mb-4 text-sm text-gray-600">
@@ -189,13 +189,13 @@ const MainForm: React.FC<MainFormProps> = ({
                         >
                             タグ
                         </label>
-                        <div className="w-full flex items-center space-x-4">
+                        <div className="flex items-center space-x-4">
                             <input
                                 type="text"
                                 id="tag"
                                 name="tags[]"
-                                placeholder="タグを入力"
-                                className="mt-1 p-2 border rounded flex-grow"
+                                placeholder="グランピング"
+                                className="mt-1 p-2 border rounded flex-grow md:w-1/2"
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                         e.preventDefault();
@@ -215,7 +215,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                     addTag(input.value);
                                     input.value = "";
                                 }}
-                                className="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded"
+                                className="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold w-32 py-2 px-4 rounded"
                             >
                                 タグを追加
                             </button>
@@ -257,7 +257,7 @@ const MainForm: React.FC<MainFormProps> = ({
                 </div>
             </div>
 
-            <div className="border rounded-md p-4">
+            <div className="font-noto-sans-jp border rounded-md p-4">
                 <h3 className="font-bold text-2xl mb-4">投稿</h3>
                 {values.sub_form_data.map((data, index) => (
                     <SubForm
@@ -286,7 +286,7 @@ const MainForm: React.FC<MainFormProps> = ({
             <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-bold py-2 px-4 rounded"
+                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded"
                     onClick={handleConfirmSubmit}
                 >
                     {location.pathname === "/create" ? "投稿する" : "更新する"}

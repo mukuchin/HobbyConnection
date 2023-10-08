@@ -38,7 +38,7 @@ export default function Login({
             <AppHead title="ログイン" />
 
             <div className="flex flex-col items-center justify-center min-h-screen">
-                <div className="max-w-md w-full space-y-4">
+                <div className="max-w-md w-full space-y-4 font-noto-sans-jp">
                     {status && (
                         <div className="mb-4 font-medium text-sm text-green-600">
                             {status}

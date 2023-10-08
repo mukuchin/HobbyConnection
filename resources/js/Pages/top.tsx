@@ -34,17 +34,14 @@ export default function top({ auth, article }: TopProps) {
             {/* ホビーコネクションの紹介 */}
             <div className="bg-black">
                 <div className="bg-top bg-cover bg-no-repeat bg-center p-6 py-64 shadow-md text-white">
-                    <h1 className="font-bold text-4xl sm:text-5xl mb-32 text-center">
+                    <h1 className="font-noto-sans-jp font-medium text-4xl sm:text-5xl mb-32 text-center">
                         人生に新しいワクワクを。
                     </h1>
                     <div className="flex justify-center">
-                        <div className="flex flex-col text-left text-sm sm:text-base">
-                            <div className="mb-4 flex flex-col sm:flex-row">
-                                <span>
-                                    Hobby
-                                    Connection（ホビーコネクション）は、趣味を通じて人と人を
-                                </span>
-                                <span>つなぐサービスです。</span>
+                        <div className="flex flex-col text-left text-sm md:text-base font-noto-sans-jp">
+                            <div className="mb-4 flex flex-col">
+                                Hobby
+                                Connection（ホビーコネクション）は、趣味を通じて人と人をつなぐサービスです。
                             </div>
                             <div className="mb-4">
                                 あなたの趣味を投稿して、同じ趣味、異なる趣味の人を探してみましょう。
@@ -54,10 +51,10 @@ export default function top({ auth, article }: TopProps) {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-48 flex justify-center text-xl sm:text-3xl">
+                    <div className="mt-48 flex flex-col md:flex-row justify-center items-center font-noto-sans-jp font-semibold text-3xl">
                         <a
                             href="/create"
-                            className="ml-16 inline-block mr-16 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-300"
+                            className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-72 rounded transition duration-300"
                         >
                             記事を投稿する
                         </a>
@@ -65,7 +62,7 @@ export default function top({ auth, article }: TopProps) {
                         {!isLoggedIn && (
                             <a
                                 href="/register"
-                                className="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition duration-300"
+                                className="mt-4 md:ml-16 inline-block bg-green-500 hover:bg-green-700 text-white py-2 px-6 w-72 rounded transition duration-300"
                             >
                                 新規ユーザー登録
                             </a>
@@ -79,7 +76,7 @@ export default function top({ auth, article }: TopProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <h1 className="font-bold text-2xl mb-4">
+                            <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
                                 全ての記事
                             </h1>
                             {data.map((item) => (
