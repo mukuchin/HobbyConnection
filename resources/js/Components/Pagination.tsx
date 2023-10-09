@@ -68,8 +68,8 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={`${
                     page === 1
                         ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-4 rounded"
-                        : "bg-white hover:bg-gray-100 text-gray-800"
-                } border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded`}
+                        : "hover:bg-gray-100 text-gray-800"
+                } text-xl font-bold py-1 px-4 mr-1 rounded`}
             >
                 {1}
             </Link>
@@ -81,9 +81,22 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(
             <span
                 key="start-ellipsis"
-                className="border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded"
+                className="text-sm font-bold py-1 mr-1 rounded"
             >
-                ...
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                </svg>
             </span>
         );
     }
@@ -97,8 +110,8 @@ const Pagination: React.FC<PaginationProps> = ({
                     className={`${
                         i === page
                             ? "bg-blue-500 hover:bg-blue-700 text-white"
-                            : "bg-white hover:bg-gray-100 text-gray-800"
-                    } border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded`}
+                            : "hover:bg-gray-100 text-gray-800"
+                    } text-xl font-bold py-1 px-4 mr-1 rounded`}
                 >
                     {i}
                 </Link>
@@ -111,9 +124,22 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(
             <span
                 key="end-ellipsis"
-                className="border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded"
+                className="text-xl font-bold py-1 mr-1 rounded"
             >
-                ...
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                </svg>
             </span>
         );
     }
@@ -127,8 +153,8 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={`${
                     page === lastPage
                         ? "bg-blue-500 hover:bg-blue-700 text-white"
-                        : "bg-white hover:bg-gray-100 text-gray-800"
-                } border border-gray-400 text-sm font-bold py-1 px-4 mr-1 rounded`}
+                        : "hover:bg-gray-100 text-gray-800"
+                } text-xl font-bold py-1 px-4 mr-1 rounded`}
             >
                 {lastPage}
             </Link>
@@ -149,9 +175,22 @@ const Pagination: React.FC<PaginationProps> = ({
                 {page > 1 && (
                     <Link
                         href={`${baseUrl}?page=${page - 1}`}
-                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-sm font-bold py-1 px-2 mr-1 rounded"
+                        className="hover:bg-gray-100 text-gray-800 text-xl font-extrabold py-1 px-2 mr-1 rounded"
                     >
-                        前へ
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15.75 19.5L8.25 12l7.5-7.5"
+                            />
+                        </svg>
                     </Link>
                 )}
                 {/* ページネーションの各ページへのリンク */}
@@ -160,9 +199,22 @@ const Pagination: React.FC<PaginationProps> = ({
                 {page < lastPage && (
                     <Link
                         href={`${baseUrl}?page=${page + 1}`}
-                        className="bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 text-sm font-bold py-1 px-2 mr-1 rounded"
+                        className="hover:bg-gray-100 text-gray-800 text-xl font-extrabold py-1 mr-1 rounded"
                     >
-                        次へ
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                            />
+                        </svg>
                     </Link>
                 )}
             </div>

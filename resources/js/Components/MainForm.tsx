@@ -65,7 +65,7 @@ const MainForm: React.FC<MainFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="border rounded-md p-4 font-noto-sans-jp">
+            <div className="bg-white border rounded-md p-4 font-noto-sans-jp">
                 <h3 className="font-bold text-2xl mb-4">記事TOP</h3>
                 {/* *についての説明。 */}
                 <p className="mb-4 text-sm text-gray-600">
@@ -257,7 +257,8 @@ const MainForm: React.FC<MainFormProps> = ({
                 </div>
             </div>
 
-            <div className="font-noto-sans-jp border rounded-md p-4">
+            {/* サブフォーム */}
+            <div className="bg-white font-noto-sans-jp border rounded-md p-4">
                 <h3 className="font-bold text-2xl mb-4">投稿</h3>
                 {values.sub_form_data.map((data, index) => (
                     <SubForm

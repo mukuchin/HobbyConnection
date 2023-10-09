@@ -17,8 +17,8 @@ export default {
                 'noto-sans-jp': ['Noto Sans JP', 'sans-serif'],
             },
             backgroundImage: {
-                'various-hobby': "url('/images/VariousHobby.jpg')",
-                'top': "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/Introduction.gif')",
+                'various-hobby': "linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/images/VariousHobby.jpg')",
+                'top': "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/Introduction.gif')",
             },
         },
     },
