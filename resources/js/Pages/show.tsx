@@ -179,11 +179,19 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 <ul>
                                     {sub_form_data.map(
                                         (data, index) =>
-                                            (data.image || data.comment) && (
+                                            (data.image || data.comment || data.heading) && (
                                                 <li
                                                     key={index}
                                                     className="mb-4"
                                                 >
+                                                    {/* 見出し */}
+                                                    {data.heading && (
+                                                        <div className="flex items-left mb-2">
+                                                            <h2 className="font-bold text-3xl">
+                                                                {data.heading}
+                                                            </h2>
+                                                        </div>
+                                                    )}
                                                     <div className="flex flex-col items-center">
                                                         {/* サブフォームの画像 */}
                                                         {data.image && (

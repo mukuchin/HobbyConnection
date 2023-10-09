@@ -12,6 +12,7 @@ export interface FormValues {
     image?: string | null;
     sub_form_data: {
         id?: number;
+        heading: string;
         comment: string;
         image?: string | null;
         file?: File;
@@ -159,6 +160,13 @@ export function useArticleForm(
                     ...prev,
                     sub_form_data: newSubFormData,
                 }));
+            } else if (fieldName === "heading") {
+                const newSubFormData = [...values.sub_form_data];
+                newSubFormData[index].heading = value;
+                setValues((prev) => ({
+                    ...prev,
+                    sub_form_data: newSubFormData,
+                }));
             } else if (fieldName === "image") {
                 // サブフォームの画像
                 handleImageChange(e, index);
@@ -222,9 +230,12 @@ export function useArticleForm(
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // コメントまたは画像が存在するサブフォームだけをフィルタリング
+        // 見出し及びコメント及び画像が存在するサブフォームだけをフィルタリング
         const filteredSubFormData = values.sub_form_data.filter(
-            (data) => data.comment || data.image
+            (data) =>
+                data.heading ||
+                data.comment ||
+                (data.image && !data.delete_image)
         );
 
         const formData = new FormData(e.currentTarget);
@@ -247,6 +258,12 @@ export function useArticleForm(
             if (data.file) {
                 formData.append(`sub_form_data[${index}][image]`, data.file);
             }
+            // サブフォームの見出しを追加。見出しがnullの場合は空文字を追加
+            formData.append(
+                `sub_form_data[${index}][heading]`,
+                data.heading || ""
+            );
+
             // サブフォームのコメントを追加。コメントがnullの場合は空文字を追加
             formData.append(
                 `sub_form_data[${index}][comment]`,
@@ -254,6 +271,7 @@ export function useArticleForm(
             );
         });
 
+        // サブフォームの削除フラグを追加
         router.post(endpoint, formData, {
             onBefore: (visit) => {
                 visit.headers["Content-Type"] = "multipart/form-data";
@@ -300,7 +318,7 @@ export function useAddDeleteSubForm(
     const addSubForm = useCallback(() => {
         const newSubFormData = [
             ...values.sub_form_data,
-            { comment: "", image: null },
+            { heading: "", comment: "", image: null },
         ];
         updateValues({ sub_form_data: newSubFormData });
     }, [values, updateValues]);

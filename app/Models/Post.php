@@ -14,8 +14,13 @@ class Post extends Model
         'user_id',
         'article_id',
         'image',
+        'heading',
         'comment',
     ];
+
+    // 親モデルの更新日時を更新する
+    protected $touches = ['article'];
+
 
     public function user()
     {
