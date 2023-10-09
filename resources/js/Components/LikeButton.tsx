@@ -37,6 +37,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
             try {
                 // ここでバックエンドのAPIを呼び出して「いいね」の状態を更新する
                 const response = await axios.post(`/api/likes/${articleId}`);
+
+                // 現在の「いいね」の状態が「いいねされていない」場合のみアニメーションを開始
+                if (!isLiked) {
+                    setAnimate(true);
+                }
+
                 setIsLiked(response.data.isLiked);
                 setLikesCount(response.data.likesCount);
             } catch (error) {
@@ -55,10 +61,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
     return (
         <div className="flex items-center">
             <button
-                onClick={() => {
-                    toggleLike();
-                    setAnimate(true); // ボタンがクリックされたときにアニメーションを開始
-                }}
+                onClick={toggleLike}
                 onAnimationEnd={handleAnimationEnd} // アニメーションが終了したときの処理
                 className={`${isLiked ? "text-red-500" : ""} ${
                     animate ? "animate-scaleAnimation" : ""
