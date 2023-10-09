@@ -33,24 +33,24 @@ export default function top({ auth, article }: TopProps) {
             )}
             {/* ホビーコネクションの紹介 */}
             <div className="bg-top bg-cover bg-no-repeat bg-center p-6 py-64 shadow-md text-white">
-                <h1 className="font-noto-sans-jp font-medium text-4xl sm:text-5xl mb-32 text-center">
+                <h1 className="font-noto-sans-jp font-medium text-4xl sm:text-5xl animate-tracking-in-expand mb-32 text-center">
                     人生に新しいワクワクを。
                 </h1>
                 <div className="flex justify-center">
                     <div className="flex flex-col text-left text-sm md:text-base font-noto-sans-jp">
-                        <div className="mb-4 flex flex-col">
+                        <div className="mb-4 animate-text-focus-in1">
                             Hobby
                             Connection（ホビーコネクション）は、趣味を通じて人と人をつなぐサービスです。
                         </div>
-                        <div className="mb-4">
+                        <div className="mb-4 animate-text-focus-in2">
                             あなたの趣味を投稿して、同じ趣味、異なる趣味の人を探してみましょう。
                         </div>
-                        <div className="mb-6">
+                        <div className="mb-6 animate-text-focus-in3">
                             あなたの楽しみが、ここから広がります。
                         </div>
                     </div>
                 </div>
-                <div className="mt-48 flex flex-col md:flex-row justify-center items-center font-noto-sans-jp font-semibold text-3xl">
+                <div className="mt-48 flex flex-col md:flex-row justify-center items-center font-noto-sans-jp font-semibold text-3xl  animate-text-focus-in4">
                     <a
                         href="/create"
                         className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-72 rounded transition duration-300"
