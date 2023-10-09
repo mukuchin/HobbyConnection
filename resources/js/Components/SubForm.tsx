@@ -131,9 +131,26 @@ const SubForm: React.FC<SubFormProps> = ({
                         pngに対応しています。
                     </p>
                 </div>
-
-                {/* コメントの入力 */}
                 <div className="w-full md:w-1/2 flex flex-col justify-between">
+                    {/* 見出しの入力 */}
+                    <div>
+                        <InputField
+                            label="見出し"
+                            type="text"
+                            id={`sub_form_data_${index}_heading`}
+                            name={`sub_form_data[${index}][heading]`}
+                            value={values.sub_form_data[index].heading}
+                            onChange={(e) => handleChange(e, index)}
+                            errors={errors}
+                        />
+
+                        {errors[`sub_form_data.${index}.heading`] && (
+                            <p className="text-red-500 text-xs mt-1">
+                                {errors[`sub_form_data.${index}.heading`]}
+                            </p>
+                        )}
+                    </div>
+                    {/* コメントの入力 */}
                     <div>
                         <InputField
                             label="コメント"

@@ -52,13 +52,12 @@ export default {
                     }
                 },
                 scaleAnimation: {
-                    '0%': { transform: 'scale(1) translateX(0)' },
-                    '25%': { transform: 'scale(1.3) translateX(-5px)' },
-                    '50%': { transform: 'scale(1.3) translateX(5px)' },
-                    '75%': { transform: 'scale(1.3) translateX(-5px)' },
-                    '100%': { transform: 'scale(1) translateX(0)' },
+                    '0%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
+                    '25%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
+                    '50%': { transform: 'scale(1.3) translateX(5px) rotate(15deg)' },
+                    '75%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
+                    '100%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
                 },
-
             }
         },
     },

@@ -14,7 +14,12 @@ export default function create({ auth }: PageProps) {
         period_start: "",
         period_end: "",
         description: "",
-        sub_form_data: [{ comment: "" }],
+        sub_form_data: [
+            {
+                heading: "",
+                comment: "",
+            },
+        ],
         tags: [],
         delete_image: false,
     });

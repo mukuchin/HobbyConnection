@@ -38,6 +38,7 @@ export default function edit({ auth, article }: EditProps) {
         image: image_top,
         sub_form_data: sub_form_data.map((data) => ({
             id: data.id,
+            heading: data.heading,
             comment: data.comment,
             image: data.image,
         })),

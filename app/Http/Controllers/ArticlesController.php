@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Auth;
 use App\Models\Article;
@@ -33,7 +32,7 @@ class ArticlesController extends Controller
 
     // マイページ
     public function mypage()
-    {   
+    {
         $articles = Article::with('user')->where('user_id', Auth::id())->latest('updated_at')->paginate(5);
         foreach ($articles as $article) {
             $article['tags'] = $article->tags()->pluck('name');
@@ -61,7 +60,7 @@ class ArticlesController extends Controller
         $this->savePosts($request->sub_form_data, $article->id);
         return redirect()->route('show', ['article' => $article->id]);
     }
-    
+
     // 記事編集ページ
     public function edit(Article $article)
     {
@@ -198,11 +197,14 @@ class ArticlesController extends Controller
     {
         if ($subFormData && is_array($subFormData)) {
             foreach ($subFormData as $data) {
-                if (isset($data['comment']) || isset($data['image'])) {
+                if (
+                    isset($data['heading']) || isset($data['comment']) || isset($data['image'])
+                ) {
                     $post = new Post;
                     $post->fill([
                         'user_id' => Auth::id(),
                         'article_id' => $articleId,
+                        'heading' => $data['heading'],
                         'comment' => $data['comment'],
                     ]);
                     if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
@@ -223,10 +225,12 @@ class ArticlesController extends Controller
         foreach ($subFormData as $data) {
             $post = Post::find($data['id']);
             // 既存のデータを更新
-            // 画像またはコメントが既に存在する場合
-            if (Post::where('id', $data['id'])->where(function ($query) {
-                $query->whereNotNull('image')->orWhereNotNull('comment');
-            })->exists()){
+            // 画像またはコメントまたは見出しが既に存在する場合
+            if (
+                Post::where('id', $data['id'])->where(function ($query) {
+                    $query->whereNotNull('image')->orWhereNotNull('comment')->orWhereNotNull('heading');
+                })->exists()
+            ) {
                 // 画像が新たに選択されている場合
                 if (isset($data['image'])) {
                     // 画像のアップロード処理
@@ -242,6 +246,12 @@ class ArticlesController extends Controller
                 elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
                     Storage::disk('s3')->delete($post->image);
                     $post->image = null;
+                }
+                // 見出しが既存のものと異なる場合
+                if ($data['heading'] !== Post::find($data['id'])->heading) {
+                    $post->fill([
+                        'heading' => $data['heading']
+                    ]);
                 }
                 // コメントが既存のものと異なる場合
                 if ($data['comment'] !== Post::find($data['id'])->comment) {
@@ -264,6 +274,7 @@ class ArticlesController extends Controller
                 $post->fill([
                     'user_id' => Auth::id(),
                     'article_id' => $articleId,
+                    'heading' => $data['heading'],
                     'comment' => $data['comment'],
                 ]);
 
@@ -272,7 +283,7 @@ class ArticlesController extends Controller
                     $path = $data['image']->store('post_images', 's3');
                     $post->image = $path;
                 }
-                
+
                 $post->save();
             }
         }
@@ -280,7 +291,7 @@ class ArticlesController extends Controller
         // 不要なPostを削除
         Post::whereIn('id', $existingPostIds)->delete();
     }
-        
+
     // メインフォームとサブフォームのデータを結合
     private function getArticleWithPosts($article)
     {
@@ -288,6 +299,7 @@ class ArticlesController extends Controller
         foreach ($article->posts as $post) {
             $articleWithPosts[] = [
                 'id' => $post->id,
+                'heading' => $post->heading,
                 'comment' => $post->comment,
                 'image' => $post->image,
             ];
