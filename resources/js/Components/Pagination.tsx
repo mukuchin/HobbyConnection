@@ -4,6 +4,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { PageProps } from "@/types";
+import { router } from "@inertiajs/react";
 
 // このコンポーネントで使用するpropsの型定義
 interface PaginationProps extends PageProps {
@@ -25,6 +26,16 @@ const Pagination: React.FC<PaginationProps> = ({
     baseUrl,
     paginationInfo,
 }: PaginationProps) => {
+    // ページネーションの各ページへのリンクをクリックしたときの処理
+    const handleLinkClick = (
+        e:
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+    ) => {
+        // ペジネーションでの遷移フラグをセッションストレージに設定
+        sessionStorage.setItem("paginationTransition", "true");
+    };
+
     // ページネーションの表示数
     const displayPage = 3;
 
@@ -70,6 +81,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-4 rounded"
                         : "hover:bg-gray-100 text-gray-800"
                 } text-xl font-bold py-1 px-4 mr-1 rounded`}
+                onClick={handleLinkClick}
             >
                 {1}
             </Link>
@@ -112,6 +124,7 @@ const Pagination: React.FC<PaginationProps> = ({
                             ? "bg-blue-500 hover:bg-blue-700 text-white"
                             : "hover:bg-gray-100 text-gray-800"
                     } text-xl font-bold py-1 px-4 mr-1 rounded`}
+                    onClick={handleLinkClick}
                 >
                     {i}
                 </Link>
@@ -155,6 +168,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         ? "bg-blue-500 hover:bg-blue-700 text-white"
                         : "hover:bg-gray-100 text-gray-800"
                 } text-xl font-bold py-1 px-4 mr-1 rounded`}
+                onClick={handleLinkClick}
             >
                 {lastPage}
             </Link>
@@ -176,6 +190,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     <Link
                         href={`${baseUrl}?page=${page - 1}`}
                         className="hover:bg-gray-100 text-gray-800 text-xl font-extrabold py-1 px-2 mr-1 rounded"
+                        onClick={handleLinkClick}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -200,6 +215,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     <Link
                         href={`${baseUrl}?page=${page + 1}`}
                         className="hover:bg-gray-100 text-gray-800 text-xl font-extrabold py-1 mr-1 rounded"
+                        onClick={handleLinkClick}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
