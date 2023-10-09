@@ -36,34 +36,28 @@ export default function create({ auth }: PageProps) {
             <AuthenticatedLayout user={auth.user} />
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
-                                記事投稿
-                            </h1>
-                            <div className="container">
-                                <div className="row justify-content-center">
-                                    <div className="col-md-8">
-                                        <MainForm
-                                            values={values}
-                                            handleChangeInput={
-                                                handleChangeInput
-                                            }
-                                            handleSubmit={handleSubmit}
-                                            setValues={setValues}
-                                            handleChangeSubFormInput={
-                                                handleChangeSubFormInput
-                                            }
-                                            cancelImagePreview={
-                                                cancelImagePreview
-                                            }
-                                            cancelCancelImagePreview={
-                                                cancelCancelImagePreview
-                                            }
-                                            addTag={addTag}
-                                            removeTag={removeTag}
-                                        />
-                                    </div>
+                    <div className="p-6 text-gray-900">
+                        <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
+                            記事投稿
+                        </h1>
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                <div className="col-md-8">
+                                    <MainForm
+                                        values={values}
+                                        handleChangeInput={handleChangeInput}
+                                        handleSubmit={handleSubmit}
+                                        setValues={setValues}
+                                        handleChangeSubFormInput={
+                                            handleChangeSubFormInput
+                                        }
+                                        cancelImagePreview={cancelImagePreview}
+                                        cancelCancelImagePreview={
+                                            cancelCancelImagePreview
+                                        }
+                                        addTag={addTag}
+                                        removeTag={removeTag}
+                                    />
                                 </div>
                             </div>
                         </div>
