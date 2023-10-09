@@ -26,6 +26,7 @@ export default {
                 "text-focus-in2": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 4s  both",
                 "text-focus-in3": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 5.5s  both",
                 "text-focus-in4": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 7s  both",
+                "scaleAnimation": 'scaleAnimation 0.2s ease-in-out',
             },
             keyframes: {
                 "tracking-in-expand": {
@@ -49,7 +50,12 @@ export default {
                         filter: "blur(0)",
                         opacity: "1"
                     }
-                }
+                },
+                scaleAnimation: {
+                    '0%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.3)' },
+                    '100%': { transform: 'scale(1)' },
+                },
             }
         },
     },

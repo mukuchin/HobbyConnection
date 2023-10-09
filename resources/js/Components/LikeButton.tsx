@@ -11,6 +11,7 @@ interface LikeButtonProps {
 const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
+    const [animate, setAnimate] = useState(false);
 
     // コンポーネントがマウントされたときにAPIを呼び出す
     useEffect(() => {
@@ -46,11 +47,22 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
         }
     };
 
+    // アニメーションが終了したときに呼び出される関数
+    const handleAnimationEnd = () => {
+        setAnimate(false);
+    };
+
     return (
         <div className="flex items-center">
             <button
-                onClick={toggleLike}
-                className={isLiked ? "text-red-500" : ""}
+                onClick={() => {
+                    toggleLike();
+                    setAnimate(true); // ボタンがクリックされたときにアニメーションを開始
+                }}
+                onAnimationEnd={handleAnimationEnd} // アニメーションが終了したときの処理
+                className={`${isLiked ? "text-red-500" : ""} ${
+                    animate ? "animate-scaleAnimation" : ""
+                }`}
             >
                 {isLiked ? (
                     <svg
