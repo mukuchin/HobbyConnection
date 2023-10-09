@@ -109,26 +109,22 @@ export default function edit({ auth, article }: EditProps) {
                                 </span>
                             </div>
                         </p>
-                        <div className="container">
-                            <div className="row justify-content-center">
-                                <div className="col-md-8">
-                                    <MainForm
-                                        values={values}
-                                        handleChangeInput={handleChangeInput}
-                                        handleSubmit={handleSubmit}
-                                        setValues={setValues}
-                                        handleChangeSubFormInput={
-                                            handleChangeSubFormInput
-                                        }
-                                        cancelImagePreview={cancelImagePreview}
-                                        cancelCancelImagePreview={
-                                            cancelCancelImagePreview
-                                        }
-                                        addTag={addTag}
-                                        removeTag={removeTag}
-                                    />
-                                </div>
-                            </div>
+                        <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            <MainForm
+                                values={values}
+                                handleChangeInput={handleChangeInput}
+                                handleSubmit={handleSubmit}
+                                setValues={setValues}
+                                handleChangeSubFormInput={
+                                    handleChangeSubFormInput
+                                }
+                                cancelImagePreview={cancelImagePreview}
+                                cancelCancelImagePreview={
+                                    cancelCancelImagePreview
+                                }
+                                addTag={addTag}
+                                removeTag={removeTag}
+                            />
                         </div>
                     </div>
                 </div>
