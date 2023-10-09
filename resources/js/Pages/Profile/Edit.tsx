@@ -18,7 +18,7 @@ export default function Edit({
             <AuthenticatedLayout user={auth.user} />
             {/* ページ名・タブ名表示 */}
             <AppHead title="プロフィール編集" />
-            <div className="bg-various-hobby flex flex-col items-center justify-center font-noto-sans-jp min-h-screen py-12">
+            <div className="bg-fixed bg-various-hobby flex flex-col items-center justify-center font-noto-sans-jp min-h-screen py-12">
                 <div className="max-w-7xl w-full sm:px-6 lg:px-8">
                     <div className="p-6 text-gray-900">
                         <h1 className="font-bold text-4xl mb-4">
