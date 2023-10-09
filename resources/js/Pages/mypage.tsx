@@ -42,7 +42,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                         </h1>
                         <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                                <h1 className="font-noto-sans-jp font-bold  text-2xl mb-4">
+                                <h1 className="font-noto-sans-jp font-bold text-2xl mb-4">
                                     プロフィール
                                 </h1>
                                 <p className="font-noto-sans-jp text-lg mb-4">
