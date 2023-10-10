@@ -171,7 +171,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 <div className="font-noto-sans-jp flex items-center">
                                     <Link
                                         href={`/posts/${id}/edit`}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white text-base sm:text-xl font-semibold py-2 px-2 sm:px-4 rounded ml-4"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white text-base sm:text-xl font-semibold py-2 px-2 sm:px-4 rounded ml-4  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                     >
                                         <button
                                             type="submit"
-                                            className="bg-red-500 hover:bg-red-700 text-white text-base sm:text-xl font-semibold py-2 px-2 sm:px-4 rounded"
+                                            className="bg-red-500 hover:bg-red-700 text-white text-base sm:text-xl font-semibold py-2 px-2 sm:px-4 rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
