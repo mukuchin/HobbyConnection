@@ -39,18 +39,18 @@ const ArticleList: React.FC<ArticleListProps> = ({
     const formatPeriodDate = useformatPeriodDate();
 
     return (
-        <div className="py-6">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="py-2 sm:py-6">
+            <div className="max-w-7xl mx-auto sm:px-2 lg:px-8">
+                <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md">
                     <div className="mb-4">
                         {/* 記事のタイトル */}
                         <Link
                             href={`/posts/${id}`}
-                            className="flex justify-center text-blue-500 hover:text-blue-600 text-xl sm:text-2xl font-noto-sans-jp font-semibold"
+                            className="flex justify-center text-blue-500 hover:text-blue-600 text-base sm:text-2xl font-noto-sans-jp font-semibold"
                         >
                             {title}
                         </Link>
-                        <div className="font-noto-sans-jp flex flex-col md:flex-row text-sm sm:text-base text-gray-600 mt-2">
+                        <div className="font-noto-sans-jp flex flex-col md:flex-row text-xs sm:text-base text-gray-600 mt-2">
                             {/* 記事の作成者 */}
                             <span className="mr-4 mt-2 lg:mt-0">
                                 <div className="flex items-center">
@@ -113,7 +113,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             </span>
                         </div>
                         {/* 期間 */}
-                        <div className="font-noto-sans-jp mt-2 mr-4 text-sm sm:text-base">
+                        <div className="hidden sm:inline-block font-noto-sans-jp mt-2 mr-4 text-xs sm:text-base text-gray-600">
                             {(period_start || period_end) && (
                                 <div className="flex items-center">
                                     <svg
@@ -138,7 +138,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             )}
                         </div>
                         {/* 記事の概要 */}
-                        <p className="mt-2 text-sm sm:text-base text-gray-700 font-noto-sans-jp">
+                        <p className="mt-2 text-xs sm:text-base text-gray-700 font-noto-sans-jp">
                             {description}
                         </p>
                         {/* タグ */}
@@ -146,7 +146,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             {tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="mt-2 mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text:sm sm:text-base"
+                                    className="mt-2 mr-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs sm:text-base"
                                 >
                                     {tag}
                                 </span>
@@ -157,7 +157,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             <img
                                 src={`https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${image_top}`}
                                 alt="TOP画像"
-                                className="mt-4 w-full h-56 object-cover rounded-md"
+                                className="hidden md:inline-block mt-4 w-full h-56 object-cover rounded-md"
                             />
                         )}
                         <div className="mt-4 flex justify-between items-center">
@@ -166,11 +166,12 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                 articleId={id}
                                 isLoggedIn={isLoggedIn}
                             />
+                            {/* マイページの時は編集ボタンと削除ボタンを表示する。 */}
                             {isMyPage && (
                                 <div className="font-noto-sans-jp flex items-center">
                                     <Link
                                         href={`/posts/${id}/edit`}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-semibold py-2 px-4 rounded ml-4"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white text-base sm:text-xl font-semibold py-2 px-2 sm:px-4 rounded ml-4"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -191,11 +192,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                         action={`/posts/${id}`}
                                         method="post"
                                         onSubmit={confirmDelete}
-                                        className="ml-4"
+                                        className="ml-2 sm:ml-4"
                                     >
                                         <button
                                             type="submit"
-                                            className="bg-red-500 hover:bg-red-700 text-white text-xl font-semibold py-2 px-4 rounded"
+                                            className="bg-red-500 hover:bg-red-700 text-white text-base sm:text-xl font-semibold py-2 px-2 sm:px-4 rounded"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"

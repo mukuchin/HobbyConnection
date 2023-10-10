@@ -21,12 +21,12 @@ export default {
                 'top': "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/Introduction.gif')",
             },
             animation: {
-                "tracking-in-expand": "tracking-in-expand 1.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.5s   both",
+                "text-focus-in0": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0s  both",
                 "text-focus-in1": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 2.5s  both",
-                "text-focus-in2": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 4s  both",
-                "text-focus-in3": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 5.5s  both",
-                "text-focus-in4": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 7s  both",
-                "scaleAnimation": 'scaleAnimation 0.5s ease-in-out',
+                "text-focus-in2": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 3.5s  both",
+                "text-focus-in3": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 4.5s  both",
+                "text-focus-in4": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 5.5s  both",
+                "scaleAnimation": 'scaleAnimation 1.2s ease-in-out',
             },
             keyframes: {
                 "tracking-in-expand": {
@@ -53,9 +53,11 @@ export default {
                 },
                 scaleAnimation: {
                     '0%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
-                    '25%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
+                    '20%': { transform: 'scale(1.3) translateX(0) rotate(0deg)' },
+                    '35%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
                     '50%': { transform: 'scale(1.3) translateX(5px) rotate(15deg)' },
-                    '75%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
+                    '65%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
+                    '80%': { transform: 'scale(1.3) translateX(0) rotate(0deg)' },
                     '100%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
                 },
             }

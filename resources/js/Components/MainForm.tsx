@@ -158,7 +158,6 @@ const MainForm: React.FC<MainFormProps> = ({
                             onChange={handleChangeInput}
                             errors={errors}
                         />
-
                         <InputField
                             label="開始日"
                             type="date"
@@ -168,7 +167,6 @@ const MainForm: React.FC<MainFormProps> = ({
                             onChange={handleChangeInput}
                             errors={errors}
                         />
-
                         <InputField
                             label="終了日"
                             type="date"
@@ -178,7 +176,6 @@ const MainForm: React.FC<MainFormProps> = ({
                             onChange={handleChangeInput}
                             errors={errors}
                         />
-
                         <InputField
                             label={
                                 <>
@@ -194,7 +191,6 @@ const MainForm: React.FC<MainFormProps> = ({
                             errors={errors}
                             textareaHeight="h-48"
                         />
-
                         {/* タグ関連の部分 */}
                         <label
                             htmlFor="tag"
@@ -208,7 +204,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 id="tag"
                                 name="tags[]"
                                 placeholder="グランピング"
-                                className="mt-1 p-2 border rounded flex-grow md:w-1/2"
+                                className="mt-1 p-2 border rounded flex-grow min-w-0"
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                         e.preventDefault();
@@ -228,7 +224,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                     addTag(input.value);
                                     input.value = "";
                                 }}
-                                className="flex flex-row bg-blue-500 hover:bg-blue-700 text-white text-base font-bold w-32 py-2 px-2 rounded"
+                                className="flex flex-row flex-shrink-0 justify-center bg-blue-500 hover:bg-blue-700 text-white text-base font-bold py-2 px-2 rounded"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -244,10 +240,9 @@ const MainForm: React.FC<MainFormProps> = ({
                                         d="M12 4.5v15m7.5-7.5h-15"
                                     />
                                 </svg>
-                                <div>タグを追加</div>
+                                <div>追加</div>
                             </button>
                         </div>
-
                         <div className="mb-4 mt-4 space-x-2">
                             {values.tags.map((tag, index) => (
                                 <span

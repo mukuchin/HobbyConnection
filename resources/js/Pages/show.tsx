@@ -51,20 +51,20 @@ export default function show({ auth, article, article_user }: ShowProps) {
                         <div className="p-6 text-gray-900">
                             {/* タイトル */}
                             <div className="font-noto-sans-jp flex justify-center mb-4">
-                                <h1 className="font-bold text-4xl text-left">
+                                <h1 className="font-bold text-2xl sm:text-4xl text-left">
                                     {title}
                                 </h1>
                             </div>
-                            <div className="flex justify-between items-center mb-4">
+                            <div className="flex justify-between items-center">
                                 {/* ユーザー名 */}
-                                <p className="flex items-center">
+                                <p className="mb-2 sm:mb-4 flex items-center text-sm sm:text-base">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-4 h-4 sm:w-6 sm:h-6"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -77,14 +77,14 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             </div>
 
                             {/* 投稿日時 */}
-                            <p className="mb-4 flex items-center">
+                            <p className="mb-2 sm:mb-4 flex items-center text-sm sm:text-base">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke-width="1.5"
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-4 h-4 sm:w-6 sm:h-6"
                                 >
                                     <path
                                         stroke-linecap="round"
@@ -97,14 +97,14 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 </span>
                             </p>
                             {/* 更新日時 */}
-                            <p className="mb-4 flex items-center">
+                            <p className="mb-2 sm:mb-4 flex items-center text-sm sm:text-base">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-4 h-4 sm:w-6 sm:h-6"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -118,14 +118,14 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             </p>
                             {/* 期間 */}
                             {(period_start || period_end) && (
-                                <p className="mb-4 flex items-center">
+                                <p className="mb-4 flex items-center text-sm sm:text-base">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-4 h-4 sm:w-6 sm:h-6"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -141,12 +141,12 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             )}
                             <div className="text-left">
                                 {/* タグ */}
-                                <div className="mb-4">
+                                <div className="mb-2 sm:mb-4">
                                     {tags.map((tag, index) => (
                                         <span
                                             key={index}
                                             className={
-                                                "inline-flex items-center mb-4 bg-gray-200 font-noto-sans-jp text-gray-700 px-2 py-1 rounded-full text-lg mr-2"
+                                                "inline-flex items-center mb-2 sm:mb-4 bg-gray-200 font-noto-sans-jp text-gray-700 px-2 py-1 rounded-full text-base sm:text-lg mr-2"
                                             }
                                         >
                                             {tag}
@@ -168,7 +168,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 )}
                                 {/* 概要 */}
                                 <div className="font-noto-sans-jp flex justify-center mb-20">
-                                    <div className="text-lg text-left">
+                                    <div className="text-base sm:text-lg text-left">
                                         {description}
                                     </div>
                                 </div>
@@ -187,7 +187,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                     {/* 見出し */}
                                                     {data.heading && (
                                                         <div className="flex items-left mb-2">
-                                                            <h2 className="font-bold text-3xl">
+                                                            <h2 className="font-bold text-xl sm:text-3xl">
                                                                 {data.heading}
                                                             </h2>
                                                         </div>
@@ -207,7 +207,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                             </div>
                                                         )}
                                                         {/* サブフォームのコメント */}
-                                                        <div className="flex justify-center text-lg text-left break-all mb-10">
+                                                        <div className="flex justify-center text-base sm:text-lg text-left break-all mb-10">
                                                             {data.comment && (
                                                                 <p>
                                                                     {
@@ -224,7 +224,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             )}
                             {/* いいねボタン */}
                             <div className="flex justify-end items-center mb-4">
-                                <span className="mr-2 text-xl font-noto-sans-jp font-semibold">
+                                <span className="mr-2 text-base sm:text-xl font-noto-sans-jp font-semibold">
                                     よかったら「いいね！」
                                 </span>
                                 <LikeButton
