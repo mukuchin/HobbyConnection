@@ -25,7 +25,12 @@ export default function mypage({ auth, article }: MyPageProps) {
     // ページ遷移時にスクロール位置を調整する
     useEffect(() => {
         if (sessionStorage.getItem("paginationTransition") === "true") {
-            window.scrollTo(0, 525);
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 640) {
+                window.scrollTo(0, 500);
+            } else {
+                window.scrollTo(0, 525);
+            }
             sessionStorage.removeItem("paginationTransition");
         }
     }, []);
@@ -36,7 +41,7 @@ export default function mypage({ auth, article }: MyPageProps) {
             <AuthenticatedLayout user={auth.user} />
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="p-6 text-gray-900">
+                    <div className="p-2 text-gray-900">
                         <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
                             マイページ
                         </h1>
@@ -45,16 +50,16 @@ export default function mypage({ auth, article }: MyPageProps) {
                                 <h1 className="font-noto-sans-jp font-bold text-2xl mb-4">
                                     プロフィール
                                 </h1>
-                                <p className="font-noto-sans-jp text-lg mb-4">
+                                <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
                                     名前：{auth.user.name}
                                 </p>
-                                <p className="font-noto-sans-jp text-lg mb-4">
+                                <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
                                     メールアドレス：{auth.user.email}
                                 </p>
                                 <a href="/profile">
                                     <button
                                         type="button"
-                                        className="font-noto-sans-jp font-semibold bg-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-4 rounded"
+                                        className="font-noto-sans-jp font-semibold bg-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-2 sm:px-4 rounded"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -73,8 +78,8 @@ export default function mypage({ auth, article }: MyPageProps) {
                                     </button>
                                 </a>
                             </div>
-                            <div className="bg-white p-4 rounded-lg shadow-md">
-                                <h1 className="font-noto-sans-jp font-semibold text-2xl mb-4">
+                            <div className="bg-white p-2 rounded-lg shadow-md">
+                                <h1 className="font-noto-sans-jp font-semibold text-2xl mb-4 p-2">
                                     投稿した記事
                                 </h1>
                                 <Pagination

@@ -27,7 +27,12 @@ export default function top({ auth, article }: TopProps) {
     // ページ遷移時にスクロール位置を調整する
     useEffect(() => {
         if (sessionStorage.getItem("paginationTransition") === "true") {
-            window.scrollTo(0, 1250);
+            const screenWidth = window.innerWidth;
+            if (screenWidth <= 380) {
+                window.scrollTo(0, 850);
+            } else {
+                window.scrollTo(0, 1250);
+            }
             sessionStorage.removeItem("paginationTransition");
         }
     }, []);
@@ -41,28 +46,29 @@ export default function top({ auth, article }: TopProps) {
                 <GuestLayout />
             )}
             {/* ホビーコネクションの紹介 */}
-            <div className="bg-top bg-cover bg-no-repeat bg-center p-6 py-64 shadow-md text-white">
-                <h1 className="font-noto-sans-jp font-medium text-4xl sm:text-5xl animate-tracking-in-expand mb-32 text-center">
-                    人生に新しいワクワクを。
-                </h1>
+            <div className="bg-top bg-cover bg-no-repeat bg-center py-32 sm:py-64 shadow-md text-white">
+                <div className="mb-16 sm:mb-32 flex flex-col sm:flex-row justify-center font-noto-sans-jp font-medium text-4xl sm:text-5xl animate-text-focus-in0 text-center">
+                    <div>人生に新しい</div>
+                    <div>ワクワクを。</div>
+                </div>
                 <div className="flex justify-center">
-                    <div className="flex flex-col text-left text-sm md:text-base font-noto-sans-jp">
+                    <div className="flex flex-col px-4 text-left text-xs md:text-base font-noto-sans-jp">
                         <div className="mb-4 animate-text-focus-in1">
                             Hobby
                             Connection（ホビーコネクション）は、趣味を通じて人と人をつなぐサービスです。
                         </div>
                         <div className="mb-4 animate-text-focus-in2">
-                            あなたの趣味を投稿して、同じ趣味、異なる趣味の人を探してみましょう。
+                            あなたの趣味を投稿して、同じ趣味や異なる趣味の記事を探してみましょう。
                         </div>
                         <div className="mb-6 animate-text-focus-in3">
                             あなたの楽しみが、ここから広がります。
                         </div>
                     </div>
                 </div>
-                <div className="mt-48 flex flex-col md:flex-row justify-center items-center font-noto-sans-jp font-semibold text-3xl  animate-text-focus-in4">
+                <div className="mt-24 sm:mt-48 flex flex-col md:flex-row justify-center items-center font-noto-sans-jp font-semibold text-2xl animate-text-focus-in4">
                     <a
                         href="/create"
-                        className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-72 rounded transition duration-300"
+                        className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300"
                     >
                         記事を投稿する
                     </a>
@@ -70,7 +76,7 @@ export default function top({ auth, article }: TopProps) {
                     {!isLoggedIn && (
                         <a
                             href="/register"
-                            className="mt-4 md:ml-16 inline-block bg-green-500 hover:bg-green-700 text-white py-2 px-6 w-72 rounded transition duration-300"
+                            className="mt-4 md:ml-4 inline-block bg-green-500 hover:bg-green-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300"
                         >
                             新規ユーザー登録
                         </a>
@@ -81,8 +87,8 @@ export default function top({ auth, article }: TopProps) {
 
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="p-6 text-gray-900">
-                        <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
+                    <div className="p-2 text-gray-900">
+                        <h1 className="font-noto-sans-jp font-bold text-2xl sm:text-3xl mb-4 p-2 sm:p-0">
                             全ての記事
                         </h1>
                         <Pagination

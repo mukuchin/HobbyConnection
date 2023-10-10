@@ -13,7 +13,7 @@ interface PageTabProps {
 }
 
 const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
-    <div className="space-x-8 sm:-my-px ml-10 flex">
+    <div className="space-x-4 sm:space-x-8 sm:-my-px ml-5 sm:ml-10 flex">
         <NavLink
             href={href}
             active={route().current(currentRoute)}
@@ -31,8 +31,8 @@ function Guest({
     return (
         <div>
             <nav className="bg-white border-b border-gray-100">
-                <div className="font-noto-sans-jp max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="ml-8 shrink-0 flex items-center">
+                <div className="font-noto-sans-jp max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                    <div className="ml-4 sm:ml-8 mt-2 shrink-0 flex items-center">
                         <Link href="/">
                             <ApplicationLogo />
                         </Link>

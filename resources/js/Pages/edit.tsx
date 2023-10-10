@@ -66,10 +66,10 @@ export default function edit({ auth, article }: EditProps) {
             <AuthenticatedLayout user={auth.user} />
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="p-6 font-noto-sans-jp text-gray-900">
-                        <h1 className="font-bold text-3xl mb-4">記事編集</h1>
+                    <div className="p-2 sm:p-6 font-noto-sans-jp text-gray-900">
+                        <h1 className="font-bold text-3xl mb-4 p-2">記事編集</h1>
                         <p className="mb-4">
-                            <div className="flex items-center">
+                            <div className="px-0 sm:px-2 flex items-center">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -90,7 +90,7 @@ export default function edit({ auth, article }: EditProps) {
                             </div>
                         </p>
                         <p className="mb-4">
-                            <div className="flex items-center">
+                            <div className="px-0 sm:px-2 flex items-center">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"

@@ -4,7 +4,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { router } from "@inertiajs/react";
 
 // このコンポーネントで使用するpropsの型定義
 interface PaginationProps extends PageProps {
@@ -78,9 +77,9 @@ const Pagination: React.FC<PaginationProps> = ({
                 href={`${baseUrl}?page=${1}`}
                 className={`${
                     page === 1
-                        ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-4 rounded"
+                        ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 sm:px-4 rounded"
                         : "hover:bg-gray-100 text-gray-800"
-                } text-xl font-bold py-1 px-4 mr-1 rounded`}
+                } text-sm sm:text-xl font-bold py-1 px-4 mr-1 rounded`}
                 onClick={handleLinkClick}
             >
                 {1}
@@ -88,12 +87,12 @@ const Pagination: React.FC<PaginationProps> = ({
         );
     }
 
-    // 省略記号（...）を表示
+    // 省略記号（...）を表示（開始位置）
     if (startPage > 2) {
         pages.push(
             <span
                 key="start-ellipsis"
-                className="text-sm font-bold py-1 mr-1 rounded"
+                className="text-sm font-bold py-1 mr-1 rounded flex items-center h-8"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +100,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="mb-1 sm:mb-0 w-4 h-4 sm:w-6 sm:h-6"
                 >
                     <path
                         stroke-linecap="round"
@@ -113,6 +112,7 @@ const Pagination: React.FC<PaginationProps> = ({
         );
     }
 
+    // ページネーションの各ページへのリンクを表示
     for (let i = startPage; i <= endPage; i++) {
         if (i <= lastPage) {
             pages.push(
@@ -123,7 +123,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         i === page
                             ? "bg-blue-500 hover:bg-blue-700 text-white"
                             : "hover:bg-gray-100 text-gray-800"
-                    } text-xl font-bold py-1 px-4 mr-1 rounded`}
+                    } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
                     onClick={handleLinkClick}
                 >
                     {i}
@@ -132,12 +132,12 @@ const Pagination: React.FC<PaginationProps> = ({
         }
     }
 
-    // 省略記号（...）を表示
+    // 省略記号（...）を表示（終了位置）
     if (endPage < lastPage - 1) {
         pages.push(
             <span
                 key="end-ellipsis"
-                className="text-xl font-bold py-1 mr-1 rounded"
+                className="text-xl font-bold py-1 mr-1 rounded flex items-center h-8"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +145,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="mb-1 sm:mb-0 w-4 h-4 sm:w-6 sm:h-6"
                 >
                     <path
                         stroke-linecap="round"
@@ -167,7 +167,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     page === lastPage
                         ? "bg-blue-500 hover:bg-blue-700 text-white"
                         : "hover:bg-gray-100 text-gray-800"
-                } text-xl font-bold py-1 px-4 mr-1 rounded`}
+                } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
                 onClick={handleLinkClick}
             >
                 {lastPage}
@@ -198,7 +198,7 @@ const Pagination: React.FC<PaginationProps> = ({
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="w-6 h-6"
+                            className="w-4 h-4 sm:w-6 sm:h-6"
                         >
                             <path
                                 stroke-linecap="round"
@@ -209,7 +209,11 @@ const Pagination: React.FC<PaginationProps> = ({
                     </Link>
                 )}
                 {/* ページネーションの各ページへのリンク */}
-                {pages}
+                {pages.map((pageItem) =>
+                    React.cloneElement(pageItem, {
+                        className: `${pageItem.props.className} h-8`,
+                    })
+                )}
                 {/* 次のページへのリンク */}
                 {page < lastPage && (
                     <Link
@@ -223,7 +227,7 @@ const Pagination: React.FC<PaginationProps> = ({
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="w-6 h-6"
+                            className="w-4 h-4 sm:w-6 sm:h-6"
                         >
                             <path
                                 stroke-linecap="round"
@@ -234,7 +238,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     </Link>
                 )}
             </div>
-            <div className="mt-2 text-xl">
+            <div className="mt-2 text-sm sm:text-xl">
                 {paginationInfo.total}本中 {startItem}本～{endItem}
                 本目
             </div>
