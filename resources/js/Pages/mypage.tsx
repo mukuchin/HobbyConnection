@@ -59,7 +59,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                                 <a href="/profile">
                                     <button
                                         type="button"
-                                        className="font-noto-sans-jp font-semibold bg-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-2 sm:px-4 rounded"
+                                        className="font-noto-sans-jp font-semibold bg-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-2 sm:px-4 rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"

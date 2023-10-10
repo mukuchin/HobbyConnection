@@ -88,7 +88,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 />
                                 <button
                                     type="button"
-                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded"
+                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                     onClick={() => {
                                         cancelImagePreview(fileInputRef);
                                     }}
@@ -224,7 +224,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                     addTag(input.value);
                                     input.value = "";
                                 }}
-                                className="flex flex-row flex-shrink-0 justify-center bg-blue-500 hover:bg-blue-700 text-white text-base font-bold py-2 px-2 rounded"
+                                className="flex flex-row flex-shrink-0 justify-center bg-blue-500 hover:bg-blue-700 text-white text-base font-bold py-2 px-2 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -297,7 +297,7 @@ const MainForm: React.FC<MainFormProps> = ({
                 <div className="mb-4 flex justify-center">
                     <button
                         type="button"
-                        className="mt-4 flex flex-row justify-center bg-blue-500 hover:bg-blue-700 text-white text-3xl font-bold py-2 w-full rounded"
+                        className="mt-4 flex flex-row justify-center bg-blue-500 hover:bg-blue-700 text-white text-3xl font-bold py-2 w-full rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         onClick={addSubForm}
                     >
                         <svg
@@ -323,7 +323,7 @@ const MainForm: React.FC<MainFormProps> = ({
             <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded"
+                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                     onClick={handleConfirmSubmit}
                 >
                     {location.pathname === "/create" ? "投稿する" : "更新する"}

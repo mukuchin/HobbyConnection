@@ -60,9 +60,19 @@ export default {
                     '80%': { transform: 'scale(1.3) translateX(0) rotate(0deg)' },
                     '100%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
                 },
-            }
+            },
+            boxShadow: {
+                'soft-gloss-inset': '0 2px 2px 0 rgba(255,255,255,.1) inset,0 2px 10px 0 rgba(255,255,255,.2) inset,0 -2px 2px 0 rgba(0,0,0,.1) inset',
+                'soft-gloss': '0 2px 2px 0 rgba(255,255,255,.1),0 2px 10px 0 rgba(255,255,255,.2),0 -2px 2px 0 rgba(0,0,0,.1)',
+            }, borderWidth: {
+                'soft-gloss': '1px',
+            },
+            gradientColorStops: {
+                'soft-gloss-light': 'rgba(255,255,255,.1)',
+                'soft-gloss-dark': 'rgba(0,0,0,.1)',
+            },
         },
-    },
 
-    plugins: [forms],
+        plugins: [forms],
+    },
 };

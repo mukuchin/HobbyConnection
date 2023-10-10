@@ -69,7 +69,7 @@ const SubForm: React.FC<SubFormProps> = ({
                             />
                             <button
                                 type="button"
-                                className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded"
+                                className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                 onClick={() => {
                                     cancelImagePreview(fileInputRef, index);
                                 }}
@@ -180,7 +180,7 @@ const SubForm: React.FC<SubFormProps> = ({
                     <div className="flex justify-end">
                         <button
                             type="button"
-                            className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded"
+                            className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                             onClick={() => deleteSubForm(index)}
                         >
                             <svg
