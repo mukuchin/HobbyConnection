@@ -15,10 +15,20 @@ const InputField = React.forwardRef<
         ) => void;
         errors: any;
         textareaHeight?: string;
+        placeholder?: string;
     }
 >((props, ref) => {
-    const { label, type, id, name, value, onChange, errors, textareaHeight } =
-        props;
+    const {
+        label,
+        type,
+        id,
+        name,
+        value,
+        onChange,
+        errors,
+        textareaHeight,
+        placeholder,
+    } = props;
     return (
         <div className="mb-4">
             <label
@@ -34,6 +44,7 @@ const InputField = React.forwardRef<
                     }`}
                     id={id}
                     name={name}
+                    placeholder={placeholder}
                     value={value}
                     onChange={onChange}
                 ></textarea>
@@ -52,6 +63,7 @@ const InputField = React.forwardRef<
                     className="form-control mt-1 p-2 w-full border rounded"
                     id={id}
                     name={name}
+                    placeholder={placeholder}
                     value={value}
                     onChange={onChange}
                 />

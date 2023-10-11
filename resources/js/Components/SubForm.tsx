@@ -139,6 +139,7 @@ const SubForm: React.FC<SubFormProps> = ({
                             type="text"
                             id={`sub_form_data_${index}_heading`}
                             name={`sub_form_data[${index}][heading]`}
+                            placeholder="東京から群馬へ"
                             value={values.sub_form_data[index].heading}
                             onChange={(e) => handleChange(e, index)}
                             errors={errors}
@@ -157,6 +158,7 @@ const SubForm: React.FC<SubFormProps> = ({
                             type="textarea"
                             id={`sub_form_data_${index}`}
                             name={`sub_form_data[${index}][comment]`}
+                            placeholder="1日目の午前10:00に東京を出発しました。グランピング施設までは社長が運転してくれました。"
                             value={values.sub_form_data[index].comment}
                             onChange={(e) => handleChange(e, index)}
                             errors={errors}
