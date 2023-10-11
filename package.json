@@ -4,8 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "watch": "concurrently 'tsc --watch' 'vite build --watch'",
-        "heroku-postbuild": "npm run build"
+        "watch": "concurrently 'tsc --watch' 'vite build --watch'"
     },
     "devDependencies": {
         "@headlessui/react": "^1.4.2",
