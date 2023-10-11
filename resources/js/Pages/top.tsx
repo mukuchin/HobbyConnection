@@ -24,14 +24,14 @@ export default function top({ auth, article }: TopProps) {
     const isLoggedIn = auth.user !== null;
     const { current_page, last_page, data } = article;
 
-    // ページ遷移時にスクロール位置を調整する
+    // ペジネーションによるページ遷移時にスクロール位置を調整する
     useEffect(() => {
         if (sessionStorage.getItem("paginationTransition") === "true") {
             const screenWidth = window.innerWidth;
-            if (screenWidth <= 380) {
-                window.scrollTo(0, 850);
+            if (screenWidth <= 640) {
+                window.scrollTo(0, 770);
             } else {
-                window.scrollTo(0, 1250);
+                window.scrollTo(0, 1120);
             }
             sessionStorage.removeItem("paginationTransition");
         }

@@ -22,15 +22,10 @@ interface MyPageProps extends PageProps {
 export default function mypage({ auth, article }: MyPageProps) {
     const { current_page, last_page, data } = article;
 
-    // ページ遷移時にスクロール位置を調整する
+    // ペジネーションによるページ遷移時にスクロール位置を調整する
     useEffect(() => {
         if (sessionStorage.getItem("paginationTransition") === "true") {
-            const screenWidth = window.innerWidth;
-            if (screenWidth < 640) {
-                window.scrollTo(0, 500);
-            } else {
-                window.scrollTo(0, 525);
-            }
+            window.scrollTo(0, 440);
             sessionStorage.removeItem("paginationTransition");
         }
     }, []);
@@ -45,13 +40,15 @@ export default function mypage({ auth, article }: MyPageProps) {
                         <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
                             マイページ
                         </h1>
+
+                        {/* プロフィール */}
                         <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                            <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+                            <div className="h-60 bg-white p-4 rounded-lg shadow-md mb-6">
                                 <h1 className="font-noto-sans-jp font-bold text-2xl mb-4">
                                     プロフィール
                                 </h1>
                                 <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
-                                    名前：{auth.user.name}
+                                    ユーザ名：{auth.user.name}
                                 </p>
                                 <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
                                     メールアドレス：{auth.user.email}
@@ -78,6 +75,8 @@ export default function mypage({ auth, article }: MyPageProps) {
                                     </button>
                                 </a>
                             </div>
+
+                            {/* 投稿した記事一覧 */}
                             <div className="bg-white p-2 rounded-lg shadow-md">
                                 <h1 className="font-noto-sans-jp font-semibold text-2xl mb-4 p-2">
                                     投稿した記事

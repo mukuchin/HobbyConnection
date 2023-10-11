@@ -77,9 +77,9 @@ const Pagination: React.FC<PaginationProps> = ({
                 href={`${baseUrl}?page=${1}`}
                 className={`${
                     page === 1
-                        ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 sm:px-4 rounded"
+                        ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 sm:px-4 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         : "hover:bg-gray-100 text-gray-800"
-                } text-sm sm:text-xl font-bold py-1 px-4 mr-1 rounded`}
+                } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
                 onClick={handleLinkClick}
             >
                 {1}
@@ -121,7 +121,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     href={`${baseUrl}?page=${i}`}
                     className={`${
                         i === page
-                            ? "bg-blue-500 hover:bg-blue-700 text-white"
+                            ? "bg-blue-500 hover:bg-blue-700 text-white transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                             : "hover:bg-gray-100 text-gray-800"
                     } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
                     onClick={handleLinkClick}
@@ -165,7 +165,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 href={`${baseUrl}?page=${lastPage}`}
                 className={`${
                     page === lastPage
-                        ? "bg-blue-500 hover:bg-blue-700 text-white"
+                        ? "bg-blue-500 hover:bg-blue-700 text-white transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         : "hover:bg-gray-100 text-gray-800"
                 } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
                 onClick={handleLinkClick}
