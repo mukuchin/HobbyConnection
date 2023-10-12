@@ -32,6 +32,11 @@ export default function show({ auth, article, article_user }: ShowProps) {
     const formatDate = useFormatDate();
     const formatPeriodDate = useformatPeriodDate();
 
+    // 改行をbrタグに変換
+    function nl2br(str: string) {
+        return str.replace(/\n/g, "<br />");
+    }
+
     return (
         <>
             {/* ページ名・タブ名表示 */}
@@ -168,8 +173,13 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 )}
                                 {/* 概要 */}
                                 <div className="font-noto-sans-jp flex justify-center mb-20">
-                                    <div className="text-base sm:text-lg text-left">
-                                        {description}
+                                    <div className="font-noto-sans-jp flex justify-center mb-20">
+                                        <div
+                                            className="text-base sm:text-lg text-left"
+                                            dangerouslySetInnerHTML={{
+                                                __html: nl2br(description),
+                                            }}
+                                        ></div>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +189,9 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                 <ul>
                                     {sub_form_data.map(
                                         (data, index) =>
-                                            (data.image || data.comment || data.heading) && (
+                                            (data.image ||
+                                                data.comment ||
+                                                data.heading) && (
                                                 <li
                                                     key={index}
                                                     className="mb-4"
@@ -209,11 +221,13 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                         {/* サブフォームのコメント */}
                                                         <div className="flex justify-center text-base sm:text-lg text-left break-all mb-10">
                                                             {data.comment && (
-                                                                <p>
-                                                                    {
-                                                                        data.comment
-                                                                    }
-                                                                </p>
+                                                                <p
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html: nl2br(
+                                                                            data.comment
+                                                                        ),
+                                                                    }}
+                                                                ></p>
                                                             )}
                                                         </div>
                                                     </div>
