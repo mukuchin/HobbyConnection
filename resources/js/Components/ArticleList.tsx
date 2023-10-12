@@ -38,6 +38,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
     const formatDate = useFormatDate();
     const formatPeriodDate = useformatPeriodDate();
 
+    // 改行をbrタグに変換
+    function nl2br(str: string) {
+        return str.replace(/\n/g, "<br />");
+    }
+
     return (
         <div className="py-2 sm:py-6">
             <div className="max-w-7xl mx-auto sm:px-2 lg:px-8">
@@ -138,9 +143,12 @@ const ArticleList: React.FC<ArticleListProps> = ({
                             )}
                         </div>
                         {/* 記事の概要 */}
-                        <p className="mt-2 text-xs sm:text-base text-gray-700 font-noto-sans-jp">
-                            {description}
-                        </p>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: nl2br(description),
+                            }}
+                            className="font-noto-sans-jp text-sm sm:text-base text-gray-600 mt-2 line-clamp-6 overflow-hidden"
+                        ></div>
                         {/* タグ */}
                         <div className="font-noto-sans-jp flex flex-wrap mt-2">
                             {tags.map((tag, index) => (
