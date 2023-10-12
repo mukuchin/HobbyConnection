@@ -28,11 +28,10 @@ export default function top({ auth, article }: TopProps) {
     useEffect(() => {
         if (sessionStorage.getItem("paginationTransition") === "true") {
             const screenWidth = window.innerWidth;
-            if (screenWidth <= 640) {
-                window.scrollTo(0, 770);
-            } else {
-                window.scrollTo(0, 1120);
-            }
+            const screenHeight = window.innerHeight;
+            screenHeight >= 540
+                ? window.scrollTo(0, screenHeight + 80)
+                : window.scrollTo(0, 600);
             sessionStorage.removeItem("paginationTransition");
         }
     }, []);
@@ -46,13 +45,13 @@ export default function top({ auth, article }: TopProps) {
                 <GuestLayout />
             )}
             {/* ホビーコネクションの紹介 */}
-            <div className="bg-top bg-cover bg-no-repeat bg-center py-32 sm:py-64 shadow-md text-white">
-                <div className="mb-16 sm:mb-32 flex flex-col sm:flex-row justify-center font-noto-sans-jp font-medium text-4xl sm:text-5xl animate-text-focus-in0 text-center">
-                    <div>人生に新しい</div>
-                    <div>ワクワクを。</div>
-                </div>
-                <div className="flex justify-center">
-                    <div className="flex flex-col px-4 text-left text-xs md:text-base font-noto-sans-jp">
+            <div className="bg-top bg-cover bg-no-repeat bg-center h-screen min-h-540 py-16 sm:py-48 shadow-md text-white flex flex-col items-center justify-center">
+                <div className="flex flex-col sm:flex-row justify-center">
+                    <div className="whitespace-nowrap ml-0 sm:ml-4 mb-12 flex flex-col justify-center font-noto-sans-jp font-medium text-5xl md:text-6xl lg:text-7xl animate-text-focus-in0 text-center">
+                        <div>人生に新しい</div>
+                        <div>ワクワクを。</div>
+                    </div>
+                    <div className="mt-0 lg:mt-4 introduction-width:mt-8 flex flex-col px-4 text-left text-xs md:text-base font-noto-sans-jp">
                         <div className="mb-4 animate-text-focus-in1">
                             Hobby
                             Connection（ホビーコネクション）は、趣味を通じて人と人をつなぐサービスです。
@@ -65,7 +64,7 @@ export default function top({ auth, article }: TopProps) {
                         </div>
                     </div>
                 </div>
-                <div className="mt-24 sm:mt-48 flex flex-col md:flex-row justify-center items-center font-noto-sans-jp font-semibold text-2xl animate-text-focus-in4">
+                <div className="mt-0 sm:mt-0 flex flex-col sm:flex-row justify-center items-center font-noto-sans-jp font-semibold text-2xl animate-text-focus-in4">
                     <a
                         href="/create"
                         className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
@@ -76,7 +75,7 @@ export default function top({ auth, article }: TopProps) {
                     {!isLoggedIn && (
                         <a
                             href="/register"
-                            className="mt-4 md:ml-4 inline-block bg-green-500 hover:bg-green-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                            className="mt-4 sm:ml-4 inline-block bg-green-500 hover:bg-green-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         >
                             新規ユーザー登録
                         </a>
@@ -84,7 +83,6 @@ export default function top({ auth, article }: TopProps) {
                 </div>
             </div>
             {/* 記事一覧 */}
-
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="p-2 text-gray-900">

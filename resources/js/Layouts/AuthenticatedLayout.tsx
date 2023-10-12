@@ -44,7 +44,7 @@ function Authenticated({
     useEffect(() => {
         const handleScroll = () => {
             const screenWidth = window.innerWidth;
-            const logoHeight = screenWidth <= 640 ? 50 : 90;
+            const logoHeight = screenWidth <= 640 ? 50 : 75;
             setNavOffsetY(Math.min(window.scrollY, logoHeight));
         };
 
@@ -56,7 +56,7 @@ function Authenticated({
 
     return (
         <div>
-            <div style={{ height: "120px", overflowY: "auto" }}>
+            <div style={{ height: "100px", overflowY: "auto" }}>
                 <nav
                     className="bg-white border-b border-gray-100 fixed top-0 w-full z-50"
                     style={{ transform: `translateY(-${navOffsetY}px)` }}
@@ -67,7 +67,7 @@ function Authenticated({
                                 <ApplicationLogo />
                             </Link>
                         </div>
-                        <div className="flex justify-between h-20">
+                        <div className="flex justify-between h-16">
                             <div className="flex">
                                 <PageTab href={route("top")} currentRoute="top">
                                     TOP

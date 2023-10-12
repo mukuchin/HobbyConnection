@@ -3,7 +3,7 @@ export default function ApplicationLogo() {
         <img
             src="/images/HobbyConnectionLogo3.png"
             alt="Application Logo"
-            className="w-25 h-10 sm:w-50 sm:h-20"
+            className="w-25 h-10 sm:w-40 sm:h-16"
         />
     );
 }

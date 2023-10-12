@@ -71,6 +71,13 @@ export default {
                 'soft-gloss-light': 'rgba(255,255,255,.1)',
                 'soft-gloss-dark': 'rgba(0,0,0,.1)',
             },
+            screens: {
+                'introduction-width': '1130px',
+                'width-425': '425px',
+            },
+            minHeight: {
+                '540': '540px',
+            },
         },
 
         plugins: [forms],
