@@ -79,7 +79,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     page === 1
                         ? "bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 sm:px-4 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         : "hover:bg-gray-100 text-gray-800"
-                } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
+                } text-sm sm:text-xl font-bold py-1 px-3 width-425:px-4 mr-1 rounded`}
                 onClick={handleLinkClick}
             >
                 {1}
@@ -100,7 +100,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    className="mb-1 sm:mb-0 w-4 h-4 sm:w-6 sm:h-6"
+                    className="mb-1 width-425:mb-0 w-4 h-4 width-425:w-6 width-425:h-6"
                 >
                     <path
                         stroke-linecap="round"
@@ -123,7 +123,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         i === page
                             ? "bg-blue-500 hover:bg-blue-700 text-white transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                             : "hover:bg-gray-100 text-gray-800"
-                    } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
+                    } text-sm sm:text-xl font-bold py-1 px-3 width-425:px-4 mr-1 rounded`}
                     onClick={handleLinkClick}
                 >
                     {i}
@@ -145,7 +145,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    className="mb-1 sm:mb-0 w-4 h-4 sm:w-6 sm:h-6"
+                    className="mb-1 sm:mb-0 w-4 h-4 width-425:w-6 width-425:h-6"
                 >
                     <path
                         stroke-linecap="round"
@@ -167,7 +167,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     page === lastPage
                         ? "bg-blue-500 hover:bg-blue-700 text-white transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         : "hover:bg-gray-100 text-gray-800"
-                } text-sm sm:text-xl font-bold py-1 px-2 sm:px-4 mr-1 rounded`}
+                } text-sm sm:text-xl font-bold py-1 px-3 width-425:px-4 mr-1 rounded`}
                 onClick={handleLinkClick}
             >
                 {lastPage}
@@ -198,7 +198,7 @@ const Pagination: React.FC<PaginationProps> = ({
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="w-4 h-4 sm:w-6 sm:h-6"
+                            className="w-4 h-4 width-425:w-6 width-425:h-6"
                         >
                             <path
                                 stroke-linecap="round"
@@ -227,7 +227,7 @@ const Pagination: React.FC<PaginationProps> = ({
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="w-4 h-4 sm:w-6 sm:h-6"
+                            className="w-4 h-4 width-425:w-6 width-425:h-6"
                         >
                             <path
                                 stroke-linecap="round"

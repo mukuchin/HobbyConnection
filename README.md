@@ -2,6 +2,8 @@
 
 ## デプロイ先
 
+https://hobby-connection-546e3e86ca25.herokuapp.com
+
 ## 概要
 
 自分の趣味をみんなに共有するブログサイトです。

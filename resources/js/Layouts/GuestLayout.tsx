@@ -40,7 +40,7 @@ function Guest({
     useEffect(() => {
         const handleScroll = () => {
             const screenWidth = window.innerWidth;
-            const logoHeight = screenWidth <= 640 ? 50 : 90;
+            const logoHeight = screenWidth <= 640 ? 50 : 75;
             setNavOffsetY(Math.min(window.scrollY, logoHeight));
         };
 
@@ -62,7 +62,7 @@ function Guest({
                                 <ApplicationLogo />
                             </Link>
                         </div>
-                        <div className="flex justify-between h-20">
+                        <div className="flex justify-between h-12">
                             <div className="flex">
                                 <PageTab href={route("top")} currentRoute="top">
                                     TOP
