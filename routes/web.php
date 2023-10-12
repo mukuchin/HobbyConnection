@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticlesController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // ログイン時のみアクセスできるルート
 Route::middleware('auth')->group(function () {
