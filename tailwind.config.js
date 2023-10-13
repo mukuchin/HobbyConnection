@@ -16,6 +16,14 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 'noto-sans-jp': ['Noto Sans JP', 'sans-serif'],
             },
+            fontWeight: {
+                'thin': '100',
+                'light': '300',
+                'regular': '400',
+                'medium': '500',
+                'bold': '700',
+                'black': '900',
+            },
             backgroundImage: {
                 'various-hobby': "linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/images/VariousHobby.jpg')",
                 'top': "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/Introduction.gif')",
@@ -52,7 +60,7 @@ export default {
                     }
                 },
                 scaleAnimation: {
-                    '0%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
+                    '0%': { transform: 'scale(1.2) translateX(0) rotate(0deg)' },
                     '20%': { transform: 'scale(1.3) translateX(0) rotate(0deg)' },
                     '35%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
                     '50%': { transform: 'scale(1.3) translateX(5px) rotate(15deg)' },
@@ -77,6 +85,9 @@ export default {
             },
             minHeight: {
                 '540': '540px',
+            },
+            scale: {
+                '120-hover': '1.20',
             },
         },
 

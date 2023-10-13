@@ -126,7 +126,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         </p>
                     )}
                     {/* ファイル形式・サイズの注意書き */}
-                    <p className=" text-sm text-gray-500">
+                    <p className="mb-4 text-xs text-gray-500">
                         画像は最大2MBまでです。ファイル形式はjpg, jpeg, gif,
                         pngに対応しています。
                     </p>

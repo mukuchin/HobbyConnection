@@ -51,7 +51,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                         {/* 記事のタイトル */}
                         <Link
                             href={`/posts/${id}`}
-                            className="flex justify-center text-blue-500 hover:text-blue-600 text-base sm:text-2xl font-noto-sans-jp font-semibold"
+                            className="flex justify-center text-blue-500 hover:text-blue-600 transition text-base sm:text-2xl font-noto-sans-jp font-semibold"
                         >
                             {title}
                         </Link>
