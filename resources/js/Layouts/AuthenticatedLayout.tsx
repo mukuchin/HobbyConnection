@@ -25,7 +25,7 @@ const PageTab: React.FC<PageTabProps> = ({ href, currentRoute, children }) => (
         <NavLink
             href={href}
             active={route().current(currentRoute)}
-            className="text-sm md:text-lg"
+            className="text-sm md:text-lg font-noto-sans-jp font-black"
         >
             {children}
         </NavLink>
@@ -58,10 +58,10 @@ function Authenticated({
         <div>
             <div style={{ height: "100px", overflowY: "auto" }}>
                 <nav
-                    className="bg-white border-b border-gray-100 fixed top-0 w-full z-50"
+                    className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed top-0 w-full z-50"
                     style={{ transform: `translateY(-${navOffsetY}px)` }}
                 >
-                    <div className="font-noto-sans-jp max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="ml-4 sm:ml-8 shrink-0 flex items-center">
                             <Link href="/">
                                 <ApplicationLogo />
@@ -94,7 +94,7 @@ function Authenticated({
                                             <span className="hidden sm:inline-flex rounded-md">
                                                 <button
                                                     type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-lg leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-lg leading-4 font-noto-sans-jp font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                 >
                                                     {user.name}
                                                     <svg
@@ -114,7 +114,7 @@ function Authenticated({
                                             <span className="sm:hidden inline-flex rounded-md">
                                                 <button
                                                     type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-lg leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-lg leading-4 font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"

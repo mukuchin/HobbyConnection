@@ -68,7 +68,7 @@ const MainForm: React.FC<MainFormProps> = ({
             <div className="bg-white border rounded-md p-4 font-noto-sans-jp">
                 <h3 className="font-bold text-2xl mb-4">記事TOP</h3>
                 {/* *についての説明。 */}
-                <p className="mb-4 text-sm text-gray-600">
+                <p className="mb-4 text-xs text-gray-600">
                     <span className="text-red-500">*</span>は必須項目です。
                 </p>
 
@@ -88,7 +88,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 />
                                 <button
                                     type="button"
-                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                     onClick={() => {
                                         cancelImagePreview(fileInputRef);
                                     }}
@@ -136,7 +136,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                 errors={errors}
                             />
                             {/* ファイル形式・サイズの注意書き */}
-                            <p className="text-sm text-gray-500">
+                            <p className="text-xs text-gray-500">
                                 画像は最大2MBまでです。ファイル形式はjpg, jpeg,
                                 gif, pngに対応しています。
                             </p>
@@ -226,7 +226,7 @@ const MainForm: React.FC<MainFormProps> = ({
                                     addTag(input.value);
                                     input.value = "";
                                 }}
-                                className="flex flex-row flex-shrink-0 justify-center bg-blue-500 hover:bg-blue-700 text-white text-base font-bold py-2 px-2 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                className="flex flex-row flex-shrink-0 justify-center bg-blue-500 hover:bg-blue-700 transition text-white text-base font-bold py-2 px-2 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -299,7 +299,7 @@ const MainForm: React.FC<MainFormProps> = ({
                 <div className="mb-4 flex justify-center">
                     <button
                         type="button"
-                        className="mt-4 flex flex-row justify-center bg-blue-500 hover:bg-blue-700 text-white text-3xl font-bold py-2 w-full rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                        className="mt-4 flex flex-row justify-center bg-blue-500 hover:bg-blue-700 transition text-white text-3xl font-bold py-2 w-full rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         onClick={addSubForm}
                     >
                         <svg
@@ -325,7 +325,7 @@ const MainForm: React.FC<MainFormProps> = ({
             <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                    className="mt-4 bg-blue-500 hover:bg-blue-700 transition text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                     onClick={handleConfirmSubmit}
                 >
                     {location.pathname === "/create" ? "投稿する" : "更新する"}

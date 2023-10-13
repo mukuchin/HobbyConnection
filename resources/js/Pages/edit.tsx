@@ -140,7 +140,7 @@ export default function edit({ auth, article }: EditProps) {
                             </div>
                         </p>
                         <SessionTimer />
-                        <div className="text-sm text-gray-500 mb-4 font-noto-sans-jp">
+                        <div className="text-xs text-gray-500 mb-4 font-noto-sans-jp">
                             残り時間が無くなると、入力内容がリセットされます。時間内に更新してください。
                             <br />
                             また、ページの再読込をする及び別のページへ遷移すると、入力内容がリセットされます。
