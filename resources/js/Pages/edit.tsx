@@ -8,6 +8,8 @@ import { PageProps } from "@/types";
 import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
 import { ArticleItems } from "@/types/ArticleProps";
 import { useFormatDate } from "@/Hooks/useFormatDate";
+import SessionTimer from "@/Components/SessionTimer";
+import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
 
 // Propsの型定義
 interface EditProps extends PageProps {
@@ -29,7 +31,7 @@ export default function edit({ auth, article }: EditProps) {
         tags,
     } = article;
 
-    // 各値の設定。初期値は、記事の値。
+    // 各値の初期値は、元の記事の値
     const [values, setValues] = useState<FormValues>({
         title,
         period_start,
@@ -45,6 +47,31 @@ export default function edit({ auth, article }: EditProps) {
         tags: tags,
         delete_image: false,
     });
+
+    // 元の入力内容を保存
+    const initialValues = {
+        title,
+        period_start,
+        period_end,
+        description,
+        image: image_top,
+        sub_form_data: sub_form_data.map((data) => ({
+            id: data.id,
+            heading: data.heading,
+            comment: data.comment,
+            image: data.image,
+        })),
+        tags: tags,
+        delete_image: false,
+    };
+
+    // 入力内容が変更されたかどうかを判断する関数
+    const isFormChanged = () => {
+        return JSON.stringify(values) !== JSON.stringify(initialValues);
+    };
+
+    // ページの再読込や遷移時に警告を表示
+    useWarnOnExit(values, isFormChanged);
 
     // カスタムフック
     const {
@@ -67,7 +94,9 @@ export default function edit({ auth, article }: EditProps) {
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="p-2 sm:p-6 font-noto-sans-jp text-gray-900">
-                        <h1 className="font-bold text-3xl mb-4 p-2">記事編集</h1>
+                        <h1 className="font-bold text-3xl mb-4 p-2">
+                            記事編集
+                        </h1>
                         <p className="mb-4">
                             <div className="px-0 sm:px-2 flex items-center">
                                 <svg
@@ -110,6 +139,12 @@ export default function edit({ auth, article }: EditProps) {
                                 </span>
                             </div>
                         </p>
+                        <SessionTimer />
+                        <div className="text-sm text-gray-500 mb-4 font-noto-sans-jp">
+                            残り時間が無くなると、入力内容がリセットされます。時間内に更新してください。
+                            <br />
+                            また、ページの再読込をする及び別のページへ遷移すると、入力内容がリセットされます。
+                        </div>
                         <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <MainForm
                                 values={values}
