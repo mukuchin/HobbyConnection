@@ -56,18 +56,18 @@ function Authenticated({
 
     return (
         <div>
-            <div style={{ height: "90px", overflowY: "auto" }}>
+            <div style={{ height: "90px" }}>
                 <nav
-                    className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed top-0 w-full z-50"
+                    className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed w-full z-50"
                     style={{ transform: `translateY(-${navOffsetY}px)` }}
                 >
                     <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-                        <div className="ml-4 sm:ml-8 shrink-0 flex items-center">
+                        <div className="ml-4 sm:ml-8 mt-2 shrink-0 flex items-center">
                             <Link href="/">
                                 <ApplicationLogo />
                             </Link>
                         </div>
-                        <div className="flex justify-between h-16">
+                        <div className="flex justify-between h-12">
                             <div className="flex">
                                 <PageTab href={route("top")} currentRoute="top">
                                     TOP
@@ -150,37 +150,6 @@ function Authenticated({
                                         </Dropdown.Content>
                                     </Dropdown>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        className={
-                            (showingNavigationDropdown ? "block" : "hidden") +
-                            " sm:hidden"
-                        }
-                    >
-                        <div className="pt-4 pb-1 border-t border-gray-200">
-                            <div className="px-4">
-                                <div className="font-medium text-base text-gray-800">
-                                    {user.name}
-                                </div>
-                                <div className="font-medium text-sm text-gray-500">
-                                    {user.email}
-                                </div>
-                            </div>
-
-                            <div className="mt-3 space-y-1">
-                                <ResponsiveNavLink href={route("profile.edit")}>
-                                    Profile
-                                </ResponsiveNavLink>
-                                <ResponsiveNavLink
-                                    method="post"
-                                    href={route("logout")}
-                                    as="button"
-                                >
-                                    Log Out
-                                </ResponsiveNavLink>
                             </div>
                         </div>
                     </div>

@@ -51,9 +51,9 @@ function Guest({
     }, []);
     return (
         <div>
-            <div style={{ height: "90px", overflowY: "auto" }}>
+            <div style={{ height: "90px" }}>
                 <nav
-                    className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed top-0 w-full z-50"
+                    className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed w-full z-50"
                     style={{ transform: `translateY(-${navOffsetY}px)` }}
                 >
                     <div className="font-noto-sans-jp max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
