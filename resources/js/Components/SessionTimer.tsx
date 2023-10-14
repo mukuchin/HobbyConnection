@@ -33,7 +33,7 @@ const SessionTimer: React.FC = () => {
     const seconds = timeLeft % 60;
 
     return (
-        <div className="text-lg text-gray-500 mb-2 font-noto-sans-jp">
+        <div className="text-lg text-gray-500 mb-2 font-noto-sans-jp font-medium">
             残り時間: {String(hours)}時間 {String(minutes).padStart(2, "0")}分{" "}
             {String(seconds).padStart(2, "0")}秒
         </div>
