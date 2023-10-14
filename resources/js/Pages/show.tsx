@@ -7,6 +7,7 @@ import { PageProps } from "@/types";
 import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 import LikeButton from "@/Components/LikeButton";
 import { useFormatDate, useformatPeriodDate } from "@/Hooks/useFormatDate";
+import FooterComponent from "@/Components/FooterComponent";
 
 // Propsの型定義
 interface ShowProps extends PageProps {
@@ -252,23 +253,23 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             {/* TOPページに戻る */}
                             <a
                                 href="/"
-                                className="flex items-center text-gray-500 hover:text-gray-700"
+                                className="flex items-center text-gray-500 hover:text-gray-700 hover-target"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
+                                    stroke-width="1.5"
                                     stroke="currentColor"
-                                    className="w-10 h-10 mr-2"
+                                    className="w-8 h-8"
                                 >
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
                                     />
                                 </svg>
-                                <div className="text-xl font-noto-sans-jp font-bold">
+                                <div className="ml-4 text-xl font-noto-sans-jp font-bold">
                                     TOPページへ
                                 </div>
                             </a>
@@ -276,29 +277,30 @@ export default function show({ auth, article, article_user }: ShowProps) {
                             {/* マイページに戻る */}
                             <a
                                 href="/mypage"
-                                className="flex items-center w-55 mt-5 text-gray-500 hover:text-gray-700"
+                                className="flex items-center w-55 mt-5 text-gray-500 hover:text-gray-700 hover-target"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
+                                    stroke-width="1.5"
                                     stroke="currentColor"
-                                    className="w-10 h-10 mr-2"
+                                    className="w-8 h-8"
                                 >
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
                                     />
                                 </svg>
-                                <div className="text-xl font-noto-sans-jp font-bold">
+                                <div className="ml-4 text-xl font-noto-sans-jp font-bold">
                                     マイページへ
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </>
     );

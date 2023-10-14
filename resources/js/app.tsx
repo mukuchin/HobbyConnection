@@ -1,5 +1,6 @@
 import "./bootstrap";
 import "../css/app.css";
+import "../css/custom.css";
 import { Helmet } from "react-helmet";
 
 import { createRoot } from "react-dom/client";
@@ -19,7 +20,10 @@ createInertiaApp({
         root.render(
             <>
                 <Helmet>
-                    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+                        rel="stylesheet"
+                    />
                 </Helmet>
                 <App {...props} />
             </>

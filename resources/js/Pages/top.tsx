@@ -8,6 +8,7 @@ import { PageProps } from "@/types";
 import { ArticleItems } from "@/types/ArticleProps";
 import Pagination from "@/Components/Pagination";
 import { useEffect } from "react";
+import FooterComponent from "@/Components/FooterComponent";
 
 // Propsの型定義
 interface TopProps extends PageProps {
@@ -120,6 +121,7 @@ export default function top({ auth, article }: TopProps) {
                         />
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </>
     );

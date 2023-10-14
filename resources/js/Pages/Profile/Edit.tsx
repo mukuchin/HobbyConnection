@@ -6,6 +6,7 @@ import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 import AppHead from "@/Layouts/AppHead";
 import { PageProps } from "@/types";
+import FooterComponent from "@/Components/FooterComponent";
 
 export default function Edit({
     auth,
@@ -43,6 +44,7 @@ export default function Edit({
                         <DeleteUserForm className="max-w-xl mx-auto" />
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </>
     );

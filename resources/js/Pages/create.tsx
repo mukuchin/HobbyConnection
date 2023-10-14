@@ -8,6 +8,7 @@ import { PageProps } from "@/types";
 import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
 import SessionTimer from "@/Components/SessionTimer";
 import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
+import FooterComponent from "@/Components/FooterComponent";
 
 export default function create({ auth }: PageProps) {
     // 各値の初期値は、空文字列
@@ -75,6 +76,7 @@ export default function create({ auth }: PageProps) {
                         </div>
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </>
     );
