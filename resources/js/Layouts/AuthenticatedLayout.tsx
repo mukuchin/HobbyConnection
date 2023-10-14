@@ -56,7 +56,7 @@ function Authenticated({
 
     return (
         <div>
-            <div style={{ height: "100px", overflowY: "auto" }}>
+            <div style={{ height: "90px", overflowY: "auto" }}>
                 <nav
                     className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed top-0 w-full z-50"
                     style={{ transform: `translateY(-${navOffsetY}px)` }}
