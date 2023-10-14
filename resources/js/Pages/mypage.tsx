@@ -7,6 +7,7 @@ import { PageProps } from "@/types";
 import { ArticleItems } from "@/types/ArticleProps";
 import Pagination from "@/Components/Pagination";
 import { useEffect } from "react";
+import FooterComponent from "@/Components/FooterComponent";
 
 // Propsの型定義
 interface MyPageProps extends PageProps {
@@ -48,7 +49,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                                     プロフィール
                                 </h1>
                                 <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
-                                    ユーザ名：{auth.user.name}
+                                    ユーザー名：{auth.user.name}
                                 </p>
                                 <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
                                     メールアドレス：{auth.user.email}
@@ -115,6 +116,7 @@ export default function mypage({ auth, article }: MyPageProps) {
                         </div>
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </>
     );

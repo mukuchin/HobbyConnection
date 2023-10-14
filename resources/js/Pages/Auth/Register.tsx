@@ -6,6 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
 import AppHead from "@/Layouts/AppHead";
+import FooterComponent from "@/Components/FooterComponent";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,6 +14,8 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
+        termsAccepted: false,
+        privacyPolicyAccepted: false,
     });
 
     useEffect(() => {
@@ -36,7 +39,15 @@ export default function Register() {
                     <div className="max-w-md w-full space-y-4 font-noto-sans-jp">
                         <form onSubmit={submit} className="space-y-4">
                             <div>
-                                <InputLabel htmlFor="name" value="ユーザ名" />
+                                <div className="flex flex-row items-center">
+                                    <InputLabel
+                                        htmlFor="name"
+                                        value="ユーザー名"
+                                    />
+                                    <div className="ml-4 text-sm text-gray-600">
+                                        ※ユーザー名は公開されます。
+                                    </div>
+                                </div>
 
                                 <TextInput
                                     id="name"
@@ -135,6 +146,59 @@ export default function Register() {
                                 />
                             </div>
 
+                            <div className="mt-4">
+                                <input
+                                    type="checkbox"
+                                    id="termsAccepted"
+                                    checked={data.termsAccepted}
+                                    onChange={(e) =>
+                                        setData(
+                                            "termsAccepted",
+                                            e.target.checked
+                                        )
+                                    }
+                                />
+                                <label htmlFor="termsAccepted" className="ml-2">
+                                    <a
+                                        href="/policy/HobbyConnection_利用規約.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="underline text-blue-600 hover:text-blue-900"
+                                    >
+                                        利用規約
+                                    </a>
+                                    に同意します。
+                                </label>
+                            </div>
+
+                            <div className="mt-4">
+                                <input
+                                    type="checkbox"
+                                    id="privacyPolicyAccepted"
+                                    checked={data.privacyPolicyAccepted}
+                                    onChange={(e) =>
+                                        setData(
+                                            "privacyPolicyAccepted",
+                                            e.target.checked
+                                        )
+                                    }
+                                />
+                                <label
+                                    htmlFor="privacyPolicyAccepted"
+                                    className="ml-2"
+                                >
+                                    <a
+                                        href="/policy/HobbyConnection_プライバシーポリシー.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="underline text-blue-600 hover:text-blue-900"
+                                    >
+                                        プライバシーポリシー
+                                    </a>
+                                    に同意します。
+                                </label>
+                            </div>
+
                             <div className="flex items-center justify-end mt-4 space-x-4">
                                 <Link
                                     href={route("login")}
@@ -145,7 +209,11 @@ export default function Register() {
 
                                 <PrimaryButton
                                     className="ml-4"
-                                    disabled={processing}
+                                    disabled={
+                                        processing ||
+                                        !data.termsAccepted ||
+                                        !data.privacyPolicyAccepted
+                                    }
                                 >
                                     登録
                                 </PrimaryButton>
@@ -153,6 +221,7 @@ export default function Register() {
                         </form>
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </GuestLayout>
     );

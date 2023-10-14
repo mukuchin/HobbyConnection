@@ -10,6 +10,7 @@ import { ArticleItems } from "@/types/ArticleProps";
 import { useFormatDate } from "@/Hooks/useFormatDate";
 import SessionTimer from "@/Components/SessionTimer";
 import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
+import FooterComponent from "@/Components/FooterComponent";
 
 // Propsの型定義
 interface EditProps extends PageProps {
@@ -164,6 +165,7 @@ export default function edit({ auth, article }: EditProps) {
                         </div>
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </>
     );

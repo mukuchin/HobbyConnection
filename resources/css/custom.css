@@ -1,0 +1,22 @@
+.hover-target:hover > svg {
+    animation: slideRightFade 1.5s ease-in-out alternate;
+}
+
+@keyframes slideRightFade {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    33% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    66% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

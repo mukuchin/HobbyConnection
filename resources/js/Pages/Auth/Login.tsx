@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
 import AppHead from "@/Layouts/AppHead";
+import FooterComponent from "@/Components/FooterComponent";
 
 export default function Login({
     status,
@@ -137,6 +138,7 @@ export default function Login({
                         </form>
                     </div>
                 </div>
+                <FooterComponent />
             </div>
         </GuestLayout>
     );
