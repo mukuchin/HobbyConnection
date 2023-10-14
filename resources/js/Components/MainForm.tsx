@@ -299,23 +299,25 @@ const MainForm: React.FC<MainFormProps> = ({
                 <div className="mb-4 flex justify-center">
                     <button
                         type="button"
-                        className="mt-4 flex flex-row justify-center bg-blue-500 hover:bg-blue-700 transition text-white text-3xl font-bold py-2 w-full rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                        className="mt-4 flex flex-row justify-center items-center bg-blue-500 hover:bg-blue-700 transition text-white text-2xl font-semibold py-1 w-full rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                         onClick={addSubForm}
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="w-10 h-10"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                        </svg>
+                        <div>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                className="w-10 h-10"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 4.5v15m7.5-7.5h-15"
+                                />
+                            </svg>
+                        </div>
                         <div>投稿を追加</div>
                     </button>
                 </div>
@@ -325,7 +327,7 @@ const MainForm: React.FC<MainFormProps> = ({
             <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 transition text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                    className="mt-4 bg-green-500 hover:bg-green-700 transition text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                     onClick={handleConfirmSubmit}
                 >
                     {location.pathname === "/create" ? "投稿する" : "更新する"}
