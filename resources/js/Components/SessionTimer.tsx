@@ -14,9 +14,28 @@ const SessionTimer: React.FC = () => {
         setElapsedTime(elapsedTimeSec);
 
         // 残り時間のアラート
-        const alertTimes = [3600, 1800, 600, 300, 60];
-        if (alertTimes.includes(sessionDuration - elapsedTimeSec)) {
-            alert(`残り時間: ${sessionDuration - elapsedTimeSec}秒です！`);
+        const remainingTime = sessionDuration - elapsedTimeSec;
+        switch (remainingTime) {
+            case 3600:
+                alert("残り1時間です！");
+                break;
+            case 1800:
+                alert("残り30分です！");
+                break;
+            case 600:
+                alert("残り10分です！");
+                break;
+            case 300:
+                alert("残り5分です！");
+                break;
+            case 60:
+                alert("残り1分です！");
+                break;
+            case 0:
+                alert("残り時間がなくなりました！");
+                return; // 残り時間が0になったら、この関数の実行を終了します。
+            default:
+                break;
         }
 
         setTimeout(showTimer, 10);
@@ -32,8 +51,15 @@ const SessionTimer: React.FC = () => {
     const minutes = Math.floor((timeLeft % 3600) / 60);
     const seconds = timeLeft % 60;
 
+    // 残り時間が10分以下かどうかを判定
+    const isTimeRunningOut = sessionDuration - elapsedTime <= 600;
+
     return (
-        <div className="text-lg text-gray-500 mb-2 font-noto-sans-jp font-medium">
+        <div
+            className={`text-lg mb-2 font-noto-sans-jp font-medium ${
+                isTimeRunningOut ? "text-red-500" : "text-gray-500"
+            }`}
+        >
             残り時間: {String(hours)}時間 {String(minutes).padStart(2, "0")}分{" "}
             {String(seconds).padStart(2, "0")}秒
         </div>
