@@ -28,7 +28,6 @@ export default function top({ auth, article }: TopProps) {
     // ペジネーションによるページ遷移時にスクロール位置を調整する
     useEffect(() => {
         if (sessionStorage.getItem("paginationTransition") === "true") {
-            const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
             screenHeight >= 540
                 ? window.scrollTo(0, screenHeight + 80)
