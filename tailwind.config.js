@@ -26,7 +26,6 @@ export default {
             },
             backgroundImage: {
                 'various-hobby': "linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/images/VariousHobby.jpg')",
-                'top': "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/Introduction.gif')",
             },
             animation: {
                 "text-focus-in0": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0s  both",
@@ -59,8 +58,8 @@ export default {
                         opacity: "1"
                     }
                 },
-                scaleAnimation: {
-                    '0%': { transform: 'scale(1.2) translateX(0) rotate(0deg)' },
+                "scaleAnimation": {
+                    '0%': { transform: 'scale(1) translateX(0) rotate(0deg)' },
                     '20%': { transform: 'scale(1.3) translateX(0) rotate(0deg)' },
                     '35%': { transform: 'scale(1.3) translateX(-5px) rotate(-15deg)' },
                     '50%': { transform: 'scale(1.3) translateX(5px) rotate(15deg)' },
@@ -85,9 +84,6 @@ export default {
             },
             minHeight: {
                 '540': '540px',
-            },
-            scale: {
-                '120-hover': '1.20',
             },
         },
 

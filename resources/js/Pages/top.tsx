@@ -46,7 +46,8 @@ export default function top({ auth, article }: TopProps) {
                 <GuestLayout />
             )}
             {/* ホビーコネクションの紹介 */}
-            <div className="bg-top bg-cover bg-no-repeat bg-center h-screen min-h-540 py-16 sm:py-48 shadow-md text-white flex flex-col items-center justify-center">
+            <div className="relative h-screen min-h-540 py-16 sm:py-48 shadow-md text-white flex flex-col items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 bg-switch bg-cover bg-no-repeat transform"></div>
                 <div className="flex flex-col sm:flex-row justify-center">
                     <div className="whitespace-nowrap ml-0 sm:ml-4 mb-12 flex flex-col justify-center font-noto-sans-jp font-medium text-5xl md:text-6xl lg:text-7xl animate-text-focus-in0 text-center">
                         <div>人生に新しい</div>

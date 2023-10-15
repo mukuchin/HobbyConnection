@@ -65,7 +65,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
                 onAnimationEnd={handleAnimationEnd} // アニメーションが終了したときの処理
                 className={`${isLiked ? "text-red-500" : ""} ${
                     animate ? "animate-scaleAnimation" : ""
-                } transform transition-transform duration-300 hover:scale-120-hover`}
+                } transform transition-transform duration-300 `}
             >
                 {isLiked ? (
                     <svg
@@ -129,7 +129,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ articleId, isLoggedIn }) => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth={1.5}
+                        strokeWidth={1}
                         stroke="currentColor"
                         className="w-10 h-10"
                     >
