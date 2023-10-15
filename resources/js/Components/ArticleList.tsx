@@ -1,6 +1,6 @@
 // 記事を一覧表示するコンポーネント
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "@inertiajs/react";
 import { ArticleItems } from "@/types/ArticleProps";
 import { useDeleteMyArticle } from "@/Hooks/useDeleteMyArticle";
@@ -43,10 +43,36 @@ const ArticleList: React.FC<ArticleListProps> = ({
         return str.replace(/\n/g, "<br />");
     }
 
+    const [animationClass, setAnimationClass] = useState("");
+    const articleRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setAnimationClass("animate-text-focus-in5");
+                }
+            },
+            {
+                threshold: 0.1,
+            }
+        );
+
+        if (articleRef.current) {
+            observer.observe(articleRef.current);
+        }
+
+        return () => {
+            if (articleRef.current) {
+                observer.unobserve(articleRef.current);
+            }
+        };
+    }, []);
+
     return (
-        <div className="py-2 sm:py-6">
+        <div ref={articleRef} className={`${animationClass} py-2 sm:py-6`}>
             <div className="max-w-7xl mx-auto sm:px-2 lg:px-8">
-                <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md">
+                <div className="py-2 sm:py-6 bg-white p-2 sm:p-4 rounded-lg shadow-md">
                     <div className="mb-4">
                         {/* 記事のタイトル */}
                         <Link

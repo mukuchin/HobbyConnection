@@ -1,6 +1,6 @@
 /* 記事閲覧ページのボタン郡のアニメーション */
 .hover-target:hover > svg {
-    animation: slideRightFade 1.5s ease-in-out alternate;
+    animation: slideRightFade 0.7s ease-in-out alternate;
 }
 
 @keyframes slideRightFade {

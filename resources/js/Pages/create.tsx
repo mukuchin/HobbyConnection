@@ -55,7 +55,7 @@ export default function create({ auth }: PageProps) {
                         <div className="text-xs text-gray-500 mb-4 font-noto-sans-jp">
                             残り時間が無くなると、入力内容がリセットされます。時間内に投稿してください。
                             <br />
-                            また、ページの再読込をする及び別のページへ遷移すると、入力内容がリセットされます。
+                            また、ページの再読込みや別のページへの遷移をすると、入力内容がリセットされます。
                         </div>
                         <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <MainForm

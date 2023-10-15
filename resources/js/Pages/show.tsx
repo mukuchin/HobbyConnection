@@ -53,7 +53,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
             {/* 記事の閲覧 */}
             <div className="bg-fixed bg-various-hobby py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {/* タイトル */}
                             <div className="font-noto-sans-jp flex justify-center mb-4">
