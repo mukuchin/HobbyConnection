@@ -1,3 +1,4 @@
+/* 記事閲覧ページのボタン郡のアニメーション */
 .hover-target:hover > svg {
     animation: slideRightFade 1.5s ease-in-out alternate;
 }
@@ -18,5 +19,55 @@
     100% {
         transform: translateX(0);
         opacity: 1;
+    }
+}
+
+/* TOPページの背景画像のアニメーション */
+.bg-switch {
+    animation: bgSwitch 16s infinite, bgScaleOut 4s infinite;
+    background-blend-mode: multiply;
+}
+
+@keyframes bgSwitch {
+    0%,
+    25% {
+        background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+            ),
+            url("/images/photo1.jpg");
+    }
+    25.1%,
+    50% {
+        background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+            ),
+            url("/images/photo2.jpg");
+    }
+    50.01%,
+    75% {
+        background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+            ),
+            url("/images/photo3.jpg");
+    }
+    75.1%,
+    100% {
+        background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+            ),
+            url("/images/photo4.jpg");
+    }
+}
+
+@keyframes bgScaleOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.2);
     }
 }
