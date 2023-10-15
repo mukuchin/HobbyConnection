@@ -11,6 +11,7 @@ import React, {
 } from "react";
 import NavLink from "@/Components/NavLink";
 import Dropdown from "@/Components/Dropdown";
+import { usePage } from "@inertiajs/react";
 
 interface PageTabProps {
     href: string;
@@ -35,26 +36,49 @@ function Guest({
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
     const [navOffsetY, setNavOffsetY] = useState(0);
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+    const { props } = usePage(); // Inertiaのページプロップを取得
+    const reload = props.reload; // reloadプロップを取得
 
     // スクロール量がロゴの高さを超えた場合、その分だけナビゲーションバーを上に移動させる
     useEffect(() => {
         const handleScroll = () => {
+            const currentScrollPos = window.scrollY;
             const screenWidth = window.innerWidth;
             const logoHeight = screenWidth <= 640 ? 50 : 75;
-            setNavOffsetY(Math.min(window.scrollY, logoHeight));
+
+            if (prevScrollPos > currentScrollPos || currentScrollPos <= 0) {
+                setNavOffsetY(0); // 上にスクロールした場合、ナビゲーションバーをリセット
+            } else {
+                setNavOffsetY(Math.min(currentScrollPos, logoHeight));
+            }
+
+            setPrevScrollPos(currentScrollPos); // 現在のスクロール位置を保存
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [prevScrollPos]);
+
+    // ログアウト処理。"/"でログアウトしても、画面を更新できるようにする。
+    useEffect(() => {
+        if (reload) {
+            window.location.reload();
+        }
+    }, [reload]);
+
     return (
         <div>
             <div style={{ height: "90px" }}>
                 <nav
                     className="bg-gradient-to-t from-yellow-50 to-sky-100 border-b border-gray-100 fixed w-full z-50"
-                    style={{ transform: `translateY(-${navOffsetY}px)` }}
+                    style={{
+                        transform: `translateY(-${navOffsetY}px)`,
+                        transition: "transform 0.4s ease-in-out",
+                    }}
                 >
                     <div className="font-noto-sans-jp max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="ml-4 sm:ml-8 mt-2 shrink-0 flex items-center">

@@ -48,6 +48,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // リクエストのリファラを確認
+        $referrer = $request->headers->get('referer');
+
+        // リファラがtop.tsxに関連するURLかどうかを確認
+        if (strpos($referrer, '/') !== false) {
+            $response = redirect()->route('top')->with('reload', true);
+        } else {
+            $response = redirect()->route('top');
+        }
+
+        return $response;
     }
 }
