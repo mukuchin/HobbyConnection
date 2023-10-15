@@ -29,6 +29,14 @@ const InputField = React.forwardRef<
         textareaHeight,
         placeholder,
     } = props;
+
+    // Enterキーの押下を検出してイベントをキャンセルする関数
+    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    }
+
     return (
         <div className="mb-4">
             <label
@@ -47,6 +55,7 @@ const InputField = React.forwardRef<
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
+                    onKeyDown={handleKeyDown}
                 ></textarea>
             ) : type === "file" ? (
                 <input
@@ -56,6 +65,7 @@ const InputField = React.forwardRef<
                     name={name}
                     ref={ref as React.Ref<HTMLInputElement>}
                     onChange={onChange}
+                    onKeyDown={handleKeyDown}
                 />
             ) : (
                 <input
@@ -66,10 +76,11 @@ const InputField = React.forwardRef<
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
+                    onKeyDown={handleKeyDown}
                 />
             )}
             {errors[name] && (
-                <p className="text-red-500 text-lg mt-1">{errors[name]}</p>
+                <p className="text-red-500 mt-1">{errors[name]}</p>
             )}
         </div>
     );
