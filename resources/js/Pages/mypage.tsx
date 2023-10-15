@@ -35,7 +35,7 @@ export default function mypage({ auth, article }: MyPageProps) {
         <>
             <AppHead title="マイページ" />
             <AuthenticatedLayout user={auth.user} />
-            <div className="bg-fixed bg-various-hobby py-12">
+            <div className="bg-fixed bg-various-hobby h-screen py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="p-2 text-gray-900">
                         <h1 className="font-noto-sans-jp font-bold text-3xl mb-4">
