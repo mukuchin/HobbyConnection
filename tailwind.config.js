@@ -34,7 +34,7 @@ export default {
                 "text-focus-in3": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 4.5s  both",
                 "text-focus-in4": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 5.5s  both",
                 "scaleAnimation": 'scaleAnimation 1.2s ease-in-out',
-                "text-focus-in5": "text-focus-in 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.2s both",
+                "text-focus-in5": "text-focus-in 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.1s both",
 
             },
             keyframes: {
