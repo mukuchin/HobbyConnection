@@ -35,6 +35,16 @@ const FooterComponent: React.FC = () => {
                         プライバシーポリシー
                     </a>
                 </div>
+                <div>
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScg6zqRlkRv7-X1QqgIUIn-2luW-oVjpKkr0F0FggiKK8bacQ/viewform"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 hover:text-gray-900"
+                    >
+                        アンケートにご協力お願い致します。🙇‍♂️
+                    </a>
+                </div>
             </div>
         </div>
     );
