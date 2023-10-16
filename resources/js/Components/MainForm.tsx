@@ -26,6 +26,7 @@ interface MainFormProps {
     cancelCancelImagePreview: () => void;
     addTag: (tag: string) => void;
     removeTag: (index: number) => void;
+    handleConfirmSubmit: () => void;
 }
 
 // メインフォーム
@@ -39,6 +40,7 @@ const MainForm: React.FC<MainFormProps> = ({
     cancelCancelImagePreview,
     addTag,
     removeTag,
+    handleConfirmSubmit,
 }) => {
     // エラーを取得
     const { errors } = usePage().props;
@@ -48,32 +50,6 @@ const MainForm: React.FC<MainFormProps> = ({
 
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    // 確認のアラートを表示する関数
-    const handleConfirmSubmit = (
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
-        const baseMessage =
-            location.pathname === "/create"
-                ? "記事を投稿しますか？"
-                : "記事を更新しますか？";
-
-        const additionalMessage = `
-以下の情報の投稿を行うことはできません。
-(1) 他ユーザーを不快にさせる投稿
-(2) いいねなどリアクション自体を目的とした投稿
-(3) 趣味と関係のない投稿
-(4) 未成年の不健全な出会いや集まりの計画・勧誘
-(5) 誹謗中傷・暴言・わいせつな投稿
-(6) 著作権や肖像権・プライバシーを侵害する行為
-(7) 荒らし行為・違法行為・その他の迷惑行為
-
-`;
-
-        if (!window.confirm(additionalMessage + baseMessage)) {
-            e.preventDefault();
-        }
-    };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">

@@ -283,12 +283,24 @@ export function useArticleForm(
     const handleConfirmSubmit = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
-        const message =
+        const baseMessage =
             location.pathname === "/create"
                 ? "記事を投稿しますか？"
                 : "記事を更新しますか？";
 
-        if (!window.confirm(message)) {
+        const additionalMessage = `
+以下の情報の投稿を行うことはできません。
+(1) 他ユーザーを不快にさせる投稿
+(2) いいねなどリアクション自体を目的とした投稿
+(3) 趣味と関係のない投稿
+(4) 未成年の不健全な出会いや集まりの計画・勧誘
+(5) 誹謗中傷・暴言・わいせつな投稿
+(6) 著作権や肖像権・プライバシーを侵害する行為
+(7) 荒らし行為・違法行為・その他の迷惑行為
+
+`;
+
+        if (!window.confirm(additionalMessage + baseMessage)) {
             e.preventDefault();
         }
     };
