@@ -26,7 +26,9 @@ interface MainFormProps {
     cancelCancelImagePreview: () => void;
     addTag: (tag: string) => void;
     removeTag: (index: number) => void;
-    handleConfirmSubmit: () => void;
+    handleConfirmSubmit: (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
 }
 
 // メインフォーム
