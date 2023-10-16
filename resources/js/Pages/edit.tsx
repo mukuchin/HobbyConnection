@@ -83,6 +83,7 @@ export default function edit({ auth, article }: EditProps) {
         cancelCancelImagePreview,
         addTag,
         removeTag,
+        handleConfirmSubmit,
     } = useArticleForm(values, setValues, `/posts/${id}`);
 
     // 日付をフォーマットする関数
@@ -161,6 +162,7 @@ export default function edit({ auth, article }: EditProps) {
                                 }
                                 addTag={addTag}
                                 removeTag={removeTag}
+                                handleConfirmSubmit={handleConfirmSubmit}
                             />
                         </div>
                     </div>

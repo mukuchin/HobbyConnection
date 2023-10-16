@@ -39,6 +39,7 @@ export default function create({ auth }: PageProps) {
         cancelCancelImagePreview,
         addTag,
         removeTag,
+        handleConfirmSubmit,
     } = useArticleForm(values, setValues, "/posts");
 
     return (
@@ -72,6 +73,7 @@ export default function create({ auth }: PageProps) {
                                 }
                                 addTag={addTag}
                                 removeTag={removeTag}
+                                handleConfirmSubmit={handleConfirmSubmit}
                             />
                         </div>
                     </div>
