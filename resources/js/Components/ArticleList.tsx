@@ -162,8 +162,13 @@ const ArticleList: React.FC<ArticleListProps> = ({
                                         />
                                     </svg>
                                     <span className="ml-2">
-                                        {formatPeriodDate(period_start)}〜
-                                        {formatPeriodDate(period_end)}
+                                        {period_start
+                                            ? formatPeriodDate(period_start)
+                                            : ""}
+                                        〜
+                                        {period_end
+                                            ? formatPeriodDate(period_end)
+                                            : ""}
                                     </span>
                                 </div>
                             )}
