@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const SessionTimer: React.FC = () => {
-    const sessionDuration = 120 * 60; // 120分を秒に変換
+    const sessionDuration = 120 * 60; // セッション時間（分）を秒に変換
     const startTime = new Date().getTime();
 
     const [elapsedTime, setElapsedTime] = useState(0);

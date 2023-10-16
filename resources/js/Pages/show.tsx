@@ -33,9 +33,18 @@ export default function show({ auth, article, article_user }: ShowProps) {
     const formatDate = useFormatDate();
     const formatPeriodDate = useformatPeriodDate();
 
-    // 改行をbrタグに変換
-    function nl2br(str: string) {
-        return str.replace(/\n/g, "<br />");
+    // 改行をbrタグに変換し、URLを青色の<a>タグで囲む関数
+    function formatText(str: string) {
+        // 改行をbrタグに変換
+        const withBr = str.replace(/\n/g, "<br />");
+
+        // URLを検出して青色の<a>タグで囲む
+        const urlRegex = /https?:\/\/[^\s]+/g;
+        return withBr.replace(
+            urlRegex,
+            (url) =>
+                `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-blue-700">${url}</a>`
+        );
     }
 
     return (
@@ -140,8 +149,13 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                         />
                                     </svg>
                                     <span className="ml-2">
-                                        {formatPeriodDate(period_start)}〜
-                                        {formatPeriodDate(period_end)}
+                                        {period_start
+                                            ? formatPeriodDate(period_start)
+                                            : ""}
+                                        〜
+                                        {period_end
+                                            ? formatPeriodDate(period_end)
+                                            : ""}
                                     </span>
                                 </p>
                             )}
@@ -178,7 +192,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                         <div
                                             className="text-base sm:text-lg text-left"
                                             dangerouslySetInnerHTML={{
-                                                __html: nl2br(description),
+                                                __html: formatText(description),
                                             }}
                                         ></div>
                                     </div>
@@ -224,7 +238,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                             {data.comment && (
                                                                 <p
                                                                     dangerouslySetInnerHTML={{
-                                                                        __html: nl2br(
+                                                                        __html: formatText(
                                                                             data.comment
                                                                         ),
                                                                     }}
