@@ -55,7 +55,6 @@ const InputField = React.forwardRef<
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
-                    onKeyDown={handleKeyDown}
                 ></textarea>
             ) : type === "file" ? (
                 <input
