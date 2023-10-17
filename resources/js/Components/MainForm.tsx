@@ -53,6 +53,8 @@ const MainForm: React.FC<MainFormProps> = ({
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    console.log("MainForm");
+
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="bg-white border rounded-md shadow-md p-4 font-noto-sans-jp">
