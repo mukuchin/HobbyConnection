@@ -72,7 +72,7 @@ class BlogRequest extends FormRequest
             if ($this->hasFile('image')) {
                 $file = $this->file('image');
                 if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
-                    $validator->errors()->add('image', '画像サイズは2MB以下である必要があります。');
+                    $validator->errors()->add('image', trans('validation.uploaded', ['attribute' => 'image']));
                 }
             }
         });
