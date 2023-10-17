@@ -121,7 +121,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         errors={errors}
                     />
                     {errors[`sub_form_data.${index}.image`] && (
-                        <p className="text-red-500 text-lg mt-1">
+                        <p className="text-red-500 mt-1">
                             {errors[`sub_form_data.${index}.image`]}
                         </p>
                     )}
@@ -146,7 +146,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         />
 
                         {errors[`sub_form_data.${index}.heading`] && (
-                            <p className="text-red-500 text-xs mt-1">
+                            <p className="text-red-500 mt-1">
                                 {errors[`sub_form_data.${index}.heading`]}
                             </p>
                         )}
@@ -166,7 +166,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         />
 
                         {errors[`sub_form_data.${index}.comment`] && (
-                            <p className="text-red-500 text-xs mt-1">
+                            <p className="text-red-500 mt-1">
                                 {errors[`sub_form_data.${index}.comment`]}
                             </p>
                         )}

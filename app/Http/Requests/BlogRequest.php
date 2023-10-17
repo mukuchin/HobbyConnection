@@ -65,4 +65,16 @@ class BlogRequest extends FormRequest
             'sub_form_data.*.image.max' => '画像サイズは2MB以下である必要があります。',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->hasFile('image')) {
+                $file = $this->file('image');
+                if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
+                    $validator->errors()->add('image', '画像サイズは2MB以下である必要があります。');
+                }
+            }
+        });
+    }
 }
