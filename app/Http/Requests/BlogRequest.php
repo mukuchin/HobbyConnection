@@ -72,7 +72,8 @@ class BlogRequest extends FormRequest
             if ($this->hasFile('image')) {
                 $file = $this->file('image');
                 if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
-                    $validator->errors()->add('image', trans('validation.uploaded', ['attribute' => 'image']));
+                    dd(__('validation.uploaded', ['attribute' => 'image'])); // こちらを追加
+                    $validator->errors()->add('image', __('validation.uploaded', ['attribute' => 'image']));
                 }
             }
         });
