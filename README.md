@@ -42,7 +42,7 @@ https://hobby-connection-546e3e86ca25.herokuapp.com
 
 ### インフラ
 
--   heloku
+-   Heroku
 
 ### 画像ファイル管理
 
