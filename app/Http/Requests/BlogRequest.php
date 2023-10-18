@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BlogRequest extends FormRequest
 {
-    public function __construct()
-    {
-        dd($this->all());
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -73,17 +68,14 @@ class BlogRequest extends FormRequest
 
     public function withValidator($validator)
     {
-        // dd('withValidator is called'); // こちらを追加
-        // dd($this->all()); // こちらを追加
-
         $validator->after(function ($validator) {
             if ($this->hasFile('image')) {
                 $file = $this->file('image');
-                // dd($file->getError());  // こちらを追加
-                if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
-                    dd(__('validation.uploaded', ['attribute' => 'image']));
-                    $validator->errors()->add('image', __('validation.uploaded', ['attribute' => 'image']));
+                if ($file->getError() !== UPLOAD_ERR_OK) {
+                    dd($file->getErrorMessage()); // こちらを追加
                 }
+            } else {
+                dd('No image file uploaded.');
             }
         });
     }
