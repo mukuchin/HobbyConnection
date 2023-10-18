@@ -78,6 +78,7 @@ class BlogRequest extends FormRequest
             //     dd('No image file uploaded.');
             // }
             if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
+                dd('画像サイズは2MB以下である必要があります。');
                 $validator->errors()->add('image', '画像サイズは2MB以下である必要があります。');
             }
         });
