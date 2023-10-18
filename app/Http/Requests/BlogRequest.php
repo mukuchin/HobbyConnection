@@ -79,9 +79,9 @@ class BlogRequest extends FormRequest
 
             // サブフォームの画像に関するエラーメッセージを上書き
             $subFormData = $this->input('sub_form_data');
-            dd($subFormData);
             if ($subFormData) {
                 foreach ($subFormData as $index => $data) {
+                    dd($data);
                     $subFile = $data['image'] ?? null;
                     if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
                         $key = "sub_form_data.{$index}.image";
