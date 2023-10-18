@@ -69,11 +69,12 @@ class BlogRequest extends FormRequest
     public function withValidator($validator)
     {
         // dd('withValidator is called'); // こちらを追加
+        dd($this->all()); // こちらを追加
 
         $validator->after(function ($validator) {
             if ($this->hasFile('image')) {
                 $file = $this->file('image');
-                dd($file->getError());  // こちらを追加
+                // dd($file->getError());  // こちらを追加
                 if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
                     dd(__('validation.uploaded', ['attribute' => 'image']));
                     $validator->errors()->add('image', __('validation.uploaded', ['attribute' => 'image']));
