@@ -79,6 +79,7 @@ class BlogRequest extends FormRequest
 
             // サブフォームの画像に関するエラーメッセージを上書き
             $subFormData = $this->input('sub_form_data');
+            dd($subFormData);
             if ($subFormData) {
                 foreach ($subFormData as $index => $data) {
                     $subFile = $data['image'] ?? null;
@@ -91,7 +92,4 @@ class BlogRequest extends FormRequest
             }
         });
     }
-
-
-
 }
