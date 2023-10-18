@@ -66,17 +66,25 @@ class BlogRequest extends FormRequest
         ];
     }
 
+    // 本番環境だと画像サイズに関するバリデーションメッセージが正常に表示されない為、以下のメソッドを追加
     public function withValidator($validator)
     {
-        // dd('withValidator is called'); // こちらを追加
-
         $validator->after(function ($validator) {
-            if ($this->hasFile('image')) {
-                $file = $this->file('image');
-                dd($file->getError());  // こちらを追加
-                if ($file->getError() === UPLOAD_ERR_INI_SIZE) {
-                    dd(__('validation.uploaded', ['attribute' => 'image']));
-                    $validator->errors()->add('image', __('validation.uploaded', ['attribute' => 'image']));
+            $file = $this->file('image');
+            if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
+                // メインフォームの画像に関するエラーメッセージを上書き
+                $validator->errors()->forget('image');
+                $validator->errors()->add('image', '画像サイズは2MB以下である必要があります。');
+            }
+
+            // サブフォームの画像に関するエラーメッセージを上書き
+            $subFormData = $this->all()['sub_form_data'] ?? [];
+            foreach ($subFormData as $index => $data) {
+                $subFile = $data['image'] ?? null;
+                if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
+                    $key = "sub_form_data.{$index}.image";
+                    $validator->errors()->forget($key);
+                    $validator->errors()->add($key, '画像サイズは2MB以下である必要があります。');
                 }
             }
         });
