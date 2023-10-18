@@ -92,7 +92,6 @@ class BlogRequest extends FormRequest
             // }
 
             $file = $this->file('sub_form_data.*.image');
-            dd($file);
             if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
                 // サブフォームの画像に関するエラーメッセージを上書き
                 $validator->errors()->forget('sub_form_data.*.image');
