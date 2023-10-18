@@ -69,14 +69,15 @@ class BlogRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if ($this->hasFile('image')) {
-                $file = $this->file('image');
+            $file = $this->file('image');
+            if ($file) {
                 if ($file->getError() !== UPLOAD_ERR_OK) {
-                    dd($file->getErrorMessage()); // こちらを追加
+                    dd($file->getErrorMessage());
                 }
             } else {
                 dd('No image file uploaded.');
             }
         });
     }
+
 }
