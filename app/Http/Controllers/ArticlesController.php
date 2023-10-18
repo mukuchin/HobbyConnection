@@ -197,7 +197,6 @@ class ArticlesController extends Controller
     {
         if ($subFormData && is_array($subFormData)) {
             foreach ($subFormData as $data) {
-                dd($data);
                 if (
                     isset($data['heading']) || isset($data['comment']) || isset($data['image'])
                 ) {
