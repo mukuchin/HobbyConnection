@@ -78,17 +78,25 @@ class BlogRequest extends FormRequest
             }
 
             // サブフォームの画像に関するエラーメッセージを上書き
-            $subFormData = $this->input('sub_form_data');
-            if ($subFormData) {
-                foreach ($subFormData as $index => $data) {
-                    dd($data);
-                    $subFile = $data['image'] ?? null;
-                    if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
-                        $key = "sub_form_data.{$index}.image";
-                        $validator->errors()->forget($key);
-                        $validator->errors()->add($key, '画像サイズは2MB以下である必要があります。');
-                    }
-                }
+            // $subFormData = $this->input('sub_form_data');
+            // if ($subFormData) {
+            //     foreach ($subFormData as $index => $data) {
+            //         // dd($data);
+            //         $subFile = $data['image'] ?? null;
+            //         if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
+            //             $key = "sub_form_data.{$index}.image";
+            //             $validator->errors()->forget($key);
+            //             $validator->errors()->add($key, '画像サイズは2MB以下である必要があります。');
+            //         }
+            //     }
+            // }
+
+            $file = $this->file('sub_form_data.*.image');
+            dd($file);
+            if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
+                // サブフォームの画像に関するエラーメッセージを上書き
+                $validator->errors()->forget('sub_form_data.*.image');
+                $validator->errors()->add('sub_form_data.*.image', '画像サイズは2MB以下である必要があります。');
             }
         });
     }
