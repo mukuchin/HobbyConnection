@@ -118,22 +118,28 @@ const SubForm: React.FC<SubFormProps> = ({
                             cancelCancelImagePreview(index);
                         }}
                         ref={fileInputRef}
-                        errors={errors}
                     />
+                    {/* 画像のエラーメッセージを表示 */}
                     {errors[`sub_form_data.${index}.image`] && (
-                        <p className="text-red-500 mt-1">
+                        <p className="text-red-500">
                             {errors[`sub_form_data.${index}.image`]}
+                        </p>
+                    )}
+                    {/* 画像の合計サイズのエラーメッセージを表示 */}
+                    {errors.total_image_size && (
+                        <p className="text-red-500">
+                            {errors.total_image_size}
                         </p>
                     )}
                     {/* ファイル形式・サイズの注意書き */}
                     <p className="mb-4 text-xs text-gray-500">
-                        画像は最大2MBまでです。ファイル形式はjpg, jpeg, gif,
-                        pngに対応しています。
+                        画像サイズは最大2MBです。また、一度の投稿・更新で追加できる画像の合計サイズは最大20MBです。ファイル形式はjpg,
+                        jpeg, gif, pngに対応しています。
                     </p>
                 </div>
                 <div className="w-full md:w-1/2 flex flex-col justify-between">
                     {/* 見出しの入力 */}
-                    <div>
+                    <div className="mb-4">
                         <InputField
                             label="見出し"
                             type="text"
@@ -142,17 +148,10 @@ const SubForm: React.FC<SubFormProps> = ({
                             placeholder="東京から群馬へ"
                             value={values.sub_form_data[index].heading}
                             onChange={(e) => handleChange(e, index)}
-                            errors={errors}
                         />
-
-                        {errors[`sub_form_data.${index}.heading`] && (
-                            <p className="text-red-500 mt-1">
-                                {errors[`sub_form_data.${index}.heading`]}
-                            </p>
-                        )}
                     </div>
                     {/* コメントの入力 */}
-                    <div>
+                    <div className="mb-4">
                         <InputField
                             label="コメント"
                             type="textarea"
@@ -161,28 +160,19 @@ const SubForm: React.FC<SubFormProps> = ({
                             placeholder="1日目の午前10:00に東京を出発しました。グランピング施設までは社長が運転してくれました。"
                             value={values.sub_form_data[index].comment}
                             onChange={(e) => handleChange(e, index)}
-                            errors={errors}
                             textareaHeight="h-48 md:h-96"
                         />
-
-                        {errors[`sub_form_data.${index}.comment`] && (
-                            <p className="text-red-500 mt-1">
-                                {errors[`sub_form_data.${index}.comment`]}
-                            </p>
-                        )}
-
                         <input
                             type="hidden"
                             name={`sub_form_data[${index}][id]`}
                             value={values.sub_form_data[index].id}
                         />
                     </div>
-
                     {/* サブフォームの削除ボタン */}
                     <div className="flex justify-end">
                         <button
                             type="button"
-                            className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                            className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                             onClick={() => deleteSubForm(index)}
                         >
                             <svg
