@@ -34,7 +34,11 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof PostTooLargeException) {
-            return redirect()->back()->withErrors(['total_image_size' => '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。']);
+            dd($exception);
+            // ここでカスタムのバリデーションエラーメッセージを返す
+            return redirect($request->fullUrl())
+                ->withInput($request->input())
+                ->withErrors(['total_image_size' => '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。']);
         }
 
         return parent::render($request, $exception);

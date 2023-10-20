@@ -77,7 +77,7 @@ class BlogRequest extends FormRequest
             if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
                 // メインフォームの画像に関するエラーメッセージを上書き
                 $validator->errors()->forget('image');
-                $validator->errors()->add('image', '画像サイズは2MB以下である必要があります。');
+                $validator->errors()->add('image', '画像サイズは2MB以下にしてください。');
             }
 
             // サブフォームの画像に関するエラーメッセージを上書き
