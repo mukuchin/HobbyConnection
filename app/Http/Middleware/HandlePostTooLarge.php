@@ -13,6 +13,7 @@ class HandlePostTooLarge
         try {
             return $next($request);
         } catch (PostTooLargeException $e) {
+            dd($e);
             return redirect($request->fullUrl())
                 ->withInput($request->input())
                 ->withErrors(['total_image_size' => '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。']);
