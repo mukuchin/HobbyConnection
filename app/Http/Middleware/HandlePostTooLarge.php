@@ -10,14 +10,12 @@ class HandlePostTooLarge
 {
     public function handle(Request $request, Closure $next)
     {
-        dd('Middleware is working!');
-        try {
-            return $next($request);
-        } catch (PostTooLargeException $e) {
-            dd($e);
+        if ($request->server('CONTENT_LENGTH') > (20 * 1024 * 1024)) { // 20MB
             return redirect($request->fullUrl())
                 ->withInput($request->input())
                 ->withErrors(['total_image_size' => '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。']);
         }
+
+        return $next($request);
     }
 }
