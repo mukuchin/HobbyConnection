@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 
 class Handler extends ExceptionHandler
 {
@@ -27,4 +28,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // 画像の合計サイズが20MBを超えた場合のエラー処理
+    // 「PostTooLargeException」エラーよりも先に処理を行う
+    // public function render($request, Throwable $exception)
+    // {
+    //     if ($exception instanceof PostTooLargeException) {
+    //         return redirect()->back()->withErrors(['total_image_size' => '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。']);
+    //     }
+
+    //     return parent::render($request, $exception);
+    // }
+
 }
