@@ -18,10 +18,12 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        \App\Http\Middleware\HandlePostTooLarge::class,
+            // 画像の合計サイズが20MBを超えた場合のエラー処理
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+            // 画像の合計サイズが20MBを超えた場合のエラー処理
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\HandlePostTooLarge::class,
     ];
 
     /**

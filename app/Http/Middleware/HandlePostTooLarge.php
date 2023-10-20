@@ -10,6 +10,7 @@ class HandlePostTooLarge
 {
     public function handle(Request $request, Closure $next)
     {
+        dd('Middleware is working!');
         try {
             return $next($request);
         } catch (PostTooLargeException $e) {
