@@ -22,10 +22,10 @@ class BlogRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'title' => ['required', 'string', 'max:100'],
+            'title' => ['required', 'string', 'max:2000'],
             'period_start' => ['nullable', 'date'],
             'period_end' => ['nullable', 'date'],
-            'description' => ['required', 'string', 'max:1000'],
+            'description' => ['required', 'string', 'max:5000'],
             'image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
             'sub_form_data.*.comment' => ['nullable', 'string'],
             'sub_form_data.*.image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
@@ -50,19 +50,19 @@ class BlogRequest extends FormRequest
         return [
             'title.required' => 'タイトルを入力してください。',
             'title.string' => 'タイトルは文字列で入力してください。',
-            'title.max' => 'タイトルは100文字以内で入力してください。',
+            'title.max' => 'タイトルは200文字以内で入力してください。',
             'period_start.date' => '開始日は日付で入力してください。',
             'period_start.before_or_equal' => '開始日は終了日以前の日付を入力してください。',
             'period_end.date' => '終了日は日付で入力してください。',
             'period_end.after_or_equal' => '終了日は開始日以降の日付を入力してください。',
             'description.required' => '概要を入力してください。',
             'description.string' => '概要は文字列で入力してください。',
-            'description.max' => '概要は1000文字以内で入力してください。',
+            'description.max' => '概要は5000文字以内で入力してください。',
             'image.mimes' => '無効なファイル形式です。jpg, jpeg, gif, pngのみ許可されています。',
-            'image.max' => '画像サイズは2MB以下である必要があります。',
+            'image.max' => '画像サイズは2MB以下にしてください。',
             'sub_form_data.*.comment.string' => 'コメントは文字列で入力してください。',
             'sub_form_data.*.image.mimes' => '無効なファイル形式です。jpg, jpeg, gif, pngのみ許可されています。',
-            'sub_form_data.*.image.max' => '画像サイズは2MB以下である必要があります。',
+            'sub_form_data.*.image.max' => '画像サイズは2MB以下にしてください。',
         ];
     }
 
@@ -70,6 +70,9 @@ class BlogRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
+            // ------------------------------------------------------------
+            // 画像サイズが2MBを超えている場合、バリデーションエラーを追加
+            // ------------------------------------------------------------
             $file = $this->file('image');
             if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
                 // メインフォームの画像に関するエラーメッセージを上書き
@@ -84,9 +87,32 @@ class BlogRequest extends FormRequest
                 if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
                     $key = "sub_form_data.{$index}.image";
                     $validator->errors()->forget($key);
-                    $validator->errors()->add($key, '画像サイズは2MB以下である必要があります。');
+                    $validator->errors()->add($key, '画像サイズは2MB以下にしてください。');
                 }
             }
+
+            // ------------------------------------------------------------
+            // 画像の合計サイズが20MBを超えている場合、バリデーションエラーを追加
+            // ------------------------------------------------------------
+            $totalSize = 0;
+
+            // メインの画像のサイズを取得
+            if ($this->hasFile('image')) {
+                $totalSize += $this->file('image')->getSize();
+            }
+
+            // サブフォームの画像のサイズの合計
+            foreach ($subFormData as $data) {
+                if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+                    $totalSize += $data['image']->getSize();
+                }
+            }
+
+            // 合計サイズが20MBを超えている場合、バリデーションエラーを追加
+            if ($totalSize > 20 * 1024 * 1024) {
+                $validator->errors()->add('total_image_size', '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。');
+            }
+
         });
     }
 }

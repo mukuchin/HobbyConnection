@@ -64,7 +64,7 @@ const MainForm: React.FC<MainFormProps> = ({
 
                 <div className="flex flex-col md:flex-row">
                     {/* 画像のプレビュー */}
-                    <div className="w-full md:w-1/2 pr-4">
+                    <div className="w-full md:w-1/2 pr-4 mb-4">
                         {values.image && (
                             <div className="mb-4">
                                 <img
@@ -108,81 +108,114 @@ const MainForm: React.FC<MainFormProps> = ({
                         />
 
                         {/* 画像のアップロード。記事TOPの枠の下側に表示 */}
-                        <div className="mb-4">
-                            <InputField
-                                label={
-                                    values.image
-                                        ? "変更する画像を選択"
-                                        : "画像を選択"
-                                }
-                                type="file"
-                                id="image"
-                                name="image"
-                                onChange={(e) => {
-                                    handleChangeInput(e);
-                                    cancelCancelImagePreview();
-                                }}
-                                ref={fileInputRef}
-                                errors={errors}
-                            />
-                            {/* ファイル形式・サイズの注意書き */}
-                            <p className="text-xs text-gray-500">
-                                画像は最大2MBまでです。ファイル形式はjpg, jpeg,
-                                gif, pngに対応しています。
+                        <InputField
+                            label={
+                                values.image
+                                    ? "変更する画像を選択"
+                                    : "画像を選択"
+                            }
+                            type="file"
+                            id="image"
+                            name="image"
+                            onChange={(e) => {
+                                handleChangeInput(e);
+                                cancelCancelImagePreview();
+                            }}
+                            ref={fileInputRef}
+                        />
+                        {/* 画像サイズのエラーメッセージを表示 */}
+                        {errors.image && (
+                            <p className="text-red-500">{errors.image}</p>
+                        )}
+                        {/* 画像の合計サイズのエラーメッセージを表示 */}
+                        {errors.total_image_size && (
+                            <p className="text-red-500">
+                                {errors.total_image_size}
                             </p>
-                        </div>
+                        )}
+                        {/* ファイル形式・サイズの注意書き */}
+                        <p className="text-xs text-gray-500">
+                            画像サイズは最大2MBです。また、一度の投稿・更新で追加できる画像の合計サイズは最大20MBです。ファイル形式はjpg,
+                            jpeg, gif, pngに対応しています。
+                        </p>
                     </div>
 
                     <div className="flex flex-col w-full md:w-1/2">
-                        <InputField
-                            label={
-                                <>
-                                    タイトル
-                                    <span className="text-red-500">*</span>
-                                </>
-                            }
-                            type="text"
-                            id="title"
-                            name="title"
-                            placeholder="群馬でグランピング！"
-                            value={values.title}
-                            onChange={handleChangeInput}
-                            errors={errors}
-                        />
-                        <InputField
-                            label="開始日"
-                            type="date"
-                            id="period_start"
-                            name="period_start"
-                            value={values.period_start}
-                            onChange={handleChangeInput}
-                            errors={errors}
-                        />
-                        <InputField
-                            label="終了日"
-                            type="date"
-                            id="period_end"
-                            name="period_end"
-                            value={values.period_end}
-                            onChange={handleChangeInput}
-                            errors={errors}
-                        />
-                        <InputField
-                            label={
-                                <>
-                                    概要
-                                    <span className="text-red-500">*</span>
-                                </>
-                            }
-                            type="textarea"
-                            id="description"
-                            name="description"
-                            placeholder="社員旅行でグランピングに行ってきました！場所は群馬県のグランピング施設「グランピングリゾート群馬BLISSFUL GARDEN」です！今回はグランピングの魅力やBLISSFUL GARDENの魅力を紹介します！"
-                            value={values.description}
-                            onChange={handleChangeInput}
-                            errors={errors}
-                            textareaHeight="h-48"
-                        />
+                        <div className="mb-4">
+                            <InputField
+                                label={
+                                    <>
+                                        タイトル
+                                        <span className="text-red-500">*</span>
+                                    </>
+                                }
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="群馬でグランピング！"
+                                value={values.title}
+                                onChange={handleChangeInput}
+                            />
+                            {/* エラーメッセージを表示 */}
+                            {errors.title && (
+                                <p className="text-red-500">{errors.title}</p>
+                            )}
+                        </div>
+                        <div className="mb-4">
+                            <InputField
+                                label="開始日"
+                                type="date"
+                                id="period_start"
+                                name="period_start"
+                                value={values.period_start}
+                                onChange={handleChangeInput}
+                            />
+                            {/* エラーメッセージを表示 */}
+                            {errors.period_start && (
+                                <p className="text-red-500">
+                                    {errors.period_start}
+                                </p>
+                            )}
+                        </div>
+                        <div className="mb-4">
+                            <InputField
+                                label="終了日"
+                                type="date"
+                                id="period_end"
+                                name="period_end"
+                                value={values.period_end}
+                                onChange={handleChangeInput}
+                            />
+                            {/* エラーメッセージを表示 */}
+                            {errors.period_end && (
+                                <p className="text-red-500">
+                                    {errors.period_end}
+                                </p>
+                            )}
+                        </div>
+                        <div className="mb-4">
+                            <InputField
+                                label={
+                                    <>
+                                        概要
+                                        <span className="text-red-500">*</span>
+                                    </>
+                                }
+                                type="textarea"
+                                id="description"
+                                name="description"
+                                placeholder="社員旅行でグランピングに行ってきました！場所は群馬県のグランピング施設「グランピングリゾート群馬BLISSFUL GARDEN」です！今回はグランピングの魅力やBLISSFUL GARDENの魅力を紹介します！"
+                                value={values.description}
+                                onChange={handleChangeInput}
+                                textareaHeight="h-48"
+                            />
+                            {/* エラーメッセージを表示 */}
+                            {errors.description && (
+                                <p className="text-red-500">
+                                    {errors.description}
+                                </p>
+                            )}
+                        </div>
                         {/* タグ関連の部分 */}
                         <label
                             htmlFor="tag"

@@ -13,7 +13,6 @@ const InputField = React.forwardRef<
         onChange: (
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => void;
-        errors: any;
         textareaHeight?: string;
         placeholder?: string;
     }
@@ -25,20 +24,21 @@ const InputField = React.forwardRef<
         name,
         value,
         onChange,
-        errors,
         textareaHeight,
         placeholder,
     } = props;
 
     // Enterキーの押下を検出してイベントをキャンセルする関数
-    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        if (e.key === 'Enter') {
+    function handleKeyDown(
+        e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) {
+        if (e.key === "Enter") {
             e.preventDefault();
         }
     }
 
     return (
-        <div className="mb-4">
+        <>
             <label
                 htmlFor={id}
                 className="block text-lg font-medium text-gray-700"
@@ -78,10 +78,7 @@ const InputField = React.forwardRef<
                     onKeyDown={handleKeyDown}
                 />
             )}
-            {errors[name] && (
-                <p className="text-red-500 mt-1">{errors[name]}</p>
-            )}
-        </div>
+        </>
     );
 });
 
