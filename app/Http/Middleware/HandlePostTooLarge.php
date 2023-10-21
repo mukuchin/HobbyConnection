@@ -19,14 +19,14 @@ class HandlePostTooLarge
 
         // 20MBを超えていたらエラー処理
         if ($totalSize > (20 * 1024 * 1024)) { // 20MB
-            $newError = ['total_image_size' => ['一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。']];
+            $newError = ['total_image_size' => ['一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。000']];
 
             // 既存のエラーメッセージを取得
             $errors = session()->get('errors');
 
             // 新しいエラーメッセージを追加
             if ($errors instanceof \Illuminate\Support\ViewErrorBag) {
-                $errors->add('total_image_size', '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。');
+                $errors->add('total_image_size', '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。111');
             } else {
                 $errors = new \Illuminate\Support\MessageBag($newError);
                 $viewErrorBag = new \Illuminate\Support\ViewErrorBag();
