@@ -73,23 +73,24 @@ class BlogRequest extends FormRequest
             // ------------------------------------------------------------
             // 画像サイズが2MBを超えている場合、バリデーションエラーを追加
             // ------------------------------------------------------------
-            $file = $this->file('image');
-            if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
-                // メインフォームの画像に関するエラーメッセージを上書き
-                $validator->errors()->forget('image');
-                $validator->errors()->add('image', '画像サイズは2MB以下にしてください。');
-            }
+            // $file = $this->file('image');
+            // if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
+            //     // メインフォームの画像に関するエラーメッセージを上書き
+            //     $validator->errors()->forget('image');
+            //     $validator->errors()->add('image', '画像サイズは2MB以下にしてください。');
+            // }
 
-            // サブフォームの画像に関するエラーメッセージを上書き
-            $subFormData = $this->all()['sub_form_data'] ?? [];
-            foreach ($subFormData as $index => $data) {
-                $subFile = $data['image'] ?? null;
-                if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
-                    $key = "sub_form_data.{$index}.image";
-                    $validator->errors()->forget($key);
-                    $validator->errors()->add($key, '画像サイズは2MB以下にしてください。');
-                }
-            }
+            // // サブフォームの画像に関するエラーメッセージを上書き
+            // $subFormData = $this->all()['sub_form_data'] ?? [];
+            // dd($subFormData);
+            // foreach ($subFormData as $index => $data) {
+            //     $subFile = $data['image'] ?? null;
+            //     if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
+            //         $key = "sub_form_data.{$index}.image";
+            //         $validator->errors()->forget($key);
+            //         $validator->errors()->add($key, '画像サイズは2MB以下にしてください。');
+            //     }
+            // }
 
             // ------------------------------------------------------------
             // 画像の合計サイズが20MBを超えている場合、バリデーションエラーを追加。
@@ -102,6 +103,7 @@ class BlogRequest extends FormRequest
             }
 
             // サブフォームの画像のサイズの合計
+            $subFormData = $this->all()['sub_form_data'] ?? [];
             foreach ($subFormData as $data) {
                 if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
                     $totalSize += $data['image']->getSize();
