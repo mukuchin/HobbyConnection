@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
+// 画像の合計サイズが20MBを超えた場合のエラー処理
 class HandlePostTooLarge
 {
     public function handle(Request $request, Closure $next)

@@ -92,26 +92,27 @@ class BlogRequest extends FormRequest
             }
 
             // ------------------------------------------------------------
-            // 画像の合計サイズが20MBを超えている場合、バリデーションエラーを追加
+            // 画像の合計サイズが20MBを超えている場合、バリデーションエラーを追加。
+            // app/Http/Middleware/HandlePostTooLarge.phpにて処理済みの為、コメントアウト
             // ------------------------------------------------------------
-            $totalSize = 0;
+            // $totalSize = 0;
 
-            // メインの画像のサイズを取得
-            if ($this->hasFile('image')) {
-                $totalSize += $this->file('image')->getSize();
-            }
+            // // メインフォームの画像のサイズを取得
+            // if ($this->hasFile('image')) {
+            //     $totalSize += $this->file('image')->getSize();
+            // }
 
-            // サブフォームの画像のサイズの合計
-            foreach ($subFormData as $data) {
-                if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
-                    $totalSize += $data['image']->getSize();
-                }
-            }
+            // // サブフォームの画像のサイズの合計
+            // foreach ($subFormData as $data) {
+            //     if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+            //         $totalSize += $data['image']->getSize();
+            //     }
+            // }
 
-            // 合計サイズが20MBを超えている場合、バリデーションエラーを追加
-            if ($totalSize > 20 * 1024 * 1024) {
-                $validator->errors()->add('total_image_size', '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。');
-            }
+            // // 合計サイズが20MBを超えている場合、バリデーションエラーを追加
+            // if ($totalSize > 20 * 1024 * 1024) {
+            //     $validator->errors()->add('total_image_size', '一度の投稿・更新で追加する画像の合計サイズは20MB以下にしてください。');
+            // }
 
         });
     }
