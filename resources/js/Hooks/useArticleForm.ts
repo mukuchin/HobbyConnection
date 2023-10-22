@@ -50,6 +50,7 @@ interface SubFormHook {
     deleteSubForm: (index: number) => void;
 }
 
+// 許可されているファイルの拡張子
 const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
 
 // ファイルの拡張子が許可されているかどうかを判定する
@@ -67,14 +68,6 @@ export function useArticleForm(
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string
 ): MainFormHook {
-    // フォームの入力値を更新する
-    const updateValues = (updatedValues: Partial<FormValues>) => {
-        setValues((prev) => ({ ...prev, ...updatedValues }));
-    };
-
-    // 前回選択されたファイルを保持するステート
-    const [lastSelectedFile, setLastSelectedFile] = useState<File | null>(null);
-
     // タグを追加する関数
     const addTag = (tag: string) => {
         if (tag && !values.tags.includes(tag)) {
@@ -93,6 +86,16 @@ export function useArticleForm(
         }));
     };
 
+    // フォームの入力値を更新する
+    const updateValues = (updatedValues: Partial<FormValues>) => {
+        setValues((prev) => ({ ...prev, ...updatedValues }));
+    };
+
+    // 前回選択されたファイルを保持するステート。フォームごとに保持するため、配列にしている。
+    const [lastSelectedFiles, setLastSelectedFiles] = useState<(File | null)[]>(
+        []
+    );
+
     // 画像のプレビューを表示する
     const handleImageChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -102,9 +105,13 @@ export function useArticleForm(
 
         // ファイルが選択されていない場合、前回のファイルを復元
         if (!target.files || target.files.length === 0) {
-            if (lastSelectedFile) {
+            const previousFile =
+                typeof index === "number"
+                    ? lastSelectedFiles[index]
+                    : lastSelectedFiles[0];
+            if (previousFile) {
                 const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(lastSelectedFile);
+                dataTransfer.items.add(previousFile);
                 target.files = dataTransfer.files;
             }
             return;
@@ -113,16 +120,39 @@ export function useArticleForm(
         // ファイルが選択されている場合、選択されたファイルを取得
         const file = target.files[0];
 
-        // 前回選択されたファイルを更新
-        setLastSelectedFile(file);
-
-        if (!file || !isValidFileExtension(file.name)) {
+        // ファイルの拡張子が許可されているかどうかを判定
+        if (file && !isValidFileExtension(file.name)) {
             alert(
                 "無効なファイル形式です。jpg, gif, pngのみ許可されています。"
             );
+            const previousFile =
+                typeof index === "number"
+                    ? lastSelectedFiles[index]
+                    : lastSelectedFiles[0];
+            if (previousFile) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(previousFile); // 前回選択されたファイルを復元
+                target.files = dataTransfer.files;
+            } else {
+                target.value = "";
+            }
             return;
         }
 
+        // 有効なファイル形式の場合、前回選択されたファイルを更新
+        if (file) {
+            setLastSelectedFiles((prevFiles) => {
+                const newFiles = [...prevFiles];
+                if (typeof index === "number") {
+                    newFiles[index] = file;
+                } else {
+                    newFiles[0] = file; // メインフォームの場合
+                }
+                return newFiles;
+            });
+        }
+
+        // 画像のプレビューを表示
         const reader = new FileReader();
         reader.onload = (event) => {
             const target = event.target as FileReader;
@@ -186,7 +216,7 @@ export function useArticleForm(
         index?: number
     ) => {
         // ユーザーに確認を求める
-        if (!window.confirm("画像を削除してもよろしいですか？")) {
+        if (!window.confirm("ファイルを削除してもよろしいですか？")) {
             return; // キャンセルをクリックした場合、処理を終了
         }
         if (typeof index === "number") {
@@ -200,7 +230,7 @@ export function useArticleForm(
             };
             updateValues({ sub_form_data: newSubFormData });
         } else if (values.image) {
-            // メインフォームの画像。
+            // メインフォームの画像
             updateValues({ image: null, delete_image: true });
         }
 
@@ -208,6 +238,17 @@ export function useArticleForm(
         if (fileInputRef && fileInputRef.current) {
             fileInputRef.current.value = "";
         }
+
+        // lastSelectedFiles ステートをリセット
+        setLastSelectedFiles((prevFiles) => {
+            const newFiles = [...prevFiles];
+            if (typeof index === "number") {
+                newFiles[index] = null;
+            } else {
+                newFiles[0] = null; // メインフォームの場合
+            }
+            return newFiles;
+        });
     };
 
     // 画像のプレビューのキャンセルをキャンセルする。メインフォームの画像とサブフォームの画像の両方に対応

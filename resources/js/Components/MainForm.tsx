@@ -1,6 +1,6 @@
 // メインフォームのコンポーネント
 
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { usePage } from "@inertiajs/react";
 import { FormValues, useAddDeleteSubForm } from "../Hooks/useArticleForm";
 import SubForm from "./SubForm";
@@ -63,8 +63,8 @@ const MainForm: React.FC<MainFormProps> = ({
                 </p>
 
                 <div className="flex flex-col md:flex-row">
-                    {/* 画像のプレビュー */}
-                    <div className="w-full md:w-1/2 pr-4 mb-4">
+                    <div className="w-full md:w-1/2 md:pr-4">
+                        {/* 画像のプレビュー */}
                         {values.image && (
                             <div className="mb-4">
                                 <img
@@ -73,12 +73,39 @@ const MainForm: React.FC<MainFormProps> = ({
                                             ? (values.image as string)
                                             : `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${values.image}`
                                     }
-                                    alt="プレビュー画像"
+                                    alt="サブフォームのプレビュー画像"
                                     className="mb-4 rounded-md shadow-md"
                                 />
+                            </div>
+                        )}
+
+                        <input
+                            type="hidden"
+                            name="delete_image"
+                            value={values.delete_image ? "true" : "false"}
+                        />
+                        <div className="flex flex-row items-center">
+                            {/* 画像のアップロード。記事TOPの枠の下側に表示 */}
+                            <InputField
+                                label={
+                                    values.image
+                                        ? "変更する画像を選択"
+                                        : "画像を選択"
+                                }
+                                type="file"
+                                id="image"
+                                name="image"
+                                onChange={(e) => {
+                                    handleChangeInput(e);
+                                    cancelCancelImagePreview();
+                                }}
+                                ref={fileInputRef}
+                            />
+                            {/* 選択されたファイルを削除するボタン */}
+                            {values.image && (
                                 <button
                                     type="button"
-                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                    className="ml-4 mt-8 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                     onClick={() => {
                                         cancelImagePreview(fileInputRef);
                                     }}
@@ -98,31 +125,8 @@ const MainForm: React.FC<MainFormProps> = ({
                                         />
                                     </svg>
                                 </button>
-                            </div>
-                        )}
-
-                        <input
-                            type="hidden"
-                            name="delete_image"
-                            value={values.delete_image ? "true" : "false"}
-                        />
-
-                        {/* 画像のアップロード。記事TOPの枠の下側に表示 */}
-                        <InputField
-                            label={
-                                values.image
-                                    ? "変更する画像を選択"
-                                    : "画像を選択"
-                            }
-                            type="file"
-                            id="image"
-                            name="image"
-                            onChange={(e) => {
-                                handleChangeInput(e);
-                                cancelCancelImagePreview();
-                            }}
-                            ref={fileInputRef}
-                        />
+                            )}
+                        </div>
                         {/* 画像サイズのエラーメッセージを表示 */}
                         {errors.image && (
                             <p className="text-red-500">{errors.image}</p>
@@ -360,4 +364,4 @@ const MainForm: React.FC<MainFormProps> = ({
     );
 };
 
-export default React.memo(MainForm);
+export default memo(MainForm);

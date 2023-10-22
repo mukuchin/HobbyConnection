@@ -26,9 +26,11 @@ class BlogRequest extends FormRequest
             'period_start' => ['nullable', 'date'],
             'period_end' => ['nullable', 'date'],
             'description' => ['required', 'string', 'max:5000'],
-            'image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
+            // 'image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
+            'image' => ['nullable', 'mimes:jpg,jpeg,gif,png'],
             'sub_form_data.*.comment' => ['nullable', 'string'],
-            'sub_form_data.*.image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
+            // 'sub_form_data.*.image' => ['nullable', 'mimes:jpg,jpeg,gif,png', 'max:2048'],
+            'sub_form_data.*.image' => ['nullable', 'mimes:jpg,jpeg,gif,png'],
         ];
 
         // period_end が入力されている場合のみ、after_or_equal:period_start ルールを追加
@@ -59,10 +61,10 @@ class BlogRequest extends FormRequest
             'description.string' => '概要は文字列で入力してください。',
             'description.max' => '概要は5000文字以内で入力してください。',
             'image.mimes' => '無効なファイル形式です。jpg, jpeg, gif, pngのみ許可されています。',
-            'image.max' => '画像サイズは2MB以下にしてください。',
+            // 'image.max' => '画像サイズは2MB以下にしてください。',
             'sub_form_data.*.comment.string' => 'コメントは文字列で入力してください。',
             'sub_form_data.*.image.mimes' => '無効なファイル形式です。jpg, jpeg, gif, pngのみ許可されています。',
-            'sub_form_data.*.image.max' => '画像サイズは2MB以下にしてください。',
+            // 'sub_form_data.*.image.max' => '画像サイズは2MB以下にしてください。',
         ];
     }
 
@@ -73,24 +75,24 @@ class BlogRequest extends FormRequest
             // ------------------------------------------------------------
             // 画像サイズが2MBを超えている場合、バリデーションエラーを追加
             // ------------------------------------------------------------
-            // $file = $this->file('image');
-            // if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
-            //     // メインフォームの画像に関するエラーメッセージを上書き
-            //     $validator->errors()->forget('image');
-            //     $validator->errors()->add('image', '画像サイズは2MB以下にしてください。');
-            // }
+            $file = $this->file('image');
+            if ($file && $file->getError() === UPLOAD_ERR_INI_SIZE) {
+                // メインフォームの画像に関するエラーメッセージを上書き
+                $validator->errors()->forget('image');
+                $validator->errors()->add('image', '画像サイズは2MB以下にしてください。');
+            }
 
-            // // サブフォームの画像に関するエラーメッセージを上書き
-            // $subFormData = $this->all()['sub_form_data'] ?? [];
-            // dd($subFormData);
-            // foreach ($subFormData as $index => $data) {
-            //     $subFile = $data['image'] ?? null;
-            //     if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
-            //         $key = "sub_form_data.{$index}.image";
-            //         $validator->errors()->forget($key);
-            //         $validator->errors()->add($key, '画像サイズは2MB以下にしてください。');
-            //     }
-            // }
+            // サブフォームの画像に関するエラーメッセージを上書き
+            $subFormData = $this->all()['sub_form_data'] ?? [];
+            dd($subFormData);
+            foreach ($subFormData as $index => $data) {
+                $subFile = $data['image'] ?? null;
+                if ($subFile && $subFile->getError() === UPLOAD_ERR_INI_SIZE) {
+                    $key = "sub_form_data.{$index}.image";
+                    $validator->errors()->forget($key);
+                    $validator->errors()->add($key, '画像サイズは2MB以下にしてください。');
+                }
+            }
 
             // ------------------------------------------------------------
             // 画像の合計サイズが20MBを超えている場合、バリデーションエラーを追加。

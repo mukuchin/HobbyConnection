@@ -1,6 +1,6 @@
 // サブフォームコンポーネント
 
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { FormValues, useAddDeleteSubForm } from "@/Hooks/useArticleForm";
 import InputField from "../Layouts/InputField";
 import { usePage } from "@inertiajs/react";
@@ -50,7 +50,7 @@ const SubForm: React.FC<SubFormProps> = ({
                 投稿 {index + 1}
             </label>
             <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/2 pr-4">
+                <div className="w-full md:w-1/2 md:pr-4">
                     {/* 画像のプレビュー */}
                     {values.sub_form_data[index].image && (
                         <div className="mb-4">
@@ -67,9 +67,42 @@ const SubForm: React.FC<SubFormProps> = ({
                                 alt="サブフォームのプレビュー画像"
                                 className="mb-4 rounded-md shadow-md"
                             />
+                        </div>
+                    )}
+
+                    {/* 画像の削除フラグ */}
+                    <input
+                        type="hidden"
+                        name={`sub_form_data[${index}][delete_image]`}
+                        value={
+                            values.sub_form_data[index].delete_image
+                                ? "true"
+                                : "false"
+                        }
+                    />
+
+                    {/* 画像の入力 */}
+                    <div className="flex flex-row items-center">
+                        <InputField
+                            label={
+                                values.sub_form_data[index].image
+                                    ? "変更する画像を選択"
+                                    : "画像を選択"
+                            }
+                            type="file"
+                            id={`sub_form_data_${index}_image`}
+                            name={`sub_form_data[${index}][image]`}
+                            onChange={(e) => {
+                                handleChange(e, index);
+                                cancelCancelImagePreview(index);
+                            }}
+                            ref={fileInputRef}
+                        />
+                        {/* 選択されたファイルを削除するボタン */}
+                        {values.sub_form_data[index].image && (
                             <button
                                 type="button"
-                                className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded  transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                className="ml-4 mt-8 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                 onClick={() => {
                                     cancelImagePreview(fileInputRef, index);
                                 }}
@@ -89,36 +122,9 @@ const SubForm: React.FC<SubFormProps> = ({
                                     />
                                 </svg>
                             </button>
-                        </div>
-                    )}
+                        )}
+                    </div>
 
-                    {/* 画像の削除フラグ */}
-                    <input
-                        type="hidden"
-                        name={`sub_form_data[${index}][delete_image]`}
-                        value={
-                            values.sub_form_data[index].delete_image
-                                ? "true"
-                                : "false"
-                        }
-                    />
-
-                    {/* 画像の入力 */}
-                    <InputField
-                        label={
-                            values.sub_form_data[index].image
-                                ? "変更する画像を選択"
-                                : "画像を選択"
-                        }
-                        type="file"
-                        id={`sub_form_data_${index}_image`}
-                        name={`sub_form_data[${index}][image]`}
-                        onChange={(e) => {
-                            handleChange(e, index);
-                            cancelCancelImagePreview(index);
-                        }}
-                        ref={fileInputRef}
-                    />
                     {/* 画像のエラーメッセージを表示 */}
                     {errors[`sub_form_data.${index}.image`] && (
                         <p className="text-red-500">
@@ -197,4 +203,4 @@ const SubForm: React.FC<SubFormProps> = ({
     );
 };
 
-export default SubForm;
+export default memo(SubForm);

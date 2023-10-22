@@ -38,7 +38,7 @@ const InputField = React.forwardRef<
     }
 
     return (
-        <>
+        <div className="w-full flex flex-col">
             <label
                 htmlFor={id}
                 className="block text-lg font-medium text-gray-700"
@@ -78,7 +78,7 @@ const InputField = React.forwardRef<
                     onKeyDown={handleKeyDown}
                 />
             )}
-        </>
+        </div>
     );
 });
 
