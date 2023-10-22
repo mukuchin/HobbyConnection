@@ -92,9 +92,9 @@ export function useArticleForm(
     };
 
     // 前回選択されたファイルを保持するステート。フォームごとに保持するため、配列にしている。
-    const [lastSelectedFiles, setLastSelectedFiles] = useState<(File | null)[]>(
-        []
-    );
+    const [lastSelectedFiles, setLastSelectedFiles] = useState<{
+        [key: string]: File | null;
+    }>({});
 
     // 画像のプレビューを表示する
     const handleImageChange = (
@@ -103,12 +103,11 @@ export function useArticleForm(
     ) => {
         const target = e.target as HTMLInputElement;
 
-        // ファイルが選択されていない場合、前回のファイルを復元
+        // ファイル選択ダイアログでキャンセルを選択した場合、前回選択されたファイルを復元
         if (!target.files || target.files.length === 0) {
-            const previousFile =
-                typeof index === "number"
-                    ? lastSelectedFiles[index]
-                    : lastSelectedFiles[0];
+            const previousFileKey =
+                typeof index === "number" ? "sub-" + index : "main";
+            const previousFile = lastSelectedFiles[previousFileKey];
             if (previousFile) {
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(previousFile);
@@ -118,17 +117,16 @@ export function useArticleForm(
         }
 
         // ファイルが選択されている場合、選択されたファイルを取得
-        const file = target.files[0];
+        const file = target.files ? target.files[0] : null;
 
         // ファイルの拡張子が許可されているかどうかを判定
         if (file && !isValidFileExtension(file.name)) {
             alert(
                 "無効なファイル形式です。jpg, gif, pngのみ許可されています。"
             );
-            const previousFile =
-                typeof index === "number"
-                    ? lastSelectedFiles[index]
-                    : lastSelectedFiles[0];
+            const previousFileKey =
+                typeof index === "number" ? "sub-" + index : "main";
+            const previousFile = lastSelectedFiles[previousFileKey];
             if (previousFile) {
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(previousFile); // 前回選択されたファイルを復元
@@ -142,36 +140,36 @@ export function useArticleForm(
         // 有効なファイル形式の場合、前回選択されたファイルを更新
         if (file) {
             setLastSelectedFiles((prevFiles) => {
-                const newFiles = [...prevFiles];
-                if (typeof index === "number") {
-                    newFiles[index] = file;
-                } else {
-                    newFiles[0] = file; // メインフォームの場合
-                }
-                return newFiles;
+                const key = typeof index === "number" ? "sub-" + index : "main";
+                return { ...prevFiles, [key]: file };
             });
         }
 
         // 画像のプレビューを表示
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const target = event.target as FileReader;
-            if (typeof target.result === "string") {
-                if (typeof index === "number") {
-                    const newSubFormData = [...values.sub_form_data];
-                    newSubFormData[index] = {
-                        ...newSubFormData[index],
-                        image: target.result,
-                        file: file,
-                        delete_image: false,
-                    };
-                    updateValues({ sub_form_data: newSubFormData });
-                } else {
-                    updateValues({ image: target.result, delete_image: false });
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const target = event.target as FileReader;
+                if (typeof target.result === "string") {
+                    if (typeof index === "number") {
+                        const newSubFormData = [...values.sub_form_data];
+                        newSubFormData[index] = {
+                            ...newSubFormData[index],
+                            image: target.result,
+                            file: file,
+                            delete_image: false,
+                        };
+                        updateValues({ sub_form_data: newSubFormData });
+                    } else {
+                        updateValues({
+                            image: target.result,
+                            delete_image: false,
+                        });
+                    }
                 }
-            }
-        };
-        reader.readAsDataURL(file);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     // フォームの入力値を更新する
@@ -241,13 +239,8 @@ export function useArticleForm(
 
         // lastSelectedFiles ステートをリセット
         setLastSelectedFiles((prevFiles) => {
-            const newFiles = [...prevFiles];
-            if (typeof index === "number") {
-                newFiles[index] = null;
-            } else {
-                newFiles[0] = null; // メインフォームの場合
-            }
-            return newFiles;
+            const key = typeof index === "number" ? "sub-" + index : "main";
+            return { ...prevFiles, [key]: null };
         });
     };
 

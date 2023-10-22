@@ -138,7 +138,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             </p>
                         )}
                         {/* ファイル形式・サイズの注意書き */}
-                        <p className="text-xs text-gray-500">
+                        <p className="mb-4 text-xs text-gray-500">
                             画像サイズは最大2MBです。また、一度の投稿・更新で追加できる画像の合計サイズは最大20MBです。ファイル形式はjpg,
                             jpeg, gif, pngに対応しています。
                         </p>
