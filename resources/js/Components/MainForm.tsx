@@ -401,7 +401,7 @@ const MainForm: React.FC<MainFormProps> = ({
             <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="mt-4 bg-green-500 hover:bg-green-700 transition text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                    className="mt-4 bg-green-500 hover:bg-green-700 transition text-white text-4xl w-full font-noto-sans-jp font-bold py-2 px-4 rounded soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset hover-grow"
                     onClick={handleConfirmSubmit}
                 >
                     {location.pathname === "/create" ? "投稿する" : "更新する"}

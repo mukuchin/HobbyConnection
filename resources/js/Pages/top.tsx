@@ -68,7 +68,7 @@ export default function top({ auth, article }: TopProps) {
                 <div className="mt-0 sm:mt-0 flex flex-col sm:flex-row justify-center items-center font-noto-sans-jp font-semibold text-2xl animate-text-focus-in4">
                     <a
                         href="/create"
-                        className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                        className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset hover-grow"
                     >
                         記事を投稿する
                     </a>
@@ -76,7 +76,7 @@ export default function top({ auth, article }: TopProps) {
                     {!isLoggedIn && (
                         <a
                             href="/register"
-                            className="mt-4 sm:ml-4 inline-block bg-green-500 hover:bg-green-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                            className="mt-4 sm:ml-4 inline-block bg-green-500 hover:bg-green-700 text-white text-center py-2 px-6 w-60 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset hover-grow"
                         >
                             新規ユーザー登録
                         </a>
