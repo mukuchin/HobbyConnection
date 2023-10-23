@@ -1,7 +1,10 @@
-// 記事フォームのカスタムフック
+// 統合した記事フォームのカスタムフック
 
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { router } from "@inertiajs/react";
+
+// フォームの入力値の初期値とサブフォームの追加・削除を統合
+interface UnifiedFormHook extends FormHook, SubFormHook {}
 
 // フォームの入力値の型
 export interface FormValues {
@@ -62,12 +65,11 @@ const isValidFileExtension = (filename: string) => {
     return true;
 };
 
-// フォームの入力値の初期値
-export function useArticleForm(
+export function useUnifiedArticleForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string
-): FormHook {
+): UnifiedFormHook {
     // タグを追加する関数
     const addTag = (tag: string) => {
         if (tag && !values.tags.includes(tag)) {
@@ -214,7 +216,7 @@ export function useArticleForm(
         index?: number
     ) => {
         // ユーザーに確認を求める
-        if (!window.confirm("ファイルを削除してもよろしいですか？")) {
+        if (!window.confirm("画像を削除してもよろしいですか？")) {
             return; // キャンセルをクリックした場合、処理を終了
         }
         if (typeof index === "number") {
@@ -264,15 +266,15 @@ export function useArticleForm(
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // 見出し及びコメント及び画像が存在するサブフォームだけをフィルタリング
-        const filteredSubFormData = values.sub_form_data.filter(
-            (data) =>
-                data.heading ||
-                data.comment ||
-                (data.image && !data.delete_image)
-        );
+        // // formDataを初期化
+        const formData = new FormData();
 
-        const formData = new FormData(e.currentTarget);
+        // メインフォームのデータを追加
+        formData.append("title", values.title);
+        formData.append("description", values.description);
+        formData.append("period_start", values.period_start);
+        formData.append("period_end", values.period_end);
+        formData.append("delete_image", values.delete_image ? "true" : "false");
 
         // タグを追加
         values.tags.forEach((tag, index) => {
@@ -287,23 +289,56 @@ export function useArticleForm(
             formData.append("image", mainImageInput.files[0]);
         }
 
-        // フィルタリングされたサブフォームの画像ファイルを追加
+        // period_startがnullの場合はformDataのperiod_startを削除し、空文字に置換
+        if (values.period_start === null) {
+            formData.delete("period_start");
+            formData.append("period_start", "");
+        }
+
+        // period_endがnullの場合はformDataのperiod_endを削除し、空文字に置換
+        if (values.period_end === null) {
+            formData.delete("period_end");
+            formData.append("period_end", "");
+        }
+
+        // 見出し及びコメント及び画像が存在するサブフォームだけをフィルタリング
+        const filteredSubFormData = values.sub_form_data.filter(
+            (data) =>
+                data.heading ||
+                data.comment ||
+                (data.image && !data.delete_image)
+        );
+
+        // フィルタリングされたサブフォームのデータをformDataに追加
         filteredSubFormData.forEach((data, index) => {
+            // delete_imageの値をformDataに追加
+            formData.append(
+                `sub_form_data[${index}][delete_image]`,
+                data.delete_image ? "true" : "false"
+            );
+
             if (data.file) {
                 formData.append(`sub_form_data[${index}][image]`, data.file);
             }
-            // サブフォームの見出しを追加。見出しがnullの場合は空文字を追加
             formData.append(
                 `sub_form_data[${index}][heading]`,
                 data.heading || ""
             );
-
-            // サブフォームのコメントを追加。コメントがnullの場合は空文字を追加
             formData.append(
                 `sub_form_data[${index}][comment]`,
                 data.comment || ""
             );
+
+            // idをformDataに追加
+            if (data.id) {
+                formData.append(`sub_form_data[${index}][id]`, data.id + "");
+            }
         });
+
+        // FormDataの内容をログ出力
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
 
         // サブフォームの削除フラグを追加
         router.post(endpoint, formData, {
@@ -337,31 +372,6 @@ export function useArticleForm(
         if (!window.confirm(additionalMessage + baseMessage)) {
             e.preventDefault();
         }
-    };
-
-    return {
-        handleChangeInput: handleChange,
-        handleChangeSubFormInput: handleChange,
-        handleSubmit,
-        cancelImagePreview,
-        cancelCancelImagePreview,
-        addTag,
-        removeTag,
-        handleConfirmSubmit,
-    };
-}
-
-// サブフォームの追加・削除
-export function useAddDeleteSubForm(
-    values: FormValues,
-    setValues: React.Dispatch<React.SetStateAction<FormValues>>,
-    lastSelectedFiles: { [key: string]: File | null },
-    setLastSelectedFiles: React.Dispatch<
-        React.SetStateAction<{ [key: string]: File | null }>
-    >
-): SubFormHook {
-    const updateValues = (updatedValues: Partial<FormValues>) => {
-        setValues((prev) => ({ ...prev, ...updatedValues }));
     };
 
     // サブフォームを追加する
@@ -409,5 +419,16 @@ export function useAddDeleteSubForm(
         [values, updateValues, lastSelectedFiles]
     );
 
-    return { addSubForm, deleteSubForm };
+    return {
+        handleChangeInput: handleChange,
+        handleChangeSubFormInput: handleChange,
+        handleSubmit,
+        cancelImagePreview,
+        cancelCancelImagePreview,
+        addTag,
+        removeTag,
+        handleConfirmSubmit,
+        addSubForm,
+        deleteSubForm,
+    };
 }
