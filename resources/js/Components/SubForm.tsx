@@ -162,11 +162,27 @@ const SubForm: React.FC<SubFormProps> = ({
                             {errors.total_files}
                         </p>
                     )}
-                    {/* ファイル形式・サイズの注意書き */}
-                    <p className="mt-4 mb-4 text-xs text-gray-500">
-                        画像サイズは最大2MBです。また、一度の投稿・更新で追加できる画像の合計サイズは最大20MBです。ファイル形式はjpg,
-                        jpeg, gif, pngに対応しています。
-                    </p>
+                    {/* 注意書き。箇条書き。 */}
+                    <div className="ml-4 mt-4 mb-4 text-xs text-gray-500">
+                        <ul
+                            style={{
+                                listStylePosition: "outside",
+                                listStyleType: "disc",
+                            }}
+                        >
+                            <li>画像ファイルのサイズは1枚あたり最大2MBです。</li>
+                            <li>
+                                一度の投稿・更新で追加できる画像ファイルの合計サイズは最大20MBです。
+                            </li>
+                            <li>
+                                一度の投稿・更新で追加できる画像ファイルは最大51個です。
+                            </li>
+                            <li>
+                                ファイル形式はjpeg, jpg, png,
+                                gifに対応しています。
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="w-full md:w-1/2 flex flex-col">
                     {/* 見出しの入力 */}

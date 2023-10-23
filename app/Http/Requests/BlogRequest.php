@@ -105,7 +105,7 @@ class BlogRequest extends FormRequest
                     $totalFiles++;
                 }
             }
-            if ($totalFiles > 5) {
+            if ($totalFiles > 51) {
                 $validator->errors()->add('total_files', '一度の投稿・更新で追加する画像ファイルは51個以下にしてください。');
             }
         });
