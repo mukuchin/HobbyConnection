@@ -16,7 +16,8 @@ export const useWarnOnExit = (
                 values.title ||
                 values.period_start ||
                 values.period_end ||
-                values.description
+                values.description ||
+                values.image
             ) {
                 dirty = true;
             }
@@ -26,7 +27,11 @@ export const useWarnOnExit = (
             }
 
             for (let subFormData of values.sub_form_data) {
-                if (subFormData.heading || subFormData.comment) {
+                if (
+                    subFormData.heading ||
+                    subFormData.comment ||
+                    (subFormData.image && subFormData.image.length > 0)
+                ) {
                     dirty = true;
                     break;
                 }
