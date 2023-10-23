@@ -221,7 +221,6 @@ class ArticlesController extends Controller
     // サブフォームの更新処理
     private function updatePosts($subFormData, $articleId)
     {
-        // dd($subFormData);
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
         foreach ($subFormData as $data) {
             $post = Post::find($data['id']);

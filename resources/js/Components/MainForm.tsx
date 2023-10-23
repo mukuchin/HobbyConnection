@@ -152,11 +152,11 @@ const MainForm: React.FC<MainFormProps> = ({
                         </div>
                         {/* 画像サイズのエラーメッセージを表示 */}
                         {errors.image && (
-                            <p className="text-red-500">{errors.image}</p>
+                            <p className="mt-2 text-red-500">{errors.image}</p>
                         )}
                         {/* 画像の合計サイズのエラーメッセージを表示 */}
                         {errors.total_image_size && (
-                            <p className="text-red-500">
+                            <p className="mt-2 text-red-500">
                                 {errors.total_image_size}
                             </p>
                         )}
@@ -185,7 +185,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.title && (
-                                <p className="text-red-500">{errors.title}</p>
+                                <p className="mt-2 text-red-500">{errors.title}</p>
                             )}
                         </div>
                         <div className="mb-4">
@@ -199,7 +199,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.period_start && (
-                                <p className="text-red-500">
+                                <p className="mt-2 text-red-500">
                                     {errors.period_start}
                                 </p>
                             )}
@@ -215,7 +215,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.period_end && (
-                                <p className="text-red-500">
+                                <p className="mt-2 text-red-500">
                                     {errors.period_end}
                                 </p>
                             )}
@@ -238,7 +238,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.description && (
-                                <p className="text-red-500">
+                                <p className="mt-2 text-red-500">
                                     {errors.description}
                                 </p>
                             )}

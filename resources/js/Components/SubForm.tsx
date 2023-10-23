@@ -121,7 +121,7 @@ const SubForm: React.FC<SubFormProps> = ({
                         {values.sub_form_data[index].image && (
                             <button
                                 type="button"
-                                className="ml-4 mt-8 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                className="ml-4 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                 onClick={() => {
                                     cancelImagePreview(fileInputRef, index);
                                 }}
@@ -146,13 +146,13 @@ const SubForm: React.FC<SubFormProps> = ({
 
                     {/* 画像のエラーメッセージを表示 */}
                     {errors[`sub_form_data.${index}.image`] && (
-                        <p className="text-red-500">
+                        <p className="mt-2 text-red-500">
                             {errors[`sub_form_data.${index}.image`]}
                         </p>
                     )}
                     {/* 画像の合計サイズのエラーメッセージを表示 */}
                     {errors.total_image_size && (
-                        <p className="text-red-500">
+                        <p className="mt-2 text-red-500">
                             {errors.total_image_size}
                         </p>
                     )}
