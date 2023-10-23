@@ -226,51 +226,54 @@ class ArticlesController extends Controller
 
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
         foreach ($subFormData as $data) {
-            $post = Post::find($data['id']);
-            // 既存のデータを更新
-            // 画像またはコメントまたは見出しが既に存在する場合
-            if (
-                Post::where('id', $data['id'])->where(function ($query) {
-                    $query->whereNotNull('image')->orWhereNotNull('comment')->orWhereNotNull('heading');
-                })->exists()
-            ) {
-                // 画像が新たに選択されている場合
-                if (isset($data['image'])) {
-                    // 画像のアップロード処理
+            // idが存在する場合は、既存のデータを更新
+            if (isset($data['id']) && in_array($data['id'], $existingPostIds)) {
+                $post = Post::find($data['id']);
+                // 既存のデータを更新
+                // 画像またはコメントまたは見出しが既に存在する場合
+                if (
+                    Post::where('id', $data['id'])->where(function ($query) {
+                        $query->whereNotNull('image')->orWhereNotNull('comment')->orWhereNotNull('heading');
+                    })->exists()
+                ) {
+                    // 画像が新たに選択されている場合
                     if (isset($data['image'])) {
-                        if ($post->image) {
-                            Storage::disk('s3')->delete($post->image);
+                        // 画像のアップロード処理
+                        if (isset($data['image'])) {
+                            if ($post->image) {
+                                Storage::disk('s3')->delete($post->image);
+                            }
+                            $path = $data['image']->store('post_images', 's3');
+                            $post->image = $path;
                         }
-                        $path = $data['image']->store('post_images', 's3');
-                        $post->image = $path;
+                    }
+                    // 画像を削除する場合
+                    elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
+                        Storage::disk('s3')->delete($post->image);
+                        $post->image = null;
+                    }
+                    // 見出しが既存のものと異なる場合
+                    if ($data['heading'] !== Post::find($data['id'])->heading) {
+                        $post->fill([
+                            'heading' => $data['heading']
+                        ]);
+                    }
+                    // コメントが既存のものと異なる場合
+                    if ($data['comment'] !== Post::find($data['id'])->comment) {
+                        $post->fill([
+                            'comment' => $data['comment']
+                        ]);
+                    }
+                    $post->save();
+
+                    // 更新されたPostのIDを配列から削除
+                    $index = array_search($data['id'], $existingPostIds);
+                    if ($index !== false) {
+                        unset($existingPostIds[$index]);
                     }
                 }
-                // 画像を削除する場合
-                elseif (isset($data['delete_image']) && $data['delete_image'] === 'true') {
-                    Storage::disk('s3')->delete($post->image);
-                    $post->image = null;
-                }
-                // 見出しが既存のものと異なる場合
-                if ($data['heading'] !== Post::find($data['id'])->heading) {
-                    $post->fill([
-                        'heading' => $data['heading']
-                    ]);
-                }
-                // コメントが既存のものと異なる場合
-                if ($data['comment'] !== Post::find($data['id'])->comment) {
-                    $post->fill([
-                        'comment' => $data['comment']
-                    ]);
-                }
-                $post->save();
-
-                // 更新されたPostのIDを配列から削除
-                $index = array_search($data['id'], $existingPostIds);
-                if ($index !== false) {
-                    unset($existingPostIds[$index]);
-                }
             }
-            // 既存のデータが存在しない場合
+            // idが存在しない場合は、新しいデータとして保存
             else {
                 // 新しいデータを挿入
                 $post = new Post;
@@ -286,7 +289,6 @@ class ArticlesController extends Controller
                     $path = $data['image']->store('post_images', 's3');
                     $post->image = $path;
                 }
-
                 $post->save();
             }
         }

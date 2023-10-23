@@ -1,25 +1,30 @@
 /* 記事閲覧ページのボタン郡のアニメーション */
 .hover-target:hover > svg {
-    animation: slideRightFade 0.7s ease-in-out alternate;
+    animation: allow 0.7s infinite;
 }
 
-@keyframes slideRightFade {
+@keyframes allow {
     0% {
-        transform: translateX(0);
+        transform: scale(1.2) translateX(0);
         opacity: 1;
     }
-    33% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    66% {
-        transform: translateX(100%);
-        opacity: 0;
+    25% {
+        transform: scale(1.2) translateX(-30%);
+        opacity: 1;
     }
     100% {
-        transform: translateX(0);
+        transform: scale(1.2) translateX(0%);
         opacity: 1;
     }
+}
+
+/* 汎用的なホバー拡大スタイル */
+.hover-grow {
+    transition: transform 0.1s ease-out; /* なめらかな拡大のためのトランジション */
+}
+
+.hover-grow:hover {
+    transform: scale(1.1); /* 1.1倍に拡大 */
 }
 
 /* TOPページの背景画像のアニメーション */
