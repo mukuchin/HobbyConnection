@@ -34,6 +34,21 @@ export default function top({ auth, article }: TopProps) {
                 : window.scrollTo(0, 600);
             sessionStorage.removeItem("paginationTransition");
         }
+
+        // 背景とアニメーションをランダムに選択する
+        const backgrounds = [
+            { bg: "bg-hobby", animation: "animate-bg-hobby" },
+            // { bg: "bg-fireworks", animation: "" },
+        ];
+        const randomChoice =
+            backgrounds[Math.floor(Math.random() * backgrounds.length)];
+        const bgElement = document.querySelector(".bg-switch");
+        if (bgElement) {
+            bgElement.classList.add(randomChoice.bg);
+            if (randomChoice.animation) {
+                bgElement.classList.add(randomChoice.animation);
+            }
+        }
     }, []);
 
     return (

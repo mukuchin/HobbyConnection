@@ -213,7 +213,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                 >
                                                     {/* 見出し */}
                                                     {data.heading && (
-                                                        <div className="flex items-left mb-2">
+                                                        <div className="mb-2 text-center">
                                                             <h2 className="font-bold text-xl sm:text-3xl">
                                                                 {data.heading}
                                                             </h2>

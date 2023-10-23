@@ -27,10 +27,14 @@
     transform: scale(1.1); /* 1.1倍に拡大 */
 }
 
-/* TOPページの背景画像のアニメーション */
-.bg-switch {
-    animation: bgSwitch 16s infinite, bgScaleOut 4s infinite;
+/* TOPページの背景画像を切り替えるアニメーション */
+.bg-hobby {
     background-blend-mode: multiply;
+}
+
+/* アニメーションを適用するクラス */
+.animate-bg-hobby {
+    animation: bgSwitch 16s infinite, bgScaleOut 4s infinite;
 }
 
 @keyframes bgSwitch {
@@ -75,4 +79,12 @@
     100% {
         transform: scale(1.2);
     }
+}
+
+/* TOPページの背景のgif画像 */
+.bg-fireworks {
+    background-image: url("/images/fireworks.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
 }
