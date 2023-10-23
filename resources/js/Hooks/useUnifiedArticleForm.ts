@@ -1,7 +1,10 @@
-// 記事フォームのカスタムフック
+// 統合した記事フォームのカスタムフック
 
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { router } from "@inertiajs/react";
+
+// フォームの入力値の初期値とサブフォームの追加・削除を統合
+interface UnifiedFormHook extends FormHook, SubFormHook {}
 
 // フォームの入力値の型
 export interface FormValues {
@@ -23,7 +26,7 @@ export interface FormValues {
 }
 
 // フォームの入力値の初期値
-interface MainFormHook {
+interface FormHook {
     handleChangeInput: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
@@ -50,6 +53,7 @@ interface SubFormHook {
     deleteSubForm: (index: number) => void;
 }
 
+// 許可されているファイルの拡張子
 const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
 
 // ファイルの拡張子が許可されているかどうかを判定する
@@ -61,20 +65,11 @@ const isValidFileExtension = (filename: string) => {
     return true;
 };
 
-// フォームの入力値の初期値
-export function useArticleForm(
+export function useUnifiedArticleForm(
     values: FormValues,
     setValues: React.Dispatch<React.SetStateAction<FormValues>>,
     endpoint: string
-): MainFormHook {
-    // フォームの入力値を更新する
-    const updateValues = (updatedValues: Partial<FormValues>) => {
-        setValues((prev) => ({ ...prev, ...updatedValues }));
-    };
-
-    // 前回選択されたファイルを保持するステート
-    const [lastSelectedFile, setLastSelectedFile] = useState<File | null>(null);
-
+): UnifiedFormHook {
     // タグを追加する関数
     const addTag = (tag: string) => {
         if (tag && !values.tags.includes(tag)) {
@@ -93,6 +88,16 @@ export function useArticleForm(
         }));
     };
 
+    // フォームの入力値を更新する
+    const updateValues = (updatedValues: Partial<FormValues>) => {
+        setValues((prev) => ({ ...prev, ...updatedValues }));
+    };
+
+    // 前回選択されたファイルを保持するステート。フォームごとに保持するため、配列にしている。
+    const [lastSelectedFiles, setLastSelectedFiles] = useState<{
+        [key: string]: File | null;
+    }>({});
+
     // 画像のプレビューを表示する
     const handleImageChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -100,48 +105,73 @@ export function useArticleForm(
     ) => {
         const target = e.target as HTMLInputElement;
 
-        // ファイルが選択されていない場合、前回のファイルを復元
+        // ファイル選択ダイアログでキャンセルを選択した場合、前回選択されたファイルを復元
         if (!target.files || target.files.length === 0) {
-            if (lastSelectedFile) {
+            const previousFileKey =
+                typeof index === "number" ? "sub-" + index : "main";
+            const previousFile = lastSelectedFiles[previousFileKey];
+            if (previousFile) {
                 const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(lastSelectedFile);
+                dataTransfer.items.add(previousFile);
                 target.files = dataTransfer.files;
             }
             return;
         }
 
         // ファイルが選択されている場合、選択されたファイルを取得
-        const file = target.files[0];
+        const file = target.files ? target.files[0] : null;
 
-        // 前回選択されたファイルを更新
-        setLastSelectedFile(file);
-
-        if (!file || !isValidFileExtension(file.name)) {
+        // ファイルの拡張子が許可されているかどうかを判定
+        if (file && !isValidFileExtension(file.name)) {
             alert(
                 "無効なファイル形式です。jpg, gif, pngのみ許可されています。"
             );
+            const previousFileKey =
+                typeof index === "number" ? "sub-" + index : "main";
+            const previousFile = lastSelectedFiles[previousFileKey];
+            if (previousFile) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(previousFile); // 前回選択されたファイルを復元
+                target.files = dataTransfer.files;
+            } else {
+                target.value = "";
+            }
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const target = event.target as FileReader;
-            if (typeof target.result === "string") {
-                if (typeof index === "number") {
-                    const newSubFormData = [...values.sub_form_data];
-                    newSubFormData[index] = {
-                        ...newSubFormData[index],
-                        image: target.result,
-                        file: file,
-                        delete_image: false,
-                    };
-                    updateValues({ sub_form_data: newSubFormData });
-                } else {
-                    updateValues({ image: target.result, delete_image: false });
+        // 有効なファイル形式の場合、前回選択されたファイルを更新
+        if (file) {
+            setLastSelectedFiles((prevFiles) => {
+                const key = typeof index === "number" ? "sub-" + index : "main";
+                return { ...prevFiles, [key]: file };
+            });
+        }
+
+        // 画像のプレビューを表示
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const target = event.target as FileReader;
+                if (typeof target.result === "string") {
+                    if (typeof index === "number") {
+                        const newSubFormData = [...values.sub_form_data];
+                        newSubFormData[index] = {
+                            ...newSubFormData[index],
+                            image: target.result,
+                            file: file,
+                            delete_image: false,
+                        };
+                        updateValues({ sub_form_data: newSubFormData });
+                    } else {
+                        updateValues({
+                            image: target.result,
+                            delete_image: false,
+                        });
+                    }
                 }
-            }
-        };
-        reader.readAsDataURL(file);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     // フォームの入力値を更新する
@@ -200,7 +230,7 @@ export function useArticleForm(
             };
             updateValues({ sub_form_data: newSubFormData });
         } else if (values.image) {
-            // メインフォームの画像。
+            // メインフォームの画像
             updateValues({ image: null, delete_image: true });
         }
 
@@ -208,6 +238,12 @@ export function useArticleForm(
         if (fileInputRef && fileInputRef.current) {
             fileInputRef.current.value = "";
         }
+
+        // lastSelectedFiles ステートをリセット
+        setLastSelectedFiles((prevFiles) => {
+            const key = typeof index === "number" ? "sub-" + index : "main";
+            return { ...prevFiles, [key]: null };
+        });
     };
 
     // 画像のプレビューのキャンセルをキャンセルする。メインフォームの画像とサブフォームの画像の両方に対応
@@ -230,15 +266,15 @@ export function useArticleForm(
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // 見出し及びコメント及び画像が存在するサブフォームだけをフィルタリング
-        const filteredSubFormData = values.sub_form_data.filter(
-            (data) =>
-                data.heading ||
-                data.comment ||
-                (data.image && !data.delete_image)
-        );
+        // // formDataを初期化
+        const formData = new FormData();
 
-        const formData = new FormData(e.currentTarget);
+        // メインフォームのデータを追加
+        formData.append("title", values.title);
+        formData.append("description", values.description);
+        formData.append("period_start", values.period_start);
+        formData.append("period_end", values.period_end);
+        formData.append("delete_image", values.delete_image ? "true" : "false");
 
         // タグを追加
         values.tags.forEach((tag, index) => {
@@ -253,22 +289,50 @@ export function useArticleForm(
             formData.append("image", mainImageInput.files[0]);
         }
 
-        // フィルタリングされたサブフォームの画像ファイルを追加
+        // period_startがnullの場合はformDataのperiod_startを削除し、空文字に置換
+        if (values.period_start === null) {
+            formData.delete("period_start");
+            formData.append("period_start", "");
+        }
+
+        // period_endがnullの場合はformDataのperiod_endを削除し、空文字に置換
+        if (values.period_end === null) {
+            formData.delete("period_end");
+            formData.append("period_end", "");
+        }
+
+        // 見出し及びコメント及び画像が存在するサブフォームだけをフィルタリング
+        const filteredSubFormData = values.sub_form_data.filter(
+            (data) =>
+                data.heading ||
+                data.comment ||
+                (data.image && !data.delete_image)
+        );
+
+        // フィルタリングされたサブフォームのデータをformDataに追加
         filteredSubFormData.forEach((data, index) => {
+            // delete_imageの値をformDataに追加
+            formData.append(
+                `sub_form_data[${index}][delete_image]`,
+                data.delete_image ? "true" : "false"
+            );
+
             if (data.file) {
                 formData.append(`sub_form_data[${index}][image]`, data.file);
             }
-            // サブフォームの見出しを追加。見出しがnullの場合は空文字を追加
             formData.append(
                 `sub_form_data[${index}][heading]`,
                 data.heading || ""
             );
-
-            // サブフォームのコメントを追加。コメントがnullの場合は空文字を追加
             formData.append(
                 `sub_form_data[${index}][comment]`,
                 data.comment || ""
             );
+
+            // idをformDataに追加
+            if (data.id) {
+                formData.append(`sub_form_data[${index}][id]`, data.id + "");
+            }
         });
 
         // サブフォームの削除フラグを追加
@@ -305,27 +369,6 @@ export function useArticleForm(
         }
     };
 
-    return {
-        handleChangeInput: handleChange,
-        handleChangeSubFormInput: handleChange,
-        handleSubmit,
-        cancelImagePreview,
-        cancelCancelImagePreview,
-        addTag,
-        removeTag,
-        handleConfirmSubmit,
-    };
-}
-
-// サブフォームの追加・削除
-export function useAddDeleteSubForm(
-    values: FormValues,
-    setValues: React.Dispatch<React.SetStateAction<FormValues>>
-): SubFormHook {
-    const updateValues = (updatedValues: Partial<FormValues>) => {
-        setValues((prev) => ({ ...prev, ...updatedValues }));
-    };
-
     // サブフォームを追加する
     const addSubForm = useCallback(() => {
         const newSubFormData = [
@@ -349,9 +392,38 @@ export function useAddDeleteSubForm(
                 (_, i) => i !== index
             );
             updateValues({ sub_form_data: newSubFormData });
+
+            // lastSelectedFiles ステートを更新
+            const newLastSelectedFiles: { [key: string]: File | null } = {};
+            Object.entries(lastSelectedFiles).forEach(([key, file]) => {
+                const match = key.match(/^sub-(\d+)$/);
+                if (match) {
+                    const idx = parseInt(match[1], 10);
+                    if (idx < index) {
+                        newLastSelectedFiles[key] = file as File | null;
+                    } else if (idx > index) {
+                        newLastSelectedFiles[`sub-${idx - 1}`] =
+                            file as File | null;
+                    }
+                } else {
+                    newLastSelectedFiles[key] = file as File | null;
+                }
+            });
+            setLastSelectedFiles(newLastSelectedFiles);
         },
-        [values, updateValues]
+        [values, updateValues, lastSelectedFiles]
     );
 
-    return { addSubForm, deleteSubForm };
+    return {
+        handleChangeInput: handleChange,
+        handleChangeSubFormInput: handleChange,
+        handleSubmit,
+        cancelImagePreview,
+        cancelCancelImagePreview,
+        addTag,
+        removeTag,
+        handleConfirmSubmit,
+        addSubForm,
+        deleteSubForm,
+    };
 }

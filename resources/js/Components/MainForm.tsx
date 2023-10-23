@@ -1,8 +1,8 @@
 // メインフォームのコンポーネント
 
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { usePage } from "@inertiajs/react";
-import { FormValues, useAddDeleteSubForm } from "../Hooks/useArticleForm";
+import { FormValues } from "../Hooks/useUnifiedArticleForm";
 import SubForm from "./SubForm";
 import InputField from "../Layouts/InputField";
 import { isFullURL } from "../Hooks/useURLValidators";
@@ -29,6 +29,8 @@ interface MainFormProps {
     handleConfirmSubmit: (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
+    addSubForm: () => void;
+    deleteSubForm: (index: number) => void;
 }
 
 // メインフォーム
@@ -43,12 +45,11 @@ const MainForm: React.FC<MainFormProps> = ({
     addTag,
     removeTag,
     handleConfirmSubmit,
+    addSubForm,
+    deleteSubForm,
 }) => {
     // エラーを取得
     const { errors } = usePage().props;
-
-    // サブフォームの追加・削除を行うカスタムフック
-    const { addSubForm } = useAddDeleteSubForm(values, setValues);
 
     // ファイル入力の参照を作成
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -63,8 +64,8 @@ const MainForm: React.FC<MainFormProps> = ({
                 </p>
 
                 <div className="flex flex-col md:flex-row">
-                    {/* 画像のプレビュー */}
-                    <div className="w-full md:w-1/2 pr-4 mb-4">
+                    <div className="w-full md:w-1/2 md:pr-4">
+                        {/* 画像のプレビュー */}
                         {values.image && (
                             <div className="mb-4">
                                 <img
@@ -73,12 +74,61 @@ const MainForm: React.FC<MainFormProps> = ({
                                             ? (values.image as string)
                                             : `https://hobbyconnection-bucket.s3-ap-northeast-1.amazonaws.com/${values.image}`
                                     }
-                                    alt="プレビュー画像"
+                                    alt="サブフォームのプレビュー画像"
                                     className="mb-4 rounded-md shadow-md"
                                 />
+                            </div>
+                        )}
+
+                        <input
+                            type="hidden"
+                            name="delete_image"
+                            value={values.delete_image ? "true" : "false"}
+                        />
+                        <div className="flex flex-row items-center">
+                            {/* 画像のアップロード。記事TOPの枠の下側に表示 */}
+                            <div className="hidden">
+                                <InputField
+                                    label={
+                                        values.image
+                                            ? "変更する画像を選択"
+                                            : "画像を選択"
+                                    }
+                                    type="file"
+                                    id="image"
+                                    name="image"
+                                    onChange={(e) => {
+                                        handleChangeInput(e);
+                                        cancelCancelImagePreview();
+                                    }}
+                                    ref={fileInputRef}
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                className="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                onClick={() => fileInputRef.current?.click()} // このボタンがクリックされたときに、非表示のファイル入力をトリガーします
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                                    />
+                                </svg>
+                            </button>
+                            {/* 選択されたファイルを削除するボタン */}
+                            {values.image && (
                                 <button
                                     type="button"
-                                    className="bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
+                                    className="ml-4 bg-red-500 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 flex flex-row rounded transition duration-300 soft-gloss bg-gradient-to-b from-soft-gloss-light to-soft-gloss-dark shadow-soft-gloss-inset"
                                     onClick={() => {
                                         cancelImagePreview(fileInputRef);
                                     }}
@@ -98,46 +148,45 @@ const MainForm: React.FC<MainFormProps> = ({
                                         />
                                     </svg>
                                 </button>
-                            </div>
-                        )}
-
-                        <input
-                            type="hidden"
-                            name="delete_image"
-                            value={values.delete_image ? "true" : "false"}
-                        />
-
-                        {/* 画像のアップロード。記事TOPの枠の下側に表示 */}
-                        <InputField
-                            label={
-                                values.image
-                                    ? "変更する画像を選択"
-                                    : "画像を選択"
-                            }
-                            type="file"
-                            id="image"
-                            name="image"
-                            onChange={(e) => {
-                                handleChangeInput(e);
-                                cancelCancelImagePreview();
-                            }}
-                            ref={fileInputRef}
-                        />
+                            )}
+                        </div>
                         {/* 画像サイズのエラーメッセージを表示 */}
                         {errors.image && (
-                            <p className="text-red-500">{errors.image}</p>
+                            <p className="mt-2 text-red-500">{errors.image}</p>
                         )}
                         {/* 画像の合計サイズのエラーメッセージを表示 */}
                         {errors.total_image_size && (
-                            <p className="text-red-500">
+                            <p className="mt-2 text-red-500">
                                 {errors.total_image_size}
                             </p>
                         )}
-                        {/* ファイル形式・サイズの注意書き */}
-                        <p className="text-xs text-gray-500">
-                            画像サイズは最大2MBです。また、一度の投稿・更新で追加できる画像の合計サイズは最大20MBです。ファイル形式はjpg,
-                            jpeg, gif, pngに対応しています。
-                        </p>
+                        {/* 画像の合計数のエラーメッセージを表示 */}
+                        {errors.total_files && (
+                            <p className="mt-2 text-red-500">
+                                {errors.total_files}
+                            </p>
+                        )}
+                        {/* 注意書き。箇条書き。 */}
+                        <div className="ml-4 mt-4 mb-4 text-xs text-gray-500">
+                            <ul
+                                style={{
+                                    listStylePosition: "outside",
+                                    listStyleType: "disc",
+                                }}
+                            >
+                                <li>画像ファイルのサイズは1枚あたり最大2MBです。</li>
+                                <li>
+                                    一度の投稿・更新で追加できる画像ファイルの合計サイズは最大20MBです。
+                                </li>
+                                <li>
+                                    一度の投稿・更新で追加できる画像ファイルは最大51個です。
+                                </li>
+                                <li>
+                                    ファイル形式はjpeg, jpg, png,
+                                    gifに対応しています。
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div className="flex flex-col w-full md:w-1/2">
@@ -158,7 +207,9 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.title && (
-                                <p className="text-red-500">{errors.title}</p>
+                                <p className="mt-2 text-red-500">
+                                    {errors.title}
+                                </p>
                             )}
                         </div>
                         <div className="mb-4">
@@ -172,7 +223,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.period_start && (
-                                <p className="text-red-500">
+                                <p className="mt-2 text-red-500">
                                     {errors.period_start}
                                 </p>
                             )}
@@ -188,7 +239,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.period_end && (
-                                <p className="text-red-500">
+                                <p className="mt-2 text-red-500">
                                     {errors.period_end}
                                 </p>
                             )}
@@ -211,7 +262,7 @@ const MainForm: React.FC<MainFormProps> = ({
                             />
                             {/* エラーメッセージを表示 */}
                             {errors.description && (
-                                <p className="text-red-500">
+                                <p className="mt-2 text-red-500">
                                     {errors.description}
                                 </p>
                             )}
@@ -314,9 +365,9 @@ const MainForm: React.FC<MainFormProps> = ({
                         index={index}
                         handleChange={handleChangeSubFormInput}
                         values={values}
-                        setValues={setValues}
                         cancelImagePreview={cancelImagePreview}
                         cancelCancelImagePreview={cancelCancelImagePreview}
+                        deleteSubForm={deleteSubForm}
                     />
                 ))}
                 <div className="mb-4 flex justify-center">
@@ -360,4 +411,4 @@ const MainForm: React.FC<MainFormProps> = ({
     );
 };
 
-export default React.memo(MainForm);
+export default memo(MainForm);

@@ -5,7 +5,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
-import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
+import {
+    useUnifiedArticleForm,
+    FormValues,
+} from "@/Hooks/useUnifiedArticleForm";
 import { ArticleItems } from "@/types/ArticleProps";
 import { useFormatDate } from "@/Hooks/useFormatDate";
 import SessionTimer from "@/Components/SessionTimer";
@@ -84,7 +87,9 @@ export default function edit({ auth, article }: EditProps) {
         addTag,
         removeTag,
         handleConfirmSubmit,
-    } = useArticleForm(values, setValues, `/posts/${id}`);
+        addSubForm,
+        deleteSubForm,
+    } = useUnifiedArticleForm(values, setValues, `/posts/${id}`);
 
     // 日付をフォーマットする関数
     const formatDate = useFormatDate();
@@ -163,6 +168,8 @@ export default function edit({ auth, article }: EditProps) {
                                 addTag={addTag}
                                 removeTag={removeTag}
                                 handleConfirmSubmit={handleConfirmSubmit}
+                                addSubForm={addSubForm}
+                                deleteSubForm={deleteSubForm}
                             />
                         </div>
                     </div>

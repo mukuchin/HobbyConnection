@@ -221,6 +221,9 @@ class ArticlesController extends Controller
     // サブフォームの更新処理
     private function updatePosts($subFormData, $articleId)
     {
+        // $subFormDataがnullの場合に空の配列を代入します。
+        $subFormData = $subFormData ?? [];
+
         $existingPostIds = Post::where('article_id', $articleId)->pluck('id')->toArray();
         foreach ($subFormData as $data) {
             $post = Post::find($data['id']);

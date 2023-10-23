@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FormValues } from "@/Hooks/useArticleForm";
+import { FormValues } from "@/Hooks/useUnifiedArticleForm";
 
 export const useWarnOnExit = (
     values: FormValues,

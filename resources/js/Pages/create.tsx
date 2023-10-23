@@ -5,7 +5,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AppHead from "../Layouts/AppHead";
 import MainForm from "@/Components/MainForm";
 import { PageProps } from "@/types";
-import { useArticleForm, FormValues } from "@/Hooks/useArticleForm";
+import {
+    useUnifiedArticleForm,
+    FormValues,
+} from "@/Hooks/useUnifiedArticleForm";
 import SessionTimer from "@/Components/SessionTimer";
 import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
 import FooterComponent from "@/Components/FooterComponent";
@@ -40,7 +43,9 @@ export default function create({ auth }: PageProps) {
         addTag,
         removeTag,
         handleConfirmSubmit,
-    } = useArticleForm(values, setValues, "/posts");
+        addSubForm,
+        deleteSubForm,
+    } = useUnifiedArticleForm(values, setValues, "/posts");
 
     return (
         <>
@@ -74,6 +79,8 @@ export default function create({ auth }: PageProps) {
                                 addTag={addTag}
                                 removeTag={removeTag}
                                 handleConfirmSubmit={handleConfirmSubmit}
+                                addSubForm={addSubForm}
+                                deleteSubForm={deleteSubForm}
                             />
                         </div>
                     </div>
