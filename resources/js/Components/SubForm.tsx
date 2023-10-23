@@ -156,6 +156,12 @@ const SubForm: React.FC<SubFormProps> = ({
                             {errors.total_image_size}
                         </p>
                     )}
+                    {/* 画像の合計数のエラーメッセージを表示 */}
+                    {errors.total_files && (
+                        <p className="mt-2 text-red-500">
+                            {errors.total_files}
+                        </p>
+                    )}
                     {/* ファイル形式・サイズの注意書き */}
                     <p className="mt-4 mb-4 text-xs text-gray-500">
                         画像サイズは最大2MBです。また、一度の投稿・更新で追加できる画像の合計サイズは最大20MBです。ファイル形式はjpg,
