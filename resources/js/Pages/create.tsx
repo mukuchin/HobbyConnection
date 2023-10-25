@@ -12,6 +12,7 @@ import {
 import SessionTimer from "@/Components/SessionTimer";
 import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
 import FooterComponent from "@/Components/FooterComponent";
+import NProgress from "nprogress";
 
 export default function create({ auth }: PageProps) {
     // 各値の初期値は、空文字列
@@ -33,6 +34,13 @@ export default function create({ auth }: PageProps) {
     // ページの再読込や遷移時に警告を表示
     useWarnOnExit(values);
 
+    // NProgress イベントリスナーの追加
+    NProgress.configure({
+        showSpinner: true,
+        minimum: 0.1,
+        positionUsing: "translate3d",
+    });
+
     // カスタムフック
     const {
         handleChangeInput,
@@ -45,6 +53,7 @@ export default function create({ auth }: PageProps) {
         handleConfirmSubmit,
         addSubForm,
         deleteSubForm,
+        isUploading,
     } = useUnifiedArticleForm(values, setValues, "/posts");
 
     return (
@@ -58,10 +67,20 @@ export default function create({ auth }: PageProps) {
                             記事投稿
                         </h1>
                         <SessionTimer />
-                        <div className="text-xs text-gray-500 mb-4 font-noto-sans-jp">
-                            残り時間が無くなると、入力内容がリセットされます。時間内に投稿してください。
-                            <br />
-                            また、ページの再読込みや別のページへの遷移をすると、入力内容がリセットされます。
+                        <div className="ml-4 mb-4 text-xs text-gray-500 font-noto-sans-jp">
+                            <ul
+                                style={{
+                                    listStylePosition: "outside",
+                                    listStyleType: "disc",
+                                }}
+                            >
+                                <li>
+                                    残り時間が無くなると、入力内容がリセットされます。
+                                </li>
+                                <li>
+                                    ページの再読込みや別のページへの遷移をすると、入力内容がリセットされます。
+                                </li>
+                            </ul>
                         </div>
                         <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <MainForm
@@ -83,6 +102,15 @@ export default function create({ auth }: PageProps) {
                                 deleteSubForm={deleteSubForm}
                             />
                         </div>
+                        {/* 投稿中のスピナー */}
+                        {isUploading && (
+                            <div className="fixed top-0 left-0 w-full h-full flex flex-row items-center justify-center bg-black bg-opacity-50 z-50">
+                                <div className="custom-spinner"></div>
+                                <div className="ml-8 text-white text-2xl">
+                                    投稿中・・・
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <FooterComponent />

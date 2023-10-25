@@ -1,11 +1,17 @@
 import "./bootstrap";
 import "../css/app.css";
 import "../css/custom.css";
+import "nprogress/nprogress.css";
 import { Helmet } from "react-helmet";
-
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import NProgress from "nprogress";
+import { router } from "@inertiajs/react";
+
+// NProgress イベントリスナーの追加
+router.on("start", () => NProgress.start());
+router.on("finish", () => NProgress.done());
 
 createInertiaApp({
     title: (title) => `${title}`,
@@ -29,7 +35,5 @@ createInertiaApp({
             </>
         );
     },
-    progress: {
-        color: "#4B5563",
-    },
+    progress: false,
 });

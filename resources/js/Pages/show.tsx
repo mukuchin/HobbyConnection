@@ -8,11 +8,21 @@ import { ArticleItems, ArticleUser } from "@/types/ArticleProps";
 import LikeButton from "@/Components/LikeButton";
 import { useFormatDate, useformatPeriodDate } from "@/Hooks/useFormatDate";
 import FooterComponent from "@/Components/FooterComponent";
+import Notification from "@/Components/Notification";
+import { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react";
 
 // Propsの型定義
 interface ShowProps extends PageProps {
     article: ArticleItems;
     article_user: ArticleUser;
+}
+
+// フラッシュメッセージの型定義
+interface PagePropsWithUrl extends PageProps {
+    flash: {
+        message: string;
+    };
 }
 
 export default function show({ auth, article, article_user }: ShowProps) {
@@ -47,6 +57,23 @@ export default function show({ auth, article, article_user }: ShowProps) {
         );
     }
 
+    // フラッシュメッセージの取得
+    const { props } = usePage<PagePropsWithUrl>();
+    const message = props.flash?.message ?? null;
+
+    // messageの値によって表示するメッセージを変更するためのstate
+    const [notificationMessage, setNotificationMessage] = useState<
+        string | null
+    >(null);
+
+    useEffect(() => {
+        if (message === "posted") {
+            setNotificationMessage("記事を投稿しました！");
+        } else if (message === "updated") {
+            setNotificationMessage("記事を更新しました！");
+        }
+    }, []); // 空の依存配列を指定して、このエフェクトをコンポーネントのマウント時に一度だけ実行する
+
     return (
         <>
             {/* ページ名・タブ名表示 */}
@@ -57,6 +84,14 @@ export default function show({ auth, article, article_user }: ShowProps) {
                 <AuthenticatedLayout user={auth.user} />
             ) : (
                 <GuestLayout />
+            )}
+
+            {/* 投稿完了及び更新完了のフラッシュメッセージ */}
+            {notificationMessage && (
+                <Notification
+                    message={notificationMessage}
+                    onClose={() => setNotificationMessage(null)}
+                />
             )}
 
             {/* 記事の閲覧 */}

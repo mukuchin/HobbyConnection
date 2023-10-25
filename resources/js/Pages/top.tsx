@@ -38,6 +38,7 @@ export default function top({ auth, article }: TopProps) {
         // 背景とアニメーションをランダムに選択する
         const backgrounds = [
             { bg: "bg-hobby", animation: "animate-bg-hobby" },
+            // 負担が大きいのでコメントアウト
             // { bg: "bg-fireworks", animation: "" },
         ];
         const randomChoice =

@@ -25,7 +25,7 @@ export interface FormValues {
     tags: string[];
 }
 
-// フォームの入力値の初期値
+// 全てのフォームで共通の関数・ステート
 interface FormHook {
     handleChangeInput: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,6 +45,7 @@ interface FormHook {
     handleConfirmSubmit: (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
+    isUploading: boolean;
 }
 
 // サブフォームの追加・削除
@@ -262,9 +263,15 @@ export function useUnifiedArticleForm(
         }
     };
 
+    // アップロード中かどうかの状態
+    const [isUploading, setIsUploading] = useState(false);
+
     // フォームを送信する
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // アップロード開始
+        setIsUploading(true);
 
         // // formDataを初期化
         const formData = new FormData();
@@ -335,10 +342,16 @@ export function useUnifiedArticleForm(
             }
         });
 
-        // サブフォームの削除フラグを追加
+        // 3秒間待機してからフォームを送信
         router.post(endpoint, formData, {
             onBefore: (visit) => {
                 visit.headers["Content-Type"] = "multipart/form-data";
+            },
+            onSuccess: () => {
+                setIsUploading(false); // アップロード終了（成功時）
+            },
+            onError: () => {
+                setIsUploading(false); // アップロード終了（エラー時）
             },
         });
     };
@@ -425,5 +438,6 @@ export function useUnifiedArticleForm(
         handleConfirmSubmit,
         addSubForm,
         deleteSubForm,
+        isUploading,
     };
 }
