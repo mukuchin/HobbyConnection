@@ -8,6 +8,7 @@ import { ArticleItems } from "@/types/ArticleProps";
 import Pagination from "@/Components/Pagination";
 import { useEffect } from "react";
 import FooterComponent from "@/Components/FooterComponent";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 // Propsの型定義
 interface MyPageProps extends PageProps {
@@ -22,6 +23,9 @@ interface MyPageProps extends PageProps {
 
 export default function mypage({ auth, article }: MyPageProps) {
     const { current_page, last_page, data } = article;
+    
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
 
     // ペジネーションによるページ遷移時にスクロール位置を調整する
     useEffect(() => {

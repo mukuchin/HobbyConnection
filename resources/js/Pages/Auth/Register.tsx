@@ -7,8 +7,12 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
 import AppHead from "@/Layouts/AppHead";
 import FooterComponent from "@/Components/FooterComponent";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function Register() {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",

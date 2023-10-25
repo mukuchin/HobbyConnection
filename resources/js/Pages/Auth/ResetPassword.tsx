@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function ResetPassword({
     token,
@@ -13,6 +14,9 @@ export default function ResetPassword({
     token: string;
     email: string;
 }) {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
+
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,

@@ -8,6 +8,7 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
 import AppHead from "@/Layouts/AppHead";
 import FooterComponent from "@/Components/FooterComponent";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function Login({
     status,
@@ -16,6 +17,9 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",

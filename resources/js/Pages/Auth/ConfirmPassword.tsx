@@ -5,8 +5,11 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function ConfirmPassword() {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
     const { data, setData, post, processing, errors, reset } = useForm({
         password: "",
     });

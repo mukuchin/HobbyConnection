@@ -14,6 +14,7 @@ import { useFormatDate } from "@/Hooks/useFormatDate";
 import SessionTimer from "@/Components/SessionTimer";
 import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
 import FooterComponent from "@/Components/FooterComponent";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 // Propsの型定義
 interface EditProps extends PageProps {
@@ -34,6 +35,9 @@ export default function edit({ auth, article }: EditProps) {
         updated_at,
         tags,
     } = article;
+
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
 
     // 各値の初期値は、元の記事の値
     const [values, setValues] = useState<FormValues>({

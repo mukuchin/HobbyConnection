@@ -2,8 +2,12 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function VerifyEmail({ status }: { status?: string }) {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
+
     const { post, processing } = useForm({});
 
     const submit: FormEventHandler = (e) => {
