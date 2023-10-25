@@ -27,10 +27,14 @@
     transform: scale(1.1); /* 1.1倍に拡大 */
 }
 
-/* TOPページの背景画像のアニメーション */
-.bg-switch {
-    animation: bgSwitch 16s infinite, bgScaleOut 4s infinite;
+/* TOPページの背景画像を切り替えるアニメーション */
+.bg-hobby {
     background-blend-mode: multiply;
+}
+
+/* アニメーションを適用するクラス */
+.animate-bg-hobby {
+    animation: bgSwitch 16s infinite, bgScaleOut 4s infinite;
 }
 
 @keyframes bgSwitch {
@@ -75,4 +79,31 @@
     100% {
         transform: scale(1.2);
     }
+}
+
+/* TOPページの背景のgif画像 */
+.bg-fireworks {
+    background-image: url("/images/fireworks.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+/* 記事のアップロード時のアニメーション */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.custom-spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
 }

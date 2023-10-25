@@ -58,7 +58,7 @@ class ArticlesController extends Controller
     {
         $article = $this->saveArticle($request);
         $this->savePosts($request->sub_form_data, $article->id);
-        return redirect()->route('show', ['article' => $article->id]);
+        return redirect()->route('show', ['article' => $article->id])->with('message', 'posted');
     }
 
     // 記事編集ページ
@@ -74,7 +74,7 @@ class ArticlesController extends Controller
     {
         $this->updateArticle($request, $article);
         $this->updatePosts($request->sub_form_data, $article->id);
-        return redirect()->route('show', ['article' => $article->id]);
+        return redirect()->route('show', ['article' => $article->id])->with('message', 'updated');
     }
 
     // 記事の削除処理
