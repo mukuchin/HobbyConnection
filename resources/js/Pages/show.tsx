@@ -13,7 +13,6 @@ import { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
-
 // Propsの型定義
 interface ShowProps extends PageProps {
     article: ArticleItems;
@@ -227,15 +226,13 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                     </div>
                                 )}
                                 {/* 概要 */}
-                                <div className="font-noto-sans-jp flex justify-center mb-20">
-                                    <div className="font-noto-sans-jp flex justify-center mb-20">
-                                        <div
-                                            className="text-base sm:text-lg text-left"
-                                            dangerouslySetInnerHTML={{
-                                                __html: formatText(description),
-                                            }}
-                                        ></div>
-                                    </div>
+                                <div className="md:ml-8 md:mr-8 font-noto-sans-jp flex justify-center mb-10">
+                                    <div
+                                        className="text-base sm:text-lg text-left"
+                                        dangerouslySetInnerHTML={{
+                                            __html: formatText(description),
+                                        }}
+                                    ></div>
                                 </div>
                             </div>
 
@@ -249,12 +246,12 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                 data.heading) && (
                                                 <li
                                                     key={index}
-                                                    className="mb-4"
+                                                    className="md:ml-8 md:mr-8 mb-4"
                                                 >
                                                     {/* 見出し */}
                                                     {data.heading && (
-                                                        <div className="mb-2 text-center">
-                                                            <h2 className="font-bold text-xl sm:text-3xl">
+                                                        <div className="mb-4 md:mb-8 mt-16 md:mt-32 text-left">
+                                                            <h2 className="font-bold text-2xl sm:text-3xl">
                                                                 {data.heading}
                                                             </h2>
                                                         </div>
@@ -262,7 +259,7 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                     <div className="flex flex-col items-center">
                                                         {/* サブフォームの画像 */}
                                                         {data.image && (
-                                                            <div className="mb-2 text-center">
+                                                            <div className="mb-2">
                                                                 {" "}
                                                                 {/* ここにtext-centerを追加 */}
                                                                 <img
@@ -273,18 +270,19 @@ export default function show({ auth, article, article_user }: ShowProps) {
                                                                 />
                                                             </div>
                                                         )}
-                                                        {/* サブフォームのコメント */}
-                                                        <div className="flex justify-center text-base sm:text-lg text-left break-all mb-10">
-                                                            {data.comment && (
-                                                                <p
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: formatText(
-                                                                            data.comment
-                                                                        ),
-                                                                    }}
-                                                                ></p>
-                                                            )}
-                                                        </div>
+                                                    </div>
+
+                                                    {/* サブフォームのコメント */}
+                                                    <div className="text-base sm:text-lg text-left break-all mb-10">
+                                                        {data.comment && (
+                                                            <p
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: formatText(
+                                                                        data.comment
+                                                                    ),
+                                                                }}
+                                                            ></p>
+                                                        )}
                                                     </div>
                                                 </li>
                                             )
