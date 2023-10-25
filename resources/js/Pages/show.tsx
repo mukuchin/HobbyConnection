@@ -11,6 +11,8 @@ import FooterComponent from "@/Components/FooterComponent";
 import Notification from "@/Components/Notification";
 import { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
+
 
 // Propsの型定義
 interface ShowProps extends PageProps {
@@ -39,6 +41,9 @@ export default function show({ auth, article, article_user }: ShowProps) {
         tags,
     } = article;
     const { name } = article_user;
+
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
 
     const formatDate = useFormatDate();
     const formatPeriodDate = useformatPeriodDate();

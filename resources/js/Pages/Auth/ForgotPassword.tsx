@@ -4,8 +4,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function ForgotPassword({ status }: { status?: string }) {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
     const { data, setData, post, processing, errors } = useForm({
         email: "",
     });

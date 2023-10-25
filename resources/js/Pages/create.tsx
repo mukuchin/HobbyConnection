@@ -12,9 +12,12 @@ import {
 import SessionTimer from "@/Components/SessionTimer";
 import { useWarnOnExit } from "@/Hooks/useWarnOnExit";
 import FooterComponent from "@/Components/FooterComponent";
-import NProgress from "nprogress";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function create({ auth }: PageProps) {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
+
     // 各値の初期値は、空文字列
     const [values, setValues] = useState<FormValues>({
         title: "",
@@ -33,13 +36,6 @@ export default function create({ auth }: PageProps) {
 
     // ページの再読込や遷移時に警告を表示
     useWarnOnExit(values);
-
-    // NProgress イベントリスナーの追加
-    NProgress.configure({
-        showSpinner: true,
-        minimum: 0.1,
-        positionUsing: "translate3d",
-    });
 
     // カスタムフック
     const {

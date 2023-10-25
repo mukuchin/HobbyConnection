@@ -7,12 +7,15 @@ import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationFor
 import AppHead from "@/Layouts/AppHead";
 import { PageProps } from "@/types";
 import FooterComponent from "@/Components/FooterComponent";
+import { useRemoveHoverEffect } from "@/Hooks/useRemoveHoverEffect";
 
 export default function Edit({
     auth,
     mustVerifyEmail,
     status,
 }: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
+    // タッチデバイスの場合はホバー効果を削除する
+    useRemoveHoverEffect();
     return (
         <>
             {/* ナビゲーションバー */}
