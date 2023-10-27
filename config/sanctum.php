@@ -21,7 +21,7 @@ return [
             'SANCTUM_STATEFUL_DOMAINS',
             sprintf(
                 '%s%s',
-                'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1,hobby-connection-546e3e86ca25.herokuapp.com',
+                'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1,hobby-connection-546e3e86ca25.herokuapp.com,hobby-connection-test-500d4e31fbe0.herokuapp.com',
                 Sanctum::currentApplicationUrlWithPort()
             )
         )
