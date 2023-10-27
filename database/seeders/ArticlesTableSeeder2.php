@@ -12,9 +12,6 @@ class ArticlesTableSeeder2 extends Seeder
      */
     public function run(): void
     {
-        Article::factory()
-            ->count(40)
-            ->forUser(\App\Models\User::find(3)) // テスト用環境のtest-user2のidは3
-            ->create();
+        Article::factory(40)->create();
     }
 }
