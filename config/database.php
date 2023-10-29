@@ -2,7 +2,38 @@
 
 use Illuminate\Support\Str;
 
-$DATABASE_URL = parse_url(getenv("HEROKU_POSTGRESQL_PUCE_URL"));
+if (getenv("HEROKU_POSTGRESQL_PUCE_URL")) {
+    // テスト環境では、HEROKU_POSTGRESQL_PUCE_URLが設定されている。
+    $DATABASE_URL = parse_url(getenv("HEROKU_POSTGRESQL_PUCE_URL"));
+    $pgsql_config = [
+        'driver' => 'pgsql',
+        'host' => $DATABASE_URL["host"],
+        'port' => $DATABASE_URL["port"],
+        'database' => ltrim($DATABASE_URL["path"], "/"),
+        'username' => $DATABASE_URL["user"],
+        'password' => $DATABASE_URL["pass"],
+        'charset' => 'utf8',
+        'prefix' => '',
+        'schema' => 'public',
+        'sslmode' => 'prefer',
+    ];
+} else {
+    // 本番環境では、HEROKU_POSTGRESQL_PUCE_URLが設定されていない。
+    // 代わりにDATABASE_URLが設定されている。
+    $DATABASE_URL = parse_url(getenv("DATABASE_URL"));
+    $pgsql_config = [
+        'driver' => 'pgsql',
+        'host' => $DATABASE_URL["host"],
+        'port' => $DATABASE_URL["port"],
+        'database' => ltrim($DATABASE_URL["path"], "/"),
+        'username' => $DATABASE_URL["user"],
+        'password' => $DATABASE_URL["pass"],
+        'charset' => 'utf8',
+        'prefix' => '',
+        'schema' => 'public',
+        'sslmode' => 'prefer',
+    ];
+}
 
 return [
 
@@ -65,18 +96,7 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'host' => $DATABASE_URL["host"] ?? '',
-            'port' => $DATABASE_URL["port"] ?? '',
-            'database' => ltrim($DATABASE_URL["path"], "/") ?? '',
-            'username' => $DATABASE_URL["user"] ?? '',
-            'password' => $DATABASE_URL["pass"] ?? '',
-            'charset' => 'utf8',
-            'prefix' => '',
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ],
+        'pgsql' => $pgsql_config,
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
