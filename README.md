@@ -1,8 +1,10 @@
 # Hobby Connection
 
+![アプリのロゴ](/public/images/HobbyConnectionLogo4.jpg)
+
 ## 企業様へ
 
-このアプリは「記事投稿・編集機能」に最も力を入れて開発しました。その為、この機能が最もPRしたい部分になります。このアプリを評価する際は是非、**テスト用環境にて、実際に記事の投稿と編集をご体験ください。**
+このアプリは「記事投稿・編集機能」に最も力を入れて開発しました。このアプリを評価する際は是非、**テスト用環境にて、実際に記事の投稿と編集をご体験ください。**
 
 ## 本番環境
 
@@ -22,7 +24,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 | メールアドレス | hobby@connection.com |
 | パスワード     | hobbyconnectiontest  |
 
-## 概要
+## Hobby Connection とは
 
 自分の趣味をみんなに共有するブログアプリです。
 
@@ -30,7 +32,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 
 特に、記事を投稿したユーザ自身に興味を持ち、そのユーザの別の趣味に触れることで、新たな趣味をつくるというプロセスを作りたいです。
 
-## 何故開発しようと思ったか
+## 開発背景
 
 開発しようと思った理由は以下の３つです。
 
@@ -60,35 +62,15 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 
 ## 使用技術
 
-### 開発環境
-
--   WSL2（Ubuntu 22.04 LTS）
--   Docker
--   Visual Studio Code
-
-### 開発言語
-
--   TypeScript
--   PHP
-
-### フレームワーク
-
--   Laravel10
--   React
--   Inertia
--   Tailwind CSS
-
-### データベース
-
--   MySQL
-
-### インフラ
-
--   Heroku
-
-### 画像ファイル管理
-
--   AWS S3
+| カテゴリ       | 使用技術                                                           |
+| -------------- | ------------------------------------------------------------------ |
+| 開発環境       | WSL2 (Ubuntu 22.04 LTS), Docker, Visual Studio Code, Git, GitHub   |
+| 本番環境       | Heroku                                                             |
+| フロントエンド | TypeScript 5.0.2, React 18.2.0, Inertia.js 1.0, Tailwind CSS 3.2.1 |
+| バックエンド   | PHP 8.2.10, Laravel 10.29.0, Inertia.js 1.0                        |
+| データベース   | MySQL 8.0.32 (開発環境), Postgresql 15.4 (本番環境)                |
+| インフラ       | Heroku, Amazon Web Services (Amazon S3)                            |
+| ファイル管理   | Amazon S3                                                          |
 
 ## 機能一覧
 
@@ -99,7 +81,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   ユーザ新規登録機能
 -   プロフィール設定機能
 -   記事閲覧機能
--   記事閲覧ページに記載されたURLに自動でリンクがつく機能
+-   記事閲覧ページに記載された URL に自動でリンクがつく機能
 -   記事一覧表示機能
 -   ペジネーション機能
 -   記事投稿機能
@@ -116,6 +98,18 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   タグ機能
 -   いいね機能
 
+<center>アプリ紹介画面</center>
+
+|                                                   |                                                       |
+| :-----------------------------------------------: | :---------------------------------------------------: |
+| ![アプリ紹介画面（PC）](public/images/photo1.jpg) | ![アプリ紹介画面（スマホ）](public/images/photo2.jpg) |
+|             <center>PC 表示</center>              |              <center>スマホ表示</center>              |
+
+| ログイン画面                                     | 　チャット画面                                                   |
+| ------------------------------------------------ | ---------------------------------------------------------------- |
+| ![ログイン画面](/docs/img/Readme/login-page.png) | ![チャット画面](/docs/img/Readme/chat-page.png)                  |
+| ログイン ID とパスワードでログインができます。   | ページ更新が不必要なリアルタイムでのチャット機能を実装しました。 |
+
 ### 今後搭載予定の機能
 
 -   記事の一時保存機能
@@ -126,18 +120,20 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   ユーザ検索機能
 -   検索したユーザのプロフィール・記事を閲覧できる機能（タグをクリックすると、そのタグを設定した記事が一覧表示されるようにする）
 
-## [サイトストラクチャ](https://drive.google.com/file/d/1r9j9nggoobS2rChpoOU6z4YkgNXmqe_z/view?usp=sharing)
+## ER 図
 
-## [ワイヤフレーム](https://app.diagrams.net/#G1rMCmTkB2WtT4swPb3ieEt_686NVUhFAk)
+![ER図](/public/images/ホビーコネクション＿ER図-ER図.jpg)
 
-## [ER 図](https://drive.google.com/file/d/1r8Pw335I2oew5LOtUtZQcrVuXPY7uuU8/view?usp=sharing)
+## 苦労した点
+
+-
 
 ## 今後の改善案
 
--   コンポーネントや関数のメモ化を試みたが、ナビゲーションバーぐらいしか上手くいかなかった。具体的には、以下の点が上手くいかなかった。
+-   コンポーネントや関数のメモ化を試みたが、ナビゲーションバーしか上手くいかなかった。具体的には、以下の点が上手くいかなかった。
 
     -   サブフォームがレンダリングされると親コンポーネントのメインフォームとページ（create.tsx、edit.tsx）が再レンダリングされてしまう。
     -   メインフォームが入力されると子コンポーネントのサブフォームと親コンポーネントのページ（create.tsx、edit.tsx）が再レンダリングされてしまう。しかし、サブフォームをメモ化するとサブフォームをループでレンダリングするメインフォームがレンダリングされないので、サブフォームで入力・削除するとそのサブフォーム以降のサブフォームが消滅する。
     -   React Dev Tools の Profiler でパフォーマンスを計測しようとしたが、「Profiling not supported. Profiling support requires either a development or profiling build of React v16.5+.」と表示され、使用できない。開発環境の React は v18.2.0 であり、条件を満たしているのにも関わらず、サポート対象外となってしまう。
 
-    序盤からメモ化することを想定してコンポーネントを設計しないとパフォーマンス改善に取り組むことすら出来なくなるのだと学んだ。今後はこのようなことがないように、他のエンジニアにコードレビューをしてもらいながら開発するようにしたい。
+    序盤からメモ化することを想定してコンポーネントを設計しないとパフォーマンス改善に取り組むことすら出来なくなるのだと学んだ。特に、状態管理ライブラリとして Redux や Recoil を採用すれば、パフォーマンス改善の余地があったのかもしれない。今後はこのようなことがないように、他のエンジニアにコードレビューをしてもらいながら開発するようにしたい。
