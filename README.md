@@ -103,18 +103,18 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
   </tr>
   <tr>
-    <td style="text-align:center;"><img src="public/images/photo1.jpg" alt="アプリ紹介画面（PC）"/></td>
-    <td style="text-align:center;"><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/></td>
+    <td><img src="public/images/photo1.jpg" alt="アプリ紹介画面（PC）"/></td>
+    <td><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/></td>
   </tr>
   <tr>
     <td style="text-align:center;">PC表示</td>
     <td style="text-align:center;">スマホ表示</td>
   </tr>
-  <!-- アプリ紹介画面の說明 -->
   <tr>
-    <td colspan="2">
+    <td colspan="2" style="text-align:center;">
       アプリ紹介画面では、アプリの概要を紹介しています。
     </td>
+  </tr>
 </table>
 
 | ログイン画面                                     | 　チャット画面                                                   |
