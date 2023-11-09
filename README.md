@@ -98,12 +98,15 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   タグ機能
 -   いいね機能
 
-<center>アプリ紹介画面</center>
-
-|                                                   |                                                       |
-| :-----------------------------------------------: | :---------------------------------------------------: |
-| ![アプリ紹介画面（PC）](public/images/photo1.jpg) | ![アプリ紹介画面（スマホ）](public/images/photo2.jpg) |
-|             <center>PC 表示</center>              |              <center>スマホ表示</center>              |
+<table>
+  <tr>
+    <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
+  </tr>
+  <tr>
+    <td style="text-align:center; vertical-align:middle;"><img src="public/images/photo1.jpg" alt="アプリ紹介画面（PC）"/><br>PC表示</td>
+    <td style="text-align:center; vertical-align:middle;"><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/><br>スマホ表示</td>
+  </tr>
+</table>
 
 | ログイン画面                                     | 　チャット画面                                                   |
 | ------------------------------------------------ | ---------------------------------------------------------------- |
