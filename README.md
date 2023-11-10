@@ -79,7 +79,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   レスポンシブデザイン
 -   ログイン機能
 -   ユーザ新規登録機能
--   プロフィール設定機能
+-   ユーザー情報設定機能
 -   記事閲覧機能
 -   記事閲覧ページに記載された URL に自動でリンクがつく機能
 -   記事一覧表示機能
@@ -99,40 +99,256 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   いいね機能
 
 <table>
-  <tr>
-    <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
-  </tr>
-  <tr>
-    <td><img src="public/images/photo1.jpg" alt="アプリ紹介画面（PC）"/></td>
-    <td><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/></td>
-  </tr>
-  <tr>
-    <td align="center">PC表示</td>
-    <td align="center">スマホ表示</td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      アプリ紹介画面では、アプリの概要を紹介しています。
-    </td>
+    <tr>
+        <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/アプリ紹介画面_PC.gif" alt="アプリ紹介画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/アプリ紹介画面_スマホ.gif" alt="アプリ紹介画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            サービス内容が一目で分かるように実装しました。
+        </td>
+    </tr>
 </table>
 
 <table>
-  <tr>
-    <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
-  </tr>
-  <tr>
-    <td><img src="public/images/photo1.jpg" alt="アプリ紹介画面（PC）"/></td>
-    <td><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/></td>
-  </tr>
-  <tr>
-    <td align="center">PC表示</td>
-    <td align="center">スマホ表示</td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      アプリ紹介画面では、アプリの概要を紹介しています。
-    </td>
+    <tr>
+        <th colspan="2" style="text-align:center;">新規登録画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/新規登録画面_PC.jpg" alt="新規登録画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/新規登録画面_スマホ.jpg" alt="新規登録画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ユーザー名・メールアドレス・パスワードを入力してユーザー登録を行います。このとき、利用規約・プライバシーポリシーに同意する必要があります。
+        </td>
+    </tr>
 </table>
+
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">ログイン画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/ログイン画面_PC.jpg" alt="ログイン画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/ログイン画面_スマホ.jpg" alt="ログイン画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            メールアドレス・パスワードを入力してログインを行います。
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">投稿された全ての記事の一覧</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/投稿された全ての記事の一覧_PC.gif" alt="投稿された全ての記事の一覧（PC）"/></td>
+        <td><img src="public/images/画面一覧/投稿された全ての記事の一覧_スマホ.gif" alt="投稿された全ての記事の一覧（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            投稿された全ての記事を一覧表示します。ページネーション機能により、ページを移動することが出来ます。
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">記事閲覧画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/記事閲覧画面_PC.gif" alt="記事閲覧画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/記事閲覧画面_スマホ.gif" alt="記事閲覧画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            投稿された記事を読むことができます。記事の内容に URL が含まれている場合、自動でリンクがつきます。
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">記事投稿画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/記事投稿画面_PC.gif" alt="記事投稿画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/記事投稿画面_スマホ.gif" alt="記事閲覧画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            記事を投稿することができます。この画面では、以下の機能を実装しました。
+            <ul>
+                <li>アラート付きタイマー</li>
+                <li>記事TOPのタイトル・期間・画像・概要・タグを設定する機能</li>
+                <li>画像のプレビュー</li>
+                <li>画像以外のファイル添付を防ぐ機能</li>
+                <li>投稿の見出し・コメント・画像を設定する機能</li>
+                <li>投稿の追加・削除</li>
+                <li>ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能</li>
+                <li>記事投稿前確認アラート</li>
+                <li>記事投稿中のロードアニメーション</li>
+                <li>記事投稿完了アラート</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<!-- 記事投稿画面の機能一覧 -->
+<table>
+    <tr>
+        <th colspan="3" style="text-align:center;">記事投稿画面の機能</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/アラート付きタイマー.gif" alt="アラート付きタイマー"/></td>
+        <td><img src="public/images/画面一覧/画像プレビュー.gif" alt="画像プレビュー"/></td>
+        <td><img src="public/images/画面一覧/画像以外防止.gif" alt="画像以外防止"/></td>
+    </tr>
+    <tr>
+        <td align="center">アラート付きタイマー</td>
+        <td align="center">画像のプレビュー</td>
+        <td align="center">画像以外のファイル添付を防ぐ機能</td>
+    </tr>
+    <!-- 二重線を引く -->
+    <tr>
+        <td colspan="3"><hr style="border-top: 2px double #000000;"></td>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/投稿追加・削除.gif" alt="投稿追加・削除"/></td>
+        <td><img src="public/images/画面一覧/入力内容削除防止.gif" alt="入力内容削除防止"/></td>
+        <td><img src="public/images/画面一覧/投稿前確認・ロードアニメーション・アラート.gif" alt="投稿前確認・ロードアニメーション・アラート"/></td>
+    </tr>
+    <tr>
+        <td align="center">投稿の追加・削除</td>
+        <td align="center">ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能</td>
+        <td align="center">記事投稿前確認・投稿中のロードアニメーション・記事投稿完了アラート</td>
+    </tr>
+</table>
+
+<!-- マイページ -->
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">マイページ</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/マイページ_PC.gif" alt="マイページ（PC）"/></td>
+        <td><img src="public/images/画面一覧/マイページ_スマホ.gif" alt="マイページ（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ユーザーのユーザー情報・投稿した記事を閲覧することができます。
+        </td>
+    </tr>
+</table>
+
+<!-- 投稿した記事の一覧 -->
+<table>
+    <tr>
+        <th colspan="3" style="text-align:center;">投稿した記事の一覧</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/投稿した記事の一覧_PC.gif" alt="投稿した記事の一覧（PC）"/></td>
+        <td><img src="public/images/画面一覧/投稿した記事の一覧_スマホ.gif" alt="投稿した記事の一覧（スマホ）"/></td>
+        <td><img src="public/images/画面一覧/記事削除.gif" alt="記事削除"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+        <td align="center">投稿した記事の削除</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            投稿した記事を一覧表示します。ページネーション機能により、ページを移動することが出来ます。記事編集・削除もこの画面から行うことが出来ます。
+        </td>
+    </tr>
+</table>
+
+<!-- 記事編集画面 -->
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">記事編集画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/記事編集画面_PC.gif" alt="記事編集画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/記事編集画面_スマホ.gif" alt="記事編集画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            投稿した記事を編集することができます。この画面では記事投稿画面と同様に、以下の機能を実装しました。
+            <ul>
+                <li>アラート付きタイマー</li>
+                <li>記事TOPのタイトル・期間・画像
+                <li>画像のプレビュー</li>
+                <li>画像以外のファイル添付を防ぐ機能</li>
+                <li>投稿の見出し・コメント・画像を設定する機能</li>
+                <li>投稿の追加・削除</li>
+                <li>ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能</li>
+                <li>記事更新前確認アラート</li>
+                <li>記事更新中のロードアニメーション</li>
+                <li>記事更新完了アラート</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<!-- ユーザー情報編集画面 -->
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">ユーザー情報編集画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/ユーザー情報編集画面_PC.gif" alt="ユーザー情報編集画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/ユーザー情報編集画面_スマホ.gif" alt="ユーザー情報編集画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ユーザー情報・パスワードの編集とアカウントの削除をすることができます。
+        </td>
+    </tr>
+</table>
+
 
 
 ### 今後搭載予定の機能
@@ -143,7 +359,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   閲覧した記事にコメントする機能
 -   記事検索機能
 -   ユーザ検索機能
--   検索したユーザのプロフィール・記事を閲覧できる機能（タグをクリックすると、そのタグを設定した記事が一覧表示されるようにする）
+-   検索したユーザのユーザー情報・記事を閲覧できる機能（タグをクリックすると、そのタグを設定した記事が一覧表示されるようにする）
 
 ## ER 図
 

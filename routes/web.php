@@ -18,10 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{article}', [ArticlesController::class, 'update'])->name('update')->middleware('can:update,article'); //記事の更新処理。putメソッドを使用すると、リクエストパラメータが空になるためpostメソッドを使用。
     Route::delete('/posts/{article}', [ArticlesController::class, 'destroy'])->name('destroy')->middleware('can:delete,article'); //記事の削除処理
 
-    // プロフィール編集
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // プロフィール編集画面
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update'); // プロフィール更新処理
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); // プロフィール削除処理
+    // ユーザー情報編集
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // ユーザー情報編集画面
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update'); // ユーザー情報更新処理
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); // ユーザー情報削除処理
 });
 
 // ログイン時・ログアウト時に関わらずアクセスできるルート
