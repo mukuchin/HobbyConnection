@@ -107,20 +107,33 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     <td><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/></td>
   </tr>
   <tr>
-    <td style="text-align:center;">PC表示</td>
-    <td style="text-align:center;">スマホ表示</td>
+    <td align="center">PC表示</td>
+    <td align="center">スマホ表示</td>
   </tr>
   <tr>
-    <td colspan="2" style="text-align:center;">
+    <td colspan="2">
       アプリ紹介画面では、アプリの概要を紹介しています。
     </td>
-  </tr>
 </table>
 
-| ログイン画面                                     | 　チャット画面                                                   |
-| ------------------------------------------------ | ---------------------------------------------------------------- |
-| ![ログイン画面](/docs/img/Readme/login-page.png) | ![チャット画面](/docs/img/Readme/chat-page.png)                  |
-| ログイン ID とパスワードでログインができます。   | ページ更新が不必要なリアルタイムでのチャット機能を実装しました。 |
+<table>
+  <tr>
+    <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
+  </tr>
+  <tr>
+    <td><img src="public/images/photo1.jpg" alt="アプリ紹介画面（PC）"/></td>
+    <td><img src="public/images/photo2.jpg" alt="アプリ紹介画面（スマホ）"/></td>
+  </tr>
+  <tr>
+    <td align="center">PC表示</td>
+    <td align="center">スマホ表示</td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      アプリ紹介画面では、アプリの概要を紹介しています。
+    </td>
+</table>
+
 
 ### 今後搭載予定の機能
 
