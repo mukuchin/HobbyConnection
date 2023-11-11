@@ -235,7 +235,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <tr>
         <td><img src="public/images/画面一覧/記事投稿画面_PC.gif" alt="記事投稿画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/記事投稿画面_スマホ.gif" alt="記事閲覧画面（スマホ）"/></td>
+        <td><img src="public/images/画面一覧/記事投稿画面_スマホ.gif" alt="記事投稿画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
