@@ -98,6 +98,37 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   タグ機能
 -   いいね機能
 
+<!-- ナビゲーションバー -->
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">ナビゲーションバー</th>
+    </tr>
+    <!-- ログイン前 -->
+    <tr>
+        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン前_PC.gif" alt="ナビゲーションバー（ログイン前）（PC）"/></td>
+        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン前_スマホ.gif" alt="ナビゲーションバー（ログイン前）（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示（ログイン前）</td>
+        <td align="center">スマートフォン表示（ログイン前）</td>
+    </tr>
+    <!-- ログイン後 -->
+    <tr>
+        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン後_PC.gif" alt="ナビゲーションバー（ログイン後）（PC）"/></td>
+        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン後_スマホ.gif" alt="ナビゲーションバー（ログイン後）（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示（ログイン後）</td>
+        <td align="center">スマートフォン表示（ログイン後）</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ログイン前とログイン後で表示が変わります。ログイン前は、ログイン画面・新規登録画面のリンクが表示されます。ログイン後は、ユーザー情報編集・マイページ・ログアウトのリンクが表示されます。画面を下にスクロールすると、ナビゲーションバーのロゴ部分が画面上部に折りたたまれます。逆に、画面を上にスクロールすると、ナビゲーションバーのロゴ部分が画面上部から出てきます。
+        </td>
+    </tr>
+</table>
+
+<!-- アプリ紹介画面 -->
 <table>
     <tr>
         <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
@@ -117,25 +148,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<table>
-    <tr>
-        <th colspan="2" style="text-align:center;">新規登録画面</th>
-    </tr>
-    <tr>
-        <td><img src="public/images/画面一覧/新規登録画面_PC.jpg" alt="新規登録画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/新規登録画面_スマホ.jpg" alt="新規登録画面（スマホ）"/></td>
-    </tr>
-    <tr>
-        <td align="center">PC表示</td>
-        <td align="center">スマートフォン表示</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            ユーザー名・メールアドレス・パスワードを入力してユーザー登録を行います。このとき、利用規約・プライバシーポリシーに同意する必要があります。
-        </td>
-    </tr>
-</table>
-
+<!-- ログイン画面 -->
 <table>
     <tr>
         <th colspan="2" style="text-align:center;">ログイン画面</th>
@@ -155,6 +168,27 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
+<!-- 新規登録画面 -->
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">新規登録画面</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/新規登録画面_PC.jpg" alt="新規登録画面（PC）"/></td>
+        <td><img src="public/images/画面一覧/新規登録画面_スマホ.jpg" alt="新規登録画面（スマホ）"/></td>
+    </tr>
+    <tr>
+        <td align="center">PC表示</td>
+        <td align="center">スマートフォン表示</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ユーザー名・メールアドレス・パスワードを入力してユーザー登録を行います。このとき、利用規約・プライバシーポリシーに同意する必要があります。
+        </td>
+    </tr>
+</table>
+
+<!-- 投稿された全ての記事の一覧 -->
 <table>
     <tr>
         <th colspan="2" style="text-align:center;">投稿された全ての記事の一覧</th>
@@ -174,6 +208,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
+<!-- 記事閲覧画面 -->
 <table>
     <tr>
         <th colspan="2" style="text-align:center;">記事閲覧画面</th>
@@ -188,11 +223,12 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <tr>
         <td colspan="2">
-            投稿された記事を読むことができます。記事の内容に URL が含まれている場合、自動でリンクがつきます。
+            投稿された記事を読むことができます。記事の内容に URL が含まれている場合、自動でリンクがつきます。ログイン状態に関わらず、記事を閲覧できます。
         </td>
     </tr>
 </table>
 
+<!-- 記事投稿画面 -->
 <table>
     <tr>
         <th colspan="2" style="text-align:center;">記事投稿画面</th>
@@ -217,6 +253,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
                 <li>投稿の追加・削除</li>
                 <li>ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能</li>
                 <li>記事投稿前確認アラート</li>
+                <li>バリデーション機能</li>
                 <li>記事投稿中のロードアニメーション</li>
                 <li>記事投稿完了アラート</li>
             </ul>
@@ -252,6 +289,21 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         <td align="center">投稿の追加・削除</td>
         <td align="center">ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能</td>
         <td align="center">記事投稿前確認・投稿中のロードアニメーション・記事投稿完了アラート</td>
+    </tr>
+    <!-- 二重線を引く -->
+    <tr>
+        <td colspan="3"><hr style="border-top: 2px double #000000;"></td>
+    </tr>
+    <!-- バリデーション -->
+    <tr>
+        <td><img src="public/images/画面一覧/バリデーション_未入力.gif" alt="バリデーション_未入力"/></td>
+        <td><img src="public/images/画面一覧/バリデーション_画像サイズ超過.gif" alt="バリデーション_画像サイズ超過"/></td>
+        <td><img src="public/images/画面一覧/バリデーション_画像合計サイズ超過.gif" alt="バリデーション_画像合計サイズ超過"/></td>
+    </tr>
+    <tr>
+        <td align="center">タイトル・概要が未入力の際のエラーメッセージ</td>
+        <td align="center">画像サイズが 2MB を超過した際のエラーメッセージ</td>
+        <td align="center">画像合計サイズが 20MB を超過した際のエラーメッセージ</td>
     </tr>
 </table>
 
@@ -291,7 +343,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         <td align="center">投稿した記事の削除</td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="3">
             投稿した記事を一覧表示します。ページネーション機能により、ページを移動することが出来ます。記事編集・削除もこの画面から行うことが出来ます。
         </td>
     </tr>
@@ -322,6 +374,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
                 <li>投稿の追加・削除</li>
                 <li>ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能</li>
                 <li>記事更新前確認アラート</li>
+                <li>バリデーション機能</li>
                 <li>記事更新中のロードアニメーション</li>
                 <li>記事更新完了アラート</li>
             </ul>
@@ -349,7 +402,25 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-
+<!-- いいね機能 -->
+<table>
+    <tr>
+        <th colspan="2" style="text-align:center;">いいね機能</th>
+    </tr>
+    <tr>
+        <td><img src="public/images/画面一覧/いいね機能_ログイン前.gif" alt="いいね機能（ログイン前）"/></td>
+        <td><img src="public/images/画面一覧/いいね機能_ログイン後.gif" alt="いいね機能（ログイン後）"/></td>
+    </tr>
+    <tr>
+        <td align="center">ログイン前にいいねボタンを押した場合</td>
+        <td align="center">ログイン後にいいねボタンを押した場合</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ログイン前にいいねボタンを押すと、ログインを促すアラートが表示されます。ログイン後にいいねボタンを押すと、いいねが付きます。いいねを取り消すこともできます。
+        </td>
+    </tr>
+</table>
 
 ### 今後搭載予定の機能
 
