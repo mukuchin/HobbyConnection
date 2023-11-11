@@ -56,22 +56,6 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 
 以上の理由から、私は趣味を共有できる Web アプリを作ってみたいと思いました。Hobby Connection を使用することで、趣味を体験して楽しみ、新たな趣味を見つけて、人生が今よりも豊かになれば嬉しいです。
 
-## 開発人数
-
-1 人
-
-## 使用技術
-
-| カテゴリ       | 使用技術                                                           |
-| -------------- | ------------------------------------------------------------------ |
-| 開発環境       | WSL2 (Ubuntu 22.04 LTS), Docker, Visual Studio Code, Git, GitHub   |
-| 本番環境       | Heroku                                                             |
-| フロントエンド | TypeScript 5.0.2, React 18.2.0, Inertia.js 1.0, Tailwind CSS 3.2.1 |
-| バックエンド   | PHP 8.2.10, Laravel 10.29.0, Inertia.js 1.0                        |
-| データベース   | MySQL 8.0.32 (開発環境), Postgresql 15.4 (本番環境)                |
-| インフラ       | Heroku, Amazon Web Services (Amazon S3)                            |
-| ファイル管理   | Amazon S3                                                          |
-
 ## 機能一覧
 
 ### 現在搭載されている機能
@@ -431,6 +415,22 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 -   記事検索機能
 -   ユーザ検索機能
 -   検索したユーザのユーザー情報・記事を閲覧できる機能（タグをクリックすると、そのタグを設定した記事が一覧表示されるようにする）
+
+## 開発人数
+
+1 人
+
+## 使用技術
+
+| カテゴリ       | 使用技術                                                           |
+| -------------- | ------------------------------------------------------------------ |
+| 開発環境       | WSL2 (Ubuntu 22.04 LTS), Docker, Visual Studio Code, Git, GitHub   |
+| 本番環境       | Heroku                                                             |
+| フロントエンド | TypeScript 5.0.2, React 18.2.0, Inertia.js 1.0, Tailwind CSS 3.2.1 |
+| バックエンド   | PHP 8.2.10, Laravel 10.29.0, Inertia.js 1.0                        |
+| データベース   | MySQL 8.0.32 (開発環境), Postgresql 15.4 (本番環境)                |
+| インフラ       | Heroku, Amazon Web Services (Amazon S3)                            |
+| ファイル管理   | Amazon S3                                                          |
 
 ## ER 図
 
