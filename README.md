@@ -60,67 +60,61 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 
 ### 現在搭載されている機能
 
-#### 目次
-
--   レスポンシブデザイン
--   ナビゲーションバー
-    -   ログイン前
-        -   PC 表示
-        -   スマートフォン表示
-    -   ログイン後
-        -   PC 表示
-        -   スマートフォン表示
--   TOP 画面
-    -   アプリ紹介画面
-        -   PC 表示
-        -   スマートフォン表示
-    -   投稿された全ての記事の一覧
-        -   PC 表示
-        -   スマートフォン表示
--   ログイン画面
-    -   PC 表示
-    -   スマートフォン表示
--   新規登録画面
-    -   PC 表示
-    -   スマートフォン表示
--   記事閲覧画面
-    -   PC 表示
-    -   スマートフォン表示
--   記事投稿画面
-    -   PC 表示
-    -   スマートフォン表示
-    -   記事投稿画面の機能
-        -   アラート付きタイマー
-        -   画像のプレビュー
-        -   画像以外のファイル添付を防ぐ機能
-        -   投稿の追加・削除
-        -   ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能
-        -   記事投稿前確認・投稿中のロードアニメーション・記事投稿完了アラート
-        -   タイトル・概要が未入力の際のエラーメッセージ
-        -   画像サイズが 2MB を超過した際のエラーメッセージ
-        -   画像合計サイズが 20MB を超過した際のエラーメッセージ
--   マイページ
-    -   PC 表示
-    -   スマートフォン表示
-    -   投稿した記事の削除
--   記事編集画面
-    -   PC 表示
-    -   スマートフォン表示
--   ユーザー情報編集画面
-    -   PC 表示
-    -   スマートフォン表示
--   いいね機能
-    -   ログイン前
-    -   ログイン後
-
-<tr>
-    <hr style="border-top: 2px double #000000;">
-</tr>
+-   [レスポンシブデザイン](#レスポンシブデザイン)
+-   [ナビゲーションバー](#ナビゲーションバー)
+    -   [ログイン前](#ログイン前)
+        -   [PC 表示](#ログイン前-pc)
+        -   [スマートフォン表示](#ログイン前-スマートフォン)
+    -   [ログイン後](#ログイン後)
+        -   [PC 表示](#ログイン後-pc)
+        -   [スマートフォン表示](#ログイン後-スマートフォン)
+-   [TOP 画面](#top-画面)
+    -   [アプリ紹介画面](#アプリ紹介画面)
+        -   [PC 表示](#アプリ紹介画面-pc)
+        -   [スマートフォン表示](#アプリ紹介画面-スマートフォン)
+    -   [投稿された全ての記事の一覧](#投稿された全ての記事の一覧)
+        -   [PC 表示](#投稿された全ての記事の一覧-pc)
+        -   [スマートフォン表示](#投稿された全ての記事の一覧-スマートフォン)
+-   [ログイン画面](#ログイン画面)
+    -   [PC 表示](#ログイン画面-pc)
+    -   [スマートフォン表示](#ログイン画面-スマートフォン)
+-   [新規登録画面](#新規登録画面)
+    -   [PC 表示](#新規登録画面-pc)
+    -   [スマートフォン表示](#新規登録画面-スマートフォン)
+-   [記事閲覧画面](#記事閲覧画面)
+    -   [PC 表示](#記事閲覧画面-pc)
+    -   [スマートフォン表示](#記事閲覧画面-スマートフォン)
+-   [記事投稿画面](#記事投稿画面)
+    -   [PC 表示](#記事投稿画面-pc)
+    -   [スマートフォン表示](#記事投稿画面-スマートフォン)
+    -   [記事投稿画面の機能](#記事投稿画面の機能)
+        -   [アラート付きタイマー](#アラート付きタイマー)
+        -   [画像のプレビュー](#画像のプレビュー)
+        -   [画像以外のファイル添付を防ぐ機能](#画像以外のファイル添付を防ぐ機能)
+        -   [投稿の追加・削除](#投稿の追加・削除)
+        -   [ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能](#ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能)
+        -   [記事投稿前確認・投稿中のロードアニメーション・記事投稿完了アラート](#記事投稿前確認・投稿中のロードアニメーション・記事投稿完了アラート)
+        -   [タイトル・概要が未入力の際のエラーメッセージ](#タイトル・概要が未入力の際のエラーメッセージ)
+        -   [画像サイズが 2MB を超過した際のエラーメッセージ](#画像サイズが-2mb-を超過した際のエラーメッセージ)
+        -   [画像合計サイズが 20MB を超過した際のエラーメッセージ](#画像合計サイズが-20mb-を超過した際のエラーメッセージ)
+-   [マイページ](#マイページ)
+    -   [PC 表示](#マイページ-pc)
+    -   [スマートフォン表示](#マイページ-スマートフォン)
+    -   [投稿した記事の削除](#投稿した記事の削除)
+-   [記事編集画面](#記事編集画面)
+    -   [PC 表示](#記事編集画面-pc)
+    -   [スマートフォン表示](#記事編集画面-スマートフォン)
+-   [ユーザー情報編集画面](#ユーザー情報編集画面)
+    -   [PC 表示](#ユーザー情報編集画面-pc)
+    -   [スマートフォン表示](#ユーザー情報編集画面-スマートフォン)
+-   [いいね機能](#いいね機能)
+    -   [ログイン前](#いいね機能-ログイン前)
+    -   [ログイン後](#いいね機能-ログイン後)
 
 <!-- レスポンシブデザイン -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">レスポンシブデザイン</th>
+        <th id="レスポンシブデザイン" colspan="2" style="text-align:center;">レスポンシブデザイン</th>
     </tr>
     <tr>
         <td colspan="2">
@@ -129,14 +123,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;">
-</tr>
-
 <!-- ナビゲーションバー -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">ナビゲーションバー</th>
+        <th id="ナビゲーションバー" colspan="2" style="text-align:center;">ナビゲーションバー</th>
     </tr>
     <tr>
         <td colspan="2">
@@ -145,11 +135,11 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <!-- ログイン前 -->
     <tr>
-        <th colspan="2" style="text-align:center;">ログイン前</th>
+        <th id="ログイン前" colspan="2" style="text-align:center;">ログイン前</th>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン前_PC.gif" alt="ナビゲーションバー（ログイン前）（PC）"/></td>
-        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン前_スマホ.gif" alt="ナビゲーションバー（ログイン前）（スマホ）"/></td>
+        <td id="ログイン前-pc"><img src="public/images/画面一覧/ナビゲーションバー_ログイン前_PC.gif" alt="ナビゲーションバー（ログイン前）（PC）"/></td>
+        <td id="ログイン前-スマートフォン"><img src="public/images/画面一覧/ナビゲーションバー_ログイン前_スマホ.gif" alt="ナビゲーションバー（ログイン前）（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -157,11 +147,11 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <!-- ログイン後 -->
     <tr>
-        <th colspan="2" style="text-align:center;">ログイン後</th>
+        <th id="ログイン後" colspan="2" style="text-align:center;">ログイン後</th>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン後_PC.gif" alt="ナビゲーションバー（ログイン後）（PC）"/></td>
-        <td><img src="public/images/画面一覧/ナビゲーションバー_ログイン後_スマホ.gif" alt="ナビゲーションバー（ログイン後）（スマホ）"/></td>
+        <td id="ログイン後-pc"><img src="public/images/画面一覧/ナビゲーションバー_ログイン後_PC.gif" alt="ナビゲーションバー（ログイン後）（PC）"/></td>
+        <td id="ログイン後-スマートフォン"><img src="public/images/画面一覧/ナビゲーションバー_ログイン後_スマホ.gif" alt="ナビゲーションバー（ログイン後）（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -169,14 +159,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- TOP画面 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">TOP画面</th>
+        <th id="top-画面" colspan="2" style="text-align:center;">TOP画面</th>
     </tr>
     <tr>
         <td colspan="2">
@@ -185,7 +171,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <!-- アプリ紹介画面 -->
     <tr>
-        <th colspan="2" style="text-align:center;">アプリ紹介画面</th>
+        <th id="アプリ紹介画面" colspan="2" style="text-align:center;">アプリ紹介画面</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -193,8 +179,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/アプリ紹介画面_PC.gif" alt="アプリ紹介画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/アプリ紹介画面_スマホ.gif" alt="アプリ紹介画面（スマホ）"/></td>
+        <td id="アプリ紹介画面-pc"><img src="public/images/画面一覧/アプリ紹介画面_PC.gif" alt="アプリ紹介画面（PC）"/></td>
+        <td id="アプリ紹介画面-スマートフォン"><img src="public/images/画面一覧/アプリ紹介画面_スマホ.gif" alt="アプリ紹介画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -202,7 +188,7 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <!-- 投稿された全ての記事の一覧 -->
     <tr>
-        <th colspan="2" style="text-align:center;">投稿された全ての記事の一覧</th>
+        <th id="投稿された全ての記事の一覧" colspan="2" style="text-align:center;">投稿された全ての記事の一覧</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -210,8 +196,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/投稿された全ての記事の一覧_PC.gif" alt="投稿された全ての記事の一覧（PC）"/></td>
-        <td><img src="public/images/画面一覧/投稿された全ての記事の一覧_スマホ.gif" alt="投稿された全ての記事の一覧（スマホ）"/></td>
+        <td id="投稿された全ての記事の一覧-pc"><img src="public/images/画面一覧/投稿された全ての記事の一覧_PC.gif" alt="投稿された全ての記事の一覧（PC）"/></td>
+        <td id="投稿された全ての記事の一覧-スマートフォン"><img src="public/images/画面一覧/投稿された全ての記事の一覧_スマホ.gif" alt="投稿された全ての記事の一覧（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -219,14 +205,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- ログイン画面 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">ログイン画面</th>
+        <th id="ログイン画面" colspan="2" style="text-align:center;">ログイン画面</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -234,8 +216,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/ログイン画面_PC.jpg" alt="ログイン画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/ログイン画面_スマホ.jpg" alt="ログイン画面（スマホ）"/></td>
+        <td id="ログイン画面-pc"><img src="public/images/画面一覧/ログイン画面_PC.jpg" alt="ログイン画面（PC）"/></td>
+        <td id="ログイン画面-スマートフォン"><img src="public/images/画面一覧/ログイン画面_スマホ.jpg" alt="ログイン画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -243,14 +225,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- 新規登録画面 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">新規登録画面</th>
+        <th id="新規登録画面" colspan="2" style="text-align:center;">新規登録画面</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -258,8 +236,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/新規登録画面_PC.jpg" alt="新規登録画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/新規登録画面_スマホ.jpg" alt="新規登録画面（スマホ）"/></td>
+        <td id="新規登録画面-pc"><img src="public/images/画面一覧/新規登録画面_PC.jpg" alt="新規登録画面（PC）"/></td>
+        <td id="新規登録画面-スマートフォン"><img src="public/images/画面一覧/新規登録画面_スマホ.jpg" alt="新規登録画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -267,14 +245,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- 記事閲覧画面 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">記事閲覧画面</th>
+        <th id="記事閲覧画面" colspan="2" style="text-align:center;">記事閲覧画面</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -282,8 +256,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/記事閲覧画面_PC.gif" alt="記事閲覧画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/記事閲覧画面_スマホ.gif" alt="記事閲覧画面（スマホ）"/></td>
+        <td id="記事閲覧画面-pc"><img src="public/images/画面一覧/記事閲覧画面_PC.gif" alt="記事閲覧画面（PC）"/></td>
+        <td id="記事閲覧画面-スマートフォン"><img src="public/images/画面一覧/記事閲覧画面_スマホ.gif" alt="記事閲覧画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -291,14 +265,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- 記事投稿画面 -->
 <table>
     <tr>
-        <th colspan="6" style="text-align:center;">記事投稿画面</th>
+        <th id="記事投稿画面" colspan="6" style="text-align:center;">記事投稿画面</th>
     </tr>
     <tr>
         <td colspan="6">
@@ -319,31 +289,31 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td colspan="3"><img src="public/images/画面一覧/記事投稿画面_PC.gif" alt="記事投稿画面（PC）"/></td>
-        <td colspan="3"><img src="public/images/画面一覧/記事投稿画面_スマホ.gif" alt="記事投稿画面（スマホ）"/></td>
+        <td id="記事投稿画面-pc" colspan="3"><img src="public/images/画面一覧/記事投稿画面_PC.gif" alt="記事投稿画面（PC）"/></td>
+        <td id="記事投稿画面-スマートフォン" colspan="3"><img src="public/images/画面一覧/記事投稿画面_スマホ.gif" alt="記事投稿画面（スマホ）"/></td>
     </tr>
     <tr>
-        <td  colspan="3" align="center">PC表示</td>
-        <td  colspan="3" align="center">スマートフォン表示</td>
+        <td colspan="3" align="center">PC表示</td>
+        <td colspan="3" align="center">スマートフォン表示</td>
     </tr>
     <!-- 記事投稿画面の機能一覧 -->
     <tr>
         <th colspan="6" style="text-align:center;">記事投稿画面の機能</th>
     </tr>
     <tr>
-        <td colspan="2"><img src="public/images/画面一覧/アラート付きタイマー.gif" alt="アラート付きタイマー"/></td>
-        <td colspan="2"><img src="public/images/画面一覧/画像プレビュー.gif" alt="画像プレビュー"/></td>
-        <td colspan="2"><img src="public/images/画面一覧/画像以外防止.gif" alt="画像以外防止"/></td>
+        <td id="アラート付きタイマー" colspan="2"><img src="public/images/画面一覧/アラート付きタイマー.gif" alt="アラート付きタイマー"/></td>
+        <td id="画像のプレビュー" colspan="2"><img src="public/images/画面一覧/画像プレビュー.gif" alt="画像プレビュー"/></td>
+        <td id="画像以外のファイル添付を防ぐ機能" colspan="2"><img src="public/images/画面一覧/画像以外防止.gif" alt="画像以外防止"/></td>
     </tr>
     <tr>
-        <td  colspan="2" align="center">アラート付きタイマー</td>
+        <td colspan="2" align="center">アラート付きタイマー</td>
         <td colspan="2" align="center">画像のプレビュー</td>
         <td colspan="2" align="center">画像以外のファイル添付を防ぐ機能</td>
     </tr>
     <tr>
-        <td colspan="2"><img src="public/images/画面一覧/投稿追加・削除.gif" alt="投稿追加・削除"/></td>
-        <td colspan="2"><img src="public/images/画面一覧/入力内容削除防止.gif" alt="入力内容削除防止"/></td>
-        <td colspan="2"><img src="public/images/画面一覧/投稿前確認・ロードアニメーション・アラート.gif" alt="投稿前確認・ロードアニメーション・アラート"/></td>
+        <td id="投稿の追加・削除" colspan="2"><img src="public/images/画面一覧/投稿追加・削除.gif" alt="投稿追加・削除"/></td>
+        <td id="ページ遷移・再読み込みによる入力内容が削除されるのを防ぐ機能" colspan="2"><img src="public/images/画面一覧/入力内容削除防止.gif" alt="入力内容削除防止"/></td>
+        <td id="記事投稿前確認・投稿中のロードアニメーション・記事投稿完了アラート" colspan="2"><img src="public/images/画面一覧/投稿前確認・ロードアニメーション・アラート.gif" alt="投稿前確認・ロードアニメーション・アラート"/></td>
     </tr>
     <tr>
         <td colspan="2" align="center">投稿の追加・削除</td>
@@ -352,9 +322,9 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
     <!-- バリデーション -->
     <tr>
-        <td colspan="2"><img src="public/images/画面一覧/バリデーション_未入力.gif" alt="バリデーション_未入力"/></td>
-        <td colspan="2"><img src="public/images/画面一覧/バリデーション_画像サイズ超過.gif" alt="バリデーション_画像サイズ超過"/></td>
-        <td colspan="2"><img src="public/images/画面一覧/バリデーション_画像合計サイズ超過.gif" alt="バリデーション_画像合計サイズ超過"/></td>
+        <td id="タイトル・概要が未入力の際のエラーメッセージ" colspan="2"><img src="public/images/画面一覧/バリデーション_未入力.gif" alt="バリデーション_未入力"/></td>
+        <td id="画像サイズが-2mb-を超過した際のエラーメッセージ" colspan="2"><img src="public/images/画面一覧/バリデーション_画像サイズ超過.gif" alt="バリデーション_画像サイズ超過"/></td>
+        <td id="画像合計サイズが-20mb-を超過した際のエラーメッセージ" colspan="2"><img src="public/images/画面一覧/バリデーション_画像合計サイズ超過.gif" alt="バリデーション_画像合計サイズ超過"/></td>
     </tr>
     <tr>
         <td colspan="2" align="center">タイトル・概要が未入力の際のエラーメッセージ</td>
@@ -363,14 +333,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- マイページ -->
 <table>
     <tr>
-        <th colspan="3" style="text-align:center;">マイページ</th>
+        <th id="マイページ" colspan="3" style="text-align:center;">マイページ</th>
     </tr>
     <tr>
         <td colspan="3">
@@ -378,9 +344,9 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/投稿した記事の一覧_PC.gif" alt="投稿した記事の一覧（PC）"/></td>
-        <td><img src="public/images/画面一覧/投稿した記事の一覧_スマホ.gif" alt="投稿した記事の一覧（スマホ）"/></td>
-        <td><img src="public/images/画面一覧/記事削除.gif" alt="記事削除"/></td>
+        <td id="マイページ-pc"><img src="public/images/画面一覧/投稿した記事の一覧_PC.gif" alt="投稿した記事の一覧（PC）"/></td>
+        <td id="マイページ-スマートフォン"><img src="public/images/画面一覧/投稿した記事の一覧_スマホ.gif" alt="投稿した記事の一覧（スマホ）"/></td>
+        <td id="投稿した記事の削除"><img src="public/images/画面一覧/記事削除.gif" alt="記事削除"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -389,14 +355,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- 記事編集画面 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">記事編集画面</th>
+        <th id="記事編集画面" colspan="2" style="text-align:center;">記事編集画面</th>
     </tr>
     <tr>
         <td colspan="2">
@@ -417,8 +379,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/記事編集画面_PC.gif" alt="記事編集画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/記事編集画面_スマホ.gif" alt="記事編集画面（スマホ）"/></td>
+        <td id="記事編集画面-pc"><img src="public/images/画面一覧/記事編集画面_PC.gif" alt="記事編集画面（PC）"/></td>
+        <td id="記事編集画面-スマートフォン"><img src="public/images/画面一覧/記事編集画面_スマホ.gif" alt="記事編集画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -426,14 +388,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- ユーザー情報編集画面 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">ユーザー情報編集画面</th>
+        <th id="ユーザー情報編集画面" colspan="2" style="text-align:center;">ユーザー情報編集画面</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -441,8 +399,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/ユーザー情報編集画面_PC.gif" alt="ユーザー情報編集画面（PC）"/></td>
-        <td><img src="public/images/画面一覧/ユーザー情報編集画面_スマホ.gif" alt="ユーザー情報編集画面（スマホ）"/></td>
+        <td id="ユーザー情報編集画面-pc"><img src="public/images/画面一覧/ユーザー情報編集画面_PC.gif" alt="ユーザー情報編集画面（PC）"/></td>
+        <td id="ユーザー情報編集画面-スマートフォン"><img src="public/images/画面一覧/ユーザー情報編集画面_スマホ.gif" alt="ユーザー情報編集画面（スマホ）"/></td>
     </tr>
     <tr>
         <td align="center">PC表示</td>
@@ -450,14 +408,10 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
     </tr>
 </table>
 
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
-
 <!-- いいね機能 -->
 <table>
     <tr>
-        <th colspan="2" style="text-align:center;">いいね機能</th>
+        <th id="いいね機能" colspan="2" style="text-align:center;">いいね機能</th>
     </tr>
         <tr>
         <td colspan="2">
@@ -465,18 +419,14 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
         </td>
     </tr>
     <tr>
-        <td><img src="public/images/画面一覧/いいね機能_ログイン前.gif" alt="いいね機能（ログイン前）"/></td>
-        <td><img src="public/images/画面一覧/いいね機能_ログイン後.gif" alt="いいね機能（ログイン後）"/></td>
+        <td id="いいね機能-ログイン前"><img src="public/images/画面一覧/いいね機能_ログイン前.gif" alt="いいね機能（ログイン前）"/></td>
+        <td id="いいね機能-ログイン後"><img src="public/images/画面一覧/いいね機能_ログイン後.gif" alt="いいね機能（ログイン後）"/></td>
     </tr>
     <tr>
         <td align="center">ログイン前</td>
         <td align="center">ログイン後</td>
     </tr>
 </table>
-
-<tr>
-    <hr style="border-top: 2px double #000000;"></td>
-</tr>
 
 ### 今後搭載予定の機能
 
@@ -504,11 +454,17 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 | インフラ       | Heroku, Amazon Web Services (Amazon S3)                            |
 | ファイル管理   | Amazon S3                                                          |
 
+## システム構成図
+
+![システム構成図](/public/images/ホビーコネクション＿システム構成図.jpg)
+
 ## ER 図
 
-![ER図](/public/images/ホビーコネクション＿ER図-ER図.jpg)
+![ER図](/public/images/ホビーコネクション＿ER図.jpg)
 
-## システム構成図
+## 工夫した点
+
+-
 
 ## 苦労した点
 
