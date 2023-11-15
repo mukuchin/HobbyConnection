@@ -439,7 +439,8 @@ https://hobby-connection-test-500d4e31fbe0.herokuapp.com
 | フロントエンド | TypeScript 5.0.2, React 18.2.0, Inertia.js 1.0, Tailwind CSS 3.2.1 |
 | バックエンド   | PHP 8.2.10, Laravel 10.29.0, Inertia.js 1.0                        |
 | データベース   | MySQL 8.0.32 (開発環境), Postgresql 15.4 (本番環境)                |
-| インフラ       | Heroku, Amazon Web Services (Amazon S3)                            |
+| インフラ       | Heroku, Amazon Web Services                                        |
+| 認証           | Laravel Breeze (ユーザ認証), Laravel Sanctum (API認証)            |
 | ファイル管理   | Amazon S3                                                          |
 
 ## システム構成図
