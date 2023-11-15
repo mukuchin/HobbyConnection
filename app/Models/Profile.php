@@ -18,7 +18,7 @@ class Profile extends Model
     }
 
     // 多対多のリレーション
-    // このプロフィールに紐づくタグを取得
+    // このユーザー情報に紐づくタグを取得
     // 未使用
     public function tags()
     {

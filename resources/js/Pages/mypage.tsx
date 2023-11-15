@@ -23,7 +23,7 @@ interface MyPageProps extends PageProps {
 
 export default function mypage({ auth, article }: MyPageProps) {
     const { current_page, last_page, data } = article;
-    
+
     // タッチデバイスの場合はホバー効果を削除する
     useRemoveHoverEffect();
 
@@ -46,11 +46,11 @@ export default function mypage({ auth, article }: MyPageProps) {
                             マイページ
                         </h1>
 
-                        {/* プロフィール */}
+                        {/* ユーザー情報 */}
                         <div className="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div className="h-60 bg-white p-4 rounded-lg shadow-md mb-6">
                                 <h1 className="font-noto-sans-jp font-bold text-2xl mb-4">
-                                    プロフィール
+                                    ユーザー情報
                                 </h1>
                                 <p className="font-noto-sans-jp text:sm sm:text-lg mb-4">
                                     ユーザー名：{auth.user.name}

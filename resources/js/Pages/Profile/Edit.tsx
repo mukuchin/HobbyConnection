@@ -1,4 +1,4 @@
-// プロフィール編集ページ
+// ユーザー情報編集ページ
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DeleteUserForm from "./Partials/DeleteUserForm";
@@ -21,13 +21,13 @@ export default function Edit({
             {/* ナビゲーションバー */}
             <AuthenticatedLayout user={auth.user} />
             {/* ページ名・タブ名表示 */}
-            <AppHead title="プロフィール編集" />
+            <AppHead title="ユーザー情報編集" />
             <div className="bg-fixed bg-various-hobby">
                 <div className="flex flex-col items-center justify-center font-noto-sans-jp min-h-screen py-12">
                     <div className="max-w-7xl w-full sm:px-6 lg:px-8">
                         <div className="p-6 text-gray-900">
                             <h1 className="font-bold text-3xl sm:text-4xl mb-4">
-                                プロフィール編集
+                                ユーザー情報編集
                             </h1>
                         </div>
                     </div>

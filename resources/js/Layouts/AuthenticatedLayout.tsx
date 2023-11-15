@@ -148,7 +148,7 @@ function Authenticated({
                                             <Dropdown.Link
                                                 href={route("profile.edit")}
                                             >
-                                                プロフィール編集
+                                                ユーザー情報編集
                                             </Dropdown.Link>
                                             <Dropdown.Link
                                                 href={route("logout")}
