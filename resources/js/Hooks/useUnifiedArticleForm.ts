@@ -1,9 +1,9 @@
-// 統合した記事フォームのカスタムフック
+// 記事フォームのカスタムフック
+// フォームの操作に関するフックにサブフォームの追加・削除のフックを追加
 
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { router } from "@inertiajs/react";
 
-// フォームの入力値の初期値とサブフォームの追加・削除を統合
 interface UnifiedFormHook extends FormHook, SubFormHook {}
 
 // フォームの入力値の型

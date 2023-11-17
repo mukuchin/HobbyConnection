@@ -30,4 +30,9 @@ Route::controller(ArticlesController::class)->group(function () {
     Route::get('/posts/{article}', [ArticlesController::class, 'show'])->name('show'); // 記事の閲覧
 });
 
+// PHPの設定情報を表示
+Route::get('/phpinfo', function () {
+    return phpinfo();
+});
+
 require __DIR__ . '/auth.php';
