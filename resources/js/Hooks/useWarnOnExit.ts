@@ -1,3 +1,5 @@
+// 記事投稿・編集時に、他のページに遷移することで入力内容がリセットされることを防ぐためのフック
+
 import { useEffect, useState } from "react";
 import { FormValues } from "@/Hooks/useUnifiedArticleForm";
 
